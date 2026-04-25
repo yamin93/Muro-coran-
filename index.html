@@ -3,32 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mon Coran en Français</title>
+    <title>Coran Online</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap');
-        body { font-family: 'Inter', sans-serif; background-color: #0f172a; color: white; }
+        @import url('https://fonts.googleapis.com/css2?family=Amiri&family=Inter:wght@400;700&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #0f172a; color: #f1f5f9; }
+        .arabic { font-family: 'Amiri', serif; direction: rtl; }
     </style>
 </head>
-<body class="p-5">
+<body class="p-4 sm:p-8">
 
-    <div class="max-w-4xl mx-auto">
-        <h1 class="text-3xl font-bold text-center mb-8 text-emerald-400">Le Saint Coran</h1>
+    <div class="max-w-3xl mx-auto">
+        <h1 class="text-4xl font-bold text-center mb-10 text-emerald-400">Le Saint Coran</h1>
         
-        <select id="surahSelect" class="w-full p-3 bg-slate-800 border border-slate-700 rounded-lg mb-6 outline-none focus:border-emerald-500">
+        <select id="surahSelect" class="w-full p-4 bg-slate-800 border-2 border-emerald-900 rounded-2xl mb-8 outline-none focus:border-emerald-500 transition-all text-lg">
             <option value="">Chargement des sourates...</option>
         </select>
 
-        <div id="coranContent" class="bg-slate-800 p-6 rounded-xl shadow-xl min-h-[300px]">
-            <p class="text-slate-400 text-center">Sélectionnez une sourate pour commencer la lecture.</p>
-        </div>
+        <div id="coranContent" class="space-y-6">
+            </div>
     </div>
 
     <script>
         const surahSelect = document.getElementById('surahSelect');
         const coranContent = document.getElementById('coranContent');
 
-        // 1. Récupérer la liste des 114 sourates au chargement
         async function loadSurahList() {
             try {
                 const response = await fetch('https://api.alquran.cloud/v1/surah');
@@ -40,36 +39,47 @@
                     option.textContent = `${surah.number}. ${surah.englishName} (${surah.name})`;
                     surahSelect.appendChild(option);
                 });
-            } catch (error) {
-                coranContent.innerHTML = "Erreur lors du chargement de la liste.";
-            }
+            } catch (e) { coranContent.innerHTML = "Erreur de connexion."; }
         }
 
-        // 2. Afficher le texte en français quand on choisit une sourate
         surahSelect.addEventListener('change', async (e) => {
-            const surahNumber = e.target.value;
-            if (!surahNumber) return;
+            const num = e.target.value;
+            if (!num) return;
 
-            coranContent.innerHTML = "<p class='text-center'>Chargement des versets...</p>";
+            coranContent.innerHTML = "<p class='text-center animate-pulse'>Ouverture de la sourate...</p>";
 
             try {
-                // On récupère la traduction française (edition fr.hamidullah)
-                const response = await fetch(`https://api.alquran.cloud/v1/surah/${surahNumber}/fr.hamidullah`);
-                const data = await response.json();
+                // On charge la traduction française
+                const resFr = await fetch(`https://api.alquran.cloud/v1/surah/${num}/fr.hamidullah`);
+                const dataFr = await resFr.json();
                 
-                let html = `<h2 class="text-2xl font-bold text-emerald-400 mb-4">${data.data.englishName}</h2>`;
-                data.data.ayahs.forEach(ayah => {
+                let html = `
+                    <div class="text-center mb-10">
+                        <h2 class="text-3xl font-extrabold text-emerald-400 mb-6">${dataFr.data.englishName}</h2>
+                        <div class="arabic text-5xl mb-4 text-white py-6 border-y border-slate-700">
+                            بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
+                        </div>
+                        <p class="text-slate-400 italic text-lg">"Au nom d'Allah, le Tout Miséricordieux, le Très Miséricordieux"</p>
+                    </div>
+                `;
+
+                dataFr.data.ayahs.forEach((ayah) => {
+                    // On retire la bismillah du texte si elle est déjà au début pour ne pas l'avoir en double
+                    let text = ayah.text;
+                    if (num != 1 && ayah.numberInSurah == 1) {
+                        text = text.replace("Au nom d'Allah, le Tout Miséricordieux, le Très Miséricordieux", "");
+                    }
+
                     html += `
-                        <div class="mb-4 pb-4 border-b border-slate-700">
-                            <span class="text-emerald-500 font-bold text-sm">Verset ${ayah.numberInSurah}</span>
-                            <p class="text-lg leading-relaxed mt-2">${ayah.text}</p>
+                        <div class="bg-slate-800/50 p-6 rounded-2xl border border-slate-700 hover:border-emerald-500/50 transition-colors">
+                            <span class="inline-block bg-emerald-600 text-white text-xs font-bold px-2 py-1 rounded-md mb-3">Verset ${ayah.numberInSurah}</span>
+                            <p class="text-xl leading-relaxed text-slate-200">${text}</p>
                         </div>
                     `;
                 });
                 coranContent.innerHTML = html;
-            } catch (error) {
-                coranContent.innerHTML = "Impossible de charger cette sourate.";
-            }
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } catch (e) { coranContent.innerHTML = "Erreur de chargement."; }
         });
 
         loadSurahList();
