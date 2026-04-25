@@ -13,7 +13,7 @@
         .tab-active { background-color: #059669 !important; border-color: #10b981 !important; }
     </style>
 </head>
-<body class="p-4 sm:p-8 text-sm sm:text-base">
+<body class="p-4 sm:p-8">
 
     <div class="max-w-3xl mx-auto">
         <div class="grid grid-cols-3 gap-2 mb-8 bg-slate-800 p-2 rounded-2xl border border-slate-700 shadow-lg">
@@ -23,7 +23,7 @@
         </div>
 
         <div id="section-lecture">
-            <h1 class="text-2xl font-bold text-center mb-6 text-emerald-400">Le Saint Coran (Français)</h1>
+            <h1 class="text-2xl font-bold text-center mb-6 text-emerald-400">Le Saint Coran</h1>
             <select id="surahSelect" class="w-full p-4 bg-slate-800 border-2 border-emerald-900 rounded-2xl mb-8 outline-none text-lg focus:border-emerald-500">
                 <option value="">Chargement...</option>
             </select>
@@ -41,23 +41,23 @@
                     <h2 class="text-2xl font-bold text-center mb-2">Score Final</h2>
                     <p id="final-score" class="text-5xl text-emerald-400 font-bold text-center mb-6"></p>
                     <div id="correction-list" class="space-y-4 mb-6 max-h-96 overflow-y-auto p-2"></div>
-                    <button onclick="startNewQuiz()" class="w-full bg-emerald-600 hover:bg-emerald-500 py-4 rounded-2xl font-bold text-lg transition-all">Nouveau Quiz Aléatoire</button>
+                    <button onclick="startNewQuiz()" class="w-full bg-emerald-600 hover:bg-emerald-500 py-4 rounded-2xl font-bold text-lg transition-all">Nouveau Quiz</button>
                 </div>
             </div>
         </div>
 
         <div id="section-video" class="hidden space-y-8">
-            <div class="bg-slate-800 p-4 rounded-3xl border border-slate-700">
-                <h3 class="text-emerald-400 font-bold mb-4 flex items-center">🚿 Apprendre les Ablutions</h3>
-                <div class="aspect-video rounded-xl overflow-hidden shadow-2xl">
-                    <iframe class="w-full h-full" src="https://www.youtube.com/embed/283X76v_7-A" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <div class="bg-slate-800 p-4 rounded-3xl border border-slate-700 shadow-xl">
+                <h3 class="text-emerald-400 font-bold mb-4 text-center">🚿 Apprendre les Ablutions</h3>
+                <div class="aspect-video rounded-xl overflow-hidden shadow-inner bg-black">
+                    <iframe class="w-full h-full" src="https://www.youtube.com/embed/jZ1H6x6pGsw" frameborder="0" allowfullscreen></iframe>
                 </div>
             </div>
             
-            <div class="bg-slate-800 p-4 rounded-3xl border border-slate-700">
-                <h3 class="text-emerald-400 font-bold mb-4 flex items-center">📖 Apprendre à lire le Coran</h3>
-                <div class="aspect-video rounded-xl overflow-hidden shadow-2xl">
-                    <iframe class="w-full h-full" src="https://www.youtube.com/embed/T03K8lZ1n0o" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <div class="bg-slate-800 p-4 rounded-3xl border border-slate-700 shadow-xl">
+                <h3 class="text-emerald-400 font-bold mb-4 text-center">📖 Apprendre à lire le Coran</h3>
+                <div class="aspect-video rounded-xl overflow-hidden shadow-inner bg-black">
+                    <iframe class="w-full h-full" src="https://www.youtube.com/embed/S7U8nF_k9Y0" frameborder="0" allowfullscreen></iframe>
                 </div>
             </div>
         </div>
@@ -74,12 +74,12 @@
             document.getElementById('btn-'+s).classList.replace('bg-slate-700', 'tab-active');
         }
 
-        // CORAN
+        // LECTURE CORAN
         async function loadSurahs() {
             const res = await fetch('https://api.alquran.cloud/v1/surah');
             const data = await res.json();
             const select = document.getElementById('surahSelect');
-            select.innerHTML = '<option value="">-- Choisir --</option>';
+            select.innerHTML = '<option value="">-- Choisir une sourate --</option>';
             data.data.forEach(s => select.innerHTML += `<option value="${s.number}">${s.number}. ${s.englishName}</option>`);
         }
         document.getElementById('surahSelect').addEventListener('change', async (e) => {
@@ -91,7 +91,7 @@
             document.getElementById('coranContent').innerHTML = h;
         });
 
-        // QUIZ (30 Questions)
+        // QUIZ DATA
         const db = [
             {q:"Combien de sourates dans le Coran ?", a:["110","114","120","112"], c:1},
             {q:"Le premier pilier de l'Islam ?", a:["Prière","Zakat","Shahada","Hajj"], c:2},
@@ -103,15 +103,6 @@
             {q:"Le livre révélé à Moussa ?", a:["Coran","Zabur","Injil","Tawrat"], c:3},
             {q:"Direction de la prière ?", a:["Qibla","Minbar","Mihrab","Kaaba"], c:0},
             {q:"Dernier Prophète de l'Islam ?", a:["Ibrahim","Issa","Moussa","Muhammad (SWS)"], c:3},
-            {q:"Première sourate du Coran ?", a:["Baqarah","Yasin","Al-Fatiha","Al-Mulk"], c:2},
-            {q:"Quelle est la langue du Coran ?", a:["Persan","Arabe","Turc","Urdu"], c:1},
-            {q:"Jour sacré pour les musulmans ?", a:["Lundi","Samedi","Vendredi","Dimanche"], c:2},
-            {q:"Nom du repas de rupture du jeûne ?", a:["Suhoor","Iftar","Fajr","Zakat"], c:1},
-            {q:"L'un des fils d'Ibrahim (AS) ?", a:["Yusuf","Ismaïl","Idris","Yahya"], c:1},
-            {q:"Combien de fois tourne-t-on autour de la Kaaba ?", a:["5","9","7","3"], c:2},
-            {q:"La sourate surnommée le Cœur du Coran ?", a:["Al-Ikhlas","Yasin","Ar-Rahman","Al-Kahf"], c:1},
-            {q:"Qui a construit la Kaaba avec Ibrahim ?", a:["Lut","Ismaïl","Ishaq","Yacoub"], c:1},
-            {q:"Le nom de la montagne de la révélation ?", a:["Uhud","Safa","Hira","Arafat"], c:2},
             {q:"Quelle sourate n'a pas de Bismillah ?", a:["Yasin","At-Tawbah","An-Nasr","Al-Fil"], c:1}
         ];
 
@@ -150,7 +141,7 @@
                 const ok = userAns[i] === q.c;
                 list.innerHTML += `<div class="p-3 rounded-lg border ${ok?'border-emerald-500/50 bg-emerald-500/5':'border-red-500/50 bg-red-500/5'} mb-2">
                     <p class="font-semibold">${q.q}</p>
-                    <p class="text-sm">Rép: <span class="${ok?'text-emerald-400':'text-red-400'}">${q.a[userAns[i]]}</span> ${!ok ? ' | Vrai: <span class="text-emerald-400">'+q.a[q.c]+'</span>' : ''}</p>
+                    <p class="text-sm">Ta réponse : <span class="${ok?'text-emerald-400':'text-red-400'}">${q.a[userAns[i]]}</span> ${!ok ? ' | Vrai : <span class="text-emerald-400">'+q.a[q.c]+'</span>' : ''}</p>
                 </div>`;
             });
         }
