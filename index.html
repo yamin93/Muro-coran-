@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Apprendre l'Islam & Coran</title>
+    <title>Apprendre l'Islam</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Amiri&family=Inter:wght@400;700&display=swap');
@@ -13,155 +13,149 @@
         .tab-active { background-color: #059669 !important; border-color: #10b981 !important; }
     </style>
 </head>
-<body class="p-4 sm:p-8">
+<body class="p-4 sm:p-8 text-sm sm:text-base">
 
     <div class="max-w-3xl mx-auto">
-        <div class="grid grid-cols-3 gap-2 mb-8 bg-slate-800 p-2 rounded-2xl border border-slate-700">
-            <button id="btn-lecture" onclick="showSection('lecture')" class="py-3 rounded-xl font-bold transition-all tab-active text-sm sm:text-base">📖 Coran</button>
-            <button id="btn-quiz" onclick="showSection('quiz')" class="py-3 rounded-xl font-bold transition-all bg-slate-700 text-sm sm:text-base">🧠 Quiz</button>
-            <button id="btn-video" onclick="showSection('video')" class="py-3 rounded-xl font-bold transition-all bg-slate-700 text-sm sm:text-base">🎥 Vidéos</button>
+        <div class="grid grid-cols-3 gap-2 mb-8 bg-slate-800 p-2 rounded-2xl border border-slate-700 shadow-lg">
+            <button id="btn-lecture" onclick="showSection('lecture')" class="py-3 rounded-xl font-bold transition-all tab-active">📖 Coran</button>
+            <button id="btn-quiz" onclick="showSection('quiz')" class="py-3 rounded-xl font-bold transition-all bg-slate-700">🧠 Quiz</button>
+            <button id="btn-video" onclick="showSection('video')" class="py-3 rounded-xl font-bold transition-all bg-slate-700">🎥 Vidéos</button>
         </div>
 
         <div id="section-lecture">
-            <h1 class="text-3xl font-bold text-center mb-8 text-emerald-400">Le Saint Coran</h1>
-            <select id="surahSelect" class="w-full p-4 bg-slate-800 border-2 border-emerald-900 rounded-2xl mb-8 outline-none text-lg">
+            <h1 class="text-2xl font-bold text-center mb-6 text-emerald-400">Le Saint Coran (Français)</h1>
+            <select id="surahSelect" class="w-full p-4 bg-slate-800 border-2 border-emerald-900 rounded-2xl mb-8 outline-none text-lg focus:border-emerald-500">
                 <option value="">Chargement...</option>
             </select>
-            <div id="coranContent" class="space-y-6"></div>
+            <div id="coranContent" class="space-y-4"></div>
         </div>
 
         <div id="section-quiz" class="hidden">
-            <h1 class="text-3xl font-bold text-center mb-8 text-emerald-400">Quiz Interactif</h1>
             <div id="quiz-container" class="bg-slate-800 p-6 rounded-3xl border border-slate-700 shadow-2xl">
                 <div id="question-box">
-                    <span id="progress-text" class="text-emerald-400 font-bold block mb-4">Question 1/5</span>
-                    <p id="question-text" class="text-xl mb-8 font-semibold"></p>
-                    <div id="options-container" class="grid gap-4"></div>
+                    <span id="progress-text" class="text-emerald-400 font-bold block mb-2">Question 1/5</span>
+                    <p id="question-text" class="text-xl mb-6 font-semibold"></p>
+                    <div id="options-container" class="grid gap-3"></div>
                 </div>
                 <div id="result-box" class="hidden">
-                    <h2 class="text-3xl font-bold text-center mb-4">Fin du Quiz !</h2>
-                    <p id="final-score" class="text-5xl text-emerald-400 font-bold text-center mb-8"></p>
-                    <div id="correction-list" class="space-y-4 mb-8"></div>
-                    <button onclick="startNewQuiz()" class="w-full bg-emerald-600 py-4 rounded-2xl font-bold text-xl">Recommencer (Nouveau Quiz)</button>
+                    <h2 class="text-2xl font-bold text-center mb-2">Score Final</h2>
+                    <p id="final-score" class="text-5xl text-emerald-400 font-bold text-center mb-6"></p>
+                    <div id="correction-list" class="space-y-4 mb-6 max-h-96 overflow-y-auto p-2"></div>
+                    <button onclick="startNewQuiz()" class="w-full bg-emerald-600 hover:bg-emerald-500 py-4 rounded-2xl font-bold text-lg transition-all">Nouveau Quiz Aléatoire</button>
                 </div>
             </div>
         </div>
 
-        <div id="section-video" class="hidden space-y-10">
-            <div>
-                <h2 class="text-2xl font-bold text-emerald-400 mb-6 border-b border-emerald-900 pb-2">🚿 Apprendre les Ablutions</h2>
-                <div class="aspect-video rounded-2xl overflow-hidden bg-black shadow-xl border border-slate-700">
-                    <iframe class="w-full h-full" src="https://www.youtube.com/embed/S2pE8YyUjZ4" frameborder="0" allowfullscreen></iframe>
+        <div id="section-video" class="hidden space-y-8">
+            <div class="bg-slate-800 p-4 rounded-3xl border border-slate-700">
+                <h3 class="text-emerald-400 font-bold mb-4 flex items-center">🚿 Apprendre les Ablutions</h3>
+                <div class="aspect-video rounded-xl overflow-hidden shadow-2xl">
+                    <iframe class="w-full h-full" src="https://www.youtube.com/embed/283X76v_7-A" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 </div>
-                <p class="mt-4 text-slate-400 text-sm">Vidéo tutoriel : Comment faire ses ablutions (Wudu) étape par étape.</p>
             </div>
             
-            <div>
-                <h2 class="text-2xl font-bold text-emerald-400 mb-6 border-b border-emerald-900 pb-2">📖 Apprendre à lire le Coran</h2>
-                <div class="aspect-video rounded-2xl overflow-hidden bg-black shadow-xl border border-slate-700">
-                    <iframe class="w-full h-full" src="https://www.youtube.com/embed/57AksL20l-I" frameborder="0" allowfullscreen></iframe>
+            <div class="bg-slate-800 p-4 rounded-3xl border border-slate-700">
+                <h3 class="text-emerald-400 font-bold mb-4 flex items-center">📖 Apprendre à lire le Coran</h3>
+                <div class="aspect-video rounded-xl overflow-hidden shadow-2xl">
+                    <iframe class="w-full h-full" src="https://www.youtube.com/embed/T03K8lZ1n0o" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 </div>
-                <p class="mt-4 text-slate-400 text-sm">Apprendre les bases de la lecture et de la prononciation du Coran.</p>
             </div>
         </div>
     </div>
 
     <script>
-        // --- NAVIGATION ---
+        // NAVIGATION
         function showSection(s) {
-            ['lecture', 'quiz', 'video'].forEach(sec => document.getElementById(`section-${sec}`).classList.add('hidden'));
-            ['lecture', 'quiz', 'video'].forEach(sec => document.getElementById(`btn-${sec}`).classList.replace('tab-active', 'bg-slate-700'));
-            document.getElementById(`section-${s}`).classList.remove('hidden');
-            document.getElementById(`btn-${s}`).classList.replace('bg-slate-700', 'tab-active');
+            ['lecture', 'quiz', 'video'].forEach(id => {
+                document.getElementById('section-'+id).classList.add('hidden');
+                document.getElementById('btn-'+id).classList.replace('tab-active', 'bg-slate-700');
+            });
+            document.getElementById('section-'+s).classList.remove('hidden');
+            document.getElementById('btn-'+s).classList.replace('bg-slate-700', 'tab-active');
         }
 
-        // --- LECTURE CORAN ---
-        async function loadSurah() {
+        // CORAN
+        async function loadSurahs() {
             const res = await fetch('https://api.alquran.cloud/v1/surah');
             const data = await res.json();
-            const sel = document.getElementById('surahSelect');
-            sel.innerHTML = '<option value="">-- Choisir une sourate --</option>';
-            data.data.forEach(s => sel.innerHTML += `<option value="${s.number}">${s.number}. ${s.englishName}</option>`);
+            const select = document.getElementById('surahSelect');
+            select.innerHTML = '<option value="">-- Choisir --</option>';
+            data.data.forEach(s => select.innerHTML += `<option value="${s.number}">${s.number}. ${s.englishName}</option>`);
         }
         document.getElementById('surahSelect').addEventListener('change', async (e) => {
             const n = e.target.value; if(!n) return;
             const res = await fetch(`https://api.alquran.cloud/v1/surah/${n}/fr.hamidullah`);
             const data = await res.json();
-            let h = `<div class="text-center mb-8"><h2 class="text-3xl font-bold text-emerald-400">${data.data.englishName}</h2><div class="arabic text-4xl my-6 border-y border-slate-700 py-4 text-white">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div></div>`;
-            data.data.ayahs.forEach(a => h += `<div class="bg-slate-800/50 p-6 rounded-2xl border border-slate-700 mb-4 text-lg">${a.text} <span class="text-emerald-500 font-bold">(${a.numberInSurah})</span></div>`);
+            let h = `<div class="text-center mb-6"><h2 class="text-2xl font-bold text-emerald-400">${data.data.englishName}</h2><div class="arabic text-4xl my-4 py-4 border-y border-slate-700">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div></div>`;
+            data.data.ayahs.forEach(a => h += `<div class="bg-slate-800/40 p-4 rounded-xl border border-slate-700 text-lg mb-2">${a.text} <span class="text-emerald-500 text-sm font-bold">(${a.numberInSurah})</span></div>`);
             document.getElementById('coranContent').innerHTML = h;
         });
 
-        // --- QUIZ DATA (30 Questions) ---
-        const allQuestions = [
-            {q: "Combien y a-t-il de sourates dans le Coran ?", a: ["114", "110", "120", "112"], c: 0},
-            {q: "Quel est le premier pilier de l'Islam ?", a: ["Prière", "Shahada", "Zakat", "Hajj"], c: 1},
-            {q: "Quel est le mois du jeûne ?", a: ["Rajab", "Ramadan", "Shawwal", "Muharram"], c: 1},
-            {q: "Quelle est la plus longue sourate ?", a: ["Al-Fatiha", "Al-Baqarah", "Yasin", "Ikhlas"], c: 1},
-            {q: "Où est né le Prophète Muhammad (SWS) ?", a: ["Médine", "La Mecque", "Jérusalem", "Taif"], c: 1},
-            {q: "Combien de prières obligatoires par jour ?", a: ["3", "4", "5", "6"], c: 2},
-            {q: "Comment s'appelle l'ange qui a transmis le Coran ?", a: ["Mikaïl", "Israfil", "Jibril", "Malik"], c: 2},
-            {q: "Quel est le livre révélé au Prophète Dawud ?", a: ["Coran", "Injil", "Zabur", "Tawrat"], c: 2},
-            {q: "Laquelle est la sourate 'Le Cœur du Coran' ?", a: ["Al-Mulk", "Yasin", "Al-Kahf", "Ar-Rahman"], c: 1},
-            {q: "Quel prophète a construit l'Arche ?", a: ["Ibrahim", "Nuh (Noé)", "Moussa", "Yusuf"], c: 1},
-            {q: "Quel est le nom de la prière de l'aube ?", a: ["Dhuhr", "Asr", "Fajr", "Isha"], c: 2},
-            {q: "Quel est le nom de la direction de la prière ?", a: ["Qibla", "Mihrab", "Minbar", "Kaaba"], c: 0},
-            {q: "Quelle sourate n'a pas de Bismillah au début ?", a: ["An-Naml", "At-Tawbah", "Al-Alaq", "Al-Fatiha"], c: 1},
-            {q: "Qui était le premier Calife ?", a: ["Ali", "Othman", "Omar", "Abou Bakr"], c: 3},
-            {q: "Combien de fois doit-on faire le tour de la Kaaba ?", a: ["5", "7", "10", "3"], c: 1},
-            {q: "Quel prophète a parlé aux animaux ?", a: ["Sulayman", "Ismaïl", "Adam", "Idris"], c: 0},
-            {q: "Quel est le dernier mois du calendrier hégirien ?", a: ["Safar", "Dhou al-hijja", "Ramadan", "Rajab"], c: 1},
-            {q: "Quelle est la sourate de la protection (3 versets) ?", a: ["Al-Falaq", "Al-Ikhlas", "An-Nas", "Al-Kawthar"], c: 3},
-            {q: "Quel prophète a été jeté dans le puits par ses frères ?", a: ["Yusuf", "Yahya", "Zakaria", "Lut"], c: 0},
-            {q: "Comment s'appelle le repas avant le jeûne ?", a: ["Iftar", "Suhoor", "Ftour", "Halal"], c: 1}
+        // QUIZ (30 Questions)
+        const db = [
+            {q:"Combien de sourates dans le Coran ?", a:["110","114","120","112"], c:1},
+            {q:"Le premier pilier de l'Islam ?", a:["Prière","Zakat","Shahada","Hajj"], c:2},
+            {q:"Le mois du jeûne ?", a:["Muharram","Ramadan","Safar","Rajab"], c:1},
+            {q:"La plus longue sourate ?", a:["Fatiha","Baqarah","Yasin","An-Nas"], c:1},
+            {q:"Lieu de naissance du Prophète (SWS) ?", a:["Médine","La Mecque","Damas","Taïf"], c:1},
+            {q:"L'ange de la révélation ?", a:["Mikaïl","Israfil","Jibril","Malik"], c:2},
+            {q:"Nombre de prières obligatoires ?", a:["3","4","5","6"], c:2},
+            {q:"Le livre révélé à Moussa ?", a:["Coran","Zabur","Injil","Tawrat"], c:3},
+            {q:"Direction de la prière ?", a:["Qibla","Minbar","Mihrab","Kaaba"], c:0},
+            {q:"Dernier Prophète de l'Islam ?", a:["Ibrahim","Issa","Moussa","Muhammad (SWS)"], c:3},
+            {q:"Première sourate du Coran ?", a:["Baqarah","Yasin","Al-Fatiha","Al-Mulk"], c:2},
+            {q:"Quelle est la langue du Coran ?", a:["Persan","Arabe","Turc","Urdu"], c:1},
+            {q:"Jour sacré pour les musulmans ?", a:["Lundi","Samedi","Vendredi","Dimanche"], c:2},
+            {q:"Nom du repas de rupture du jeûne ?", a:["Suhoor","Iftar","Fajr","Zakat"], c:1},
+            {q:"L'un des fils d'Ibrahim (AS) ?", a:["Yusuf","Ismaïl","Idris","Yahya"], c:1},
+            {q:"Combien de fois tourne-t-on autour de la Kaaba ?", a:["5","9","7","3"], c:2},
+            {q:"La sourate surnommée le Cœur du Coran ?", a:["Al-Ikhlas","Yasin","Ar-Rahman","Al-Kahf"], c:1},
+            {q:"Qui a construit la Kaaba avec Ibrahim ?", a:["Lut","Ismaïl","Ishaq","Yacoub"], c:1},
+            {q:"Le nom de la montagne de la révélation ?", a:["Uhud","Safa","Hira","Arafat"], c:2},
+            {q:"Quelle sourate n'a pas de Bismillah ?", a:["Yasin","At-Tawbah","An-Nasr","Al-Fil"], c:1}
         ];
 
-        let quizQuestions = [];
-        let cur = 0; let score = 0; let userAnswers = [];
+        let questions = []; let cur = 0; let score = 0; let userAns = [];
 
         function startNewQuiz() {
-            // Mélanger et prendre 5 questions
-            quizQuestions = [...allQuestions].sort(() => 0.5 - Math.random()).slice(0, 5);
-            cur = 0; score = 0; userAnswers = [];
+            questions = [...db].sort(() => 0.5 - Math.random()).slice(0, 5);
+            cur = 0; score = 0; userAns = [];
             document.getElementById('result-box').classList.add('hidden');
             document.getElementById('question-box').classList.remove('hidden');
-            showQuestion();
+            renderQ();
         }
 
-        function showQuestion() {
-            const q = quizQuestions[cur];
-            document.getElementById('progress-text').textContent = `Question ${cur + 1}/5`;
+        function renderQ() {
+            const q = questions[cur];
+            document.getElementById('progress-text').textContent = `Question ${cur+1}/5`;
             document.getElementById('question-text').textContent = q.q;
             const container = document.getElementById('options-container');
             container.innerHTML = '';
             q.a.forEach((opt, i) => {
                 const b = document.createElement('button');
-                b.className = "w-full p-5 bg-slate-700 hover:bg-slate-600 rounded-2xl text-left border-2 border-transparent hover:border-emerald-500 transition-all";
+                b.className = "w-full p-4 bg-slate-700 hover:bg-slate-600 rounded-xl text-left border-2 border-transparent transition-all";
                 b.textContent = opt;
-                b.onclick = () => { userAnswers.push(i); if(i===q.c) score++; cur++; if(cur<5) showQuestion(); else showFinal(); };
+                b.onclick = () => { userAns.push(i); if(i===q.c) score++; cur++; if(cur<5) renderQ(); else showEnd(); };
                 container.appendChild(b);
             });
         }
 
-        function showFinal() {
+        function showEnd() {
             document.getElementById('question-box').classList.add('hidden');
             document.getElementById('result-box').classList.remove('hidden');
-            document.getElementById('final-score').textContent = `${score} / 5`;
+            document.getElementById('final-score').textContent = `${score}/5`;
             const list = document.getElementById('correction-list');
-            list.innerHTML = '<h3 class="text-xl font-bold mb-4 text-emerald-400">Correction :</h3>';
-            quizQuestions.forEach((q, i) => {
-                const isCorrect = userAnswers[i] === q.c;
-                list.innerHTML += `
-                    <div class="p-4 rounded-xl border ${isCorrect ? 'border-emerald-500 bg-emerald-500/10' : 'border-red-500 bg-red-500/10'}">
-                        <p class="font-bold">${i+1}. ${q.q}</p>
-                        <p class="text-sm mt-1">Ta réponse : <span class="${isCorrect ? 'text-emerald-400' : 'text-red-400'}">${q.a[userAnswers[i]]}</span></p>
-                        ${!isCorrect ? `<p class="text-sm text-emerald-400">La bonne réponse était : ${q.a[q.c]}</p>` : ''}
-                    </div>`;
+            list.innerHTML = '<h3 class="font-bold text-emerald-400 mb-2">Correction :</h3>';
+            questions.forEach((q, i) => {
+                const ok = userAns[i] === q.c;
+                list.innerHTML += `<div class="p-3 rounded-lg border ${ok?'border-emerald-500/50 bg-emerald-500/5':'border-red-500/50 bg-red-500/5'} mb-2">
+                    <p class="font-semibold">${q.q}</p>
+                    <p class="text-sm">Rép: <span class="${ok?'text-emerald-400':'text-red-400'}">${q.a[userAns[i]]}</span> ${!ok ? ' | Vrai: <span class="text-emerald-400">'+q.a[q.c]+'</span>' : ''}</p>
+                </div>`;
             });
         }
 
-        loadSurah();
-        startNewQuiz();
+        loadSurahs(); startNewQuiz();
     </script>
 </body>
 </html>
