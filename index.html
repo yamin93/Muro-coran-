@@ -1,165 +1,128 @@
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Muslim App Officiel</title>
+    <title>Muslim App</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Amiri&family=Inter:wght@400;700&display=swap');
-        body { font-family: 'Inter', sans-serif; background-color: #010409; color: #e6edf3; padding-bottom: 70px; }
+        body { font-family: 'Inter', sans-serif; background-color: #010409; color: #e6edf3; }
         .arabic { font-family: 'Amiri', serif; direction: rtl; }
         .hidden { display: none; }
-        .tab-active { background: #065f46; color: #34d399; border-bottom: 2px solid #34d399; }
-        .video-container { height: 75vh; scroll-snap-type: y mandatory; overflow-y: scroll; border-radius: 24px; background: #000; }
-        .v-card { height: 100%; scroll-snap-align: start; position: relative; }
-        video { width: 100%; height: 100%; object-fit: cover; }
+        .nav-btn { font-size: 10px; font-weight: bold; border-radius: 12px; transition: 0.3s; }
+        .active { background: #059669; color: white; }
     </style>
 </head>
-<body class="p-2 sm:p-4">
+<body class="p-4">
 
     <div class="max-w-md mx-auto">
         <div class="text-center py-6">
             <h1 class="text-3xl font-bold text-emerald-500 italic">Muslim App</h1>
-            <p class="text-[10px] text-emerald-800 tracking-[0.3em] uppercase font-bold">Apprendre et Se Protéger</p>
+            <p class="text-[10px] text-emerald-800 tracking-widest uppercase">La Protection et le Savoir</p>
         </div>
 
-        <nav class="grid grid-cols-4 gap-1 mb-6 bg-slate-900/50 p-1 rounded-2xl sticky top-2 z-50 backdrop-blur-lg border border-white/5">
-            <button id="btn-coran" onclick="showSection('coran')" class="py-2.5 rounded-xl text-[9px] font-bold tab-active">📖 CORAN</button>
-            <button id="btn-quiz" onclick="showSection('quiz')" class="py-2.5 rounded-xl text-[9px] font-bold">🧠 QUIZ</button>
-            <button id="btn-doua" onclick="showSection('doua')" class="py-2.5 rounded-xl text-[9px] font-bold">🛡️ PROTECT</button>
-            <button id="btn-vip" onclick="showSection('vip')" class="py-2.5 rounded-xl text-[9px] font-bold text-amber-500">⭐ VIP</button>
+        <nav class="grid grid-cols-4 gap-2 mb-8 bg-slate-900 p-1 rounded-2xl border border-white/5">
+            <button id="b-coran" onclick="nav('coran')" class="nav-btn py-3 active">CORAN</button>
+            <button id="b-quiz" onclick="nav('quiz')" class="nav-btn py-3 bg-slate-800">QUIZ</button>
+            <button id="b-doua" onclick="nav('doua')" class="nav-btn py-3 bg-slate-800 text-red-400">🛡️</button>
+            <button id="b-vip" onclick="nav('vip')" class="nav-btn py-3 bg-amber-600/10 text-amber-500">⭐ VIP</button>
         </nav>
 
-        <div id="section-coran" class="space-y-4">
-            <h2 class="text-emerald-500 font-bold text-center uppercase text-sm mb-4 italic">Lecture du Coran</h2>
-            <select id="surahSelect" class="w-full p-4 bg-slate-900 border border-emerald-900 rounded-2xl text-emerald-400 font-bold outline-none">
-                <option>Chargement des sourates...</option>
-            </select>
-            <div id="coranContent" class="space-y-3 mt-4">
-                <p class="text-center text-slate-500 text-xs italic">Sélectionnez une sourate pour commencer la lecture.</p>
+        <div id="s-coran" class="space-y-4">
+            <select id="selectSurah" class="w-full p-4 bg-slate-900 border border-emerald-900 rounded-xl text-emerald-400 font-bold outline-none"></select>
+            <div id="contentCoran" class="mt-4">
+                <p class="text-center text-slate-500 text-xs italic">Sélectionnez une sourate pour l'afficher.</p>
             </div>
         </div>
 
-        <div id="section-quiz" class="hidden">
-            <div class="bg-slate-900 p-6 rounded-3xl border border-emerald-900">
-                <p id="q-text" class="text-lg font-bold mb-6 text-emerald-400 text-center"></p>
-                <div id="opt-container" class="grid gap-3"></div>
+        <div id="s-quiz" class="hidden text-center">
+            <div class="bg-slate-900 p-8 rounded-3xl border border-emerald-900">
+                <p class="text-lg font-bold mb-6">Quel est le mois du Jeûne ?</p>
+                <div class="grid gap-3">
+                    <button onclick="alert('Masha Allah !')" class="p-4 bg-slate-800 rounded-xl border border-white/5">Ramadan</button>
+                    <button onclick="alert('Faux')" class="p-4 bg-slate-800 rounded-xl border border-white/5">Chawwal</button>
+                </div>
             </div>
         </div>
 
-        <div id="section-doua" class="hidden space-y-4">
-            <div class="bg-slate-900 p-5 rounded-2xl border-l-4 border-emerald-600">
-                <p class="text-[10px] text-emerald-500 font-bold uppercase mb-2">Invocation de Protection</p>
-                <p class="arabic text-2xl text-right">أَعُوذُ بِاللَّهِ مِنَ الشَّيْطَانِ الرَّجِيمِ</p>
-                <p class="text-xs mt-2 italic text-slate-400">A’oudhou billahi mina shaytani rajim</p>
-                <p class="text-[10px] text-slate-500 mt-1">"Je cherche protection auprès d'Allah contre le Diable banni."</p>
+        <div id="s-doua" class="hidden space-y-4">
+            <div class="bg-slate-900 p-6 rounded-2xl border-l-4 border-emerald-500 shadow-xl">
+                <h3 class="text-xs font-bold text-emerald-500 uppercase mb-4 tracking-tighter">Protection contre Sheitan</h3>
+                <p class="arabic text-3xl text-right mb-4">أَعُوذُ بِاللَّهِ مِنَ الشَّيْطَانِ الرَّجِيمِ</p>
+                <p class="text-xs italic text-slate-400">A’oudhou billahi mina shaytani rajim</p>
             </div>
-            <div class="bg-slate-900 p-5 rounded-2xl border-l-4 border-amber-600">
-                <p class="text-[10px] text-amber-500 font-bold uppercase mb-2">Ayat Al-Kursi</p>
-                <p class="text-xs leading-relaxed text-slate-300 italic">"Celui qui le récite en sortant de chez lui sera protégé par 70 000 Anges."</p>
+            <div class="bg-slate-900 p-6 rounded-2xl border-l-4 border-amber-500">
+                <h3 class="text-xs font-bold text-amber-500 uppercase mb-2">Conseil</h3>
+                <p class="text-xs leading-relaxed text-slate-300 italic">Récitez Ayat Al-Kursi avant de dormir pour éloigner les démons de votre maison toute la nuit.</p>
             </div>
         </div>
 
-        <div id="section-vip" class="hidden">
-            <div id="vip-lock" class="bg-gradient-to-b from-amber-900/20 to-black p-8 rounded-3xl border border-amber-500/30 text-center mb-6">
-                <h2 class="text-2xl font-black text-amber-500 mb-2 italic">PROGRAMME VIP</h2>
-                <p class="text-xs mb-6 text-slate-400 uppercase tracking-tighter italic">Vidéos : Apprendre le Coran & Ablutions</p>
-                <div class="text-4xl font-bold mb-6">2,99€ <span class="text-sm font-normal text-slate-500">/ mois</span></div>
-                <button onclick="unlockVIP()" class="w-full bg-amber-500 text-black font-black py-4 rounded-xl active:scale-95 shadow-lg shadow-amber-500/20">ACCÉDER AUX VIDÉOS</button>
+        <div id="s-vip" class="hidden">
+            <div id="lock" class="bg-slate-900 p-10 rounded-3xl border border-amber-500/30 text-center">
+                <h2 class="text-2xl font-black text-amber-500 mb-2">CONTENU VIP</h2>
+                <p class="text-[10px] text-slate-400 mb-8 uppercase italic">Vidéos : Apprentissage Coran & Ablutions</p>
+                <button onclick="document.getElementById('lock').classList.add('hidden'); document.getElementById('vids').classList.remove('hidden');" class="w-full bg-amber-500 text-black font-black py-4 rounded-xl">DÉVERROUILLER (2,99€)</button>
             </div>
 
-            <div id="vip-content" class="hidden">
-                <div class="video-container">
-                    <div class="v-card">
-                        <video loop playsinline controls poster="https://images.unsplash.com/photo-1585032226651-759b368d7246?q=80&w=500">
-                            <source src="coran.mp4" type="video/mp4">
-                        </video>
-                        <div class="absolute bottom-10 left-4 bg-black/80 p-3 rounded-lg border-l-4 border-emerald-500">
-                            <p class="font-bold text-emerald-400 text-xs uppercase">Tuto : Mémoriser le Coran</p>
-                        </div>
+            <div id="vids" class="hidden space-y-6">
+                <div class="bg-black rounded-3xl overflow-hidden border border-emerald-500 shadow-2xl">
+                    <video controls class="w-full h-96 object-cover">
+                        <source src="coran.mp4" type="video/mp4">
+                    </video>
+                    <div class="p-4 bg-slate-900 text-center">
+                        <p class="text-xs font-bold text-emerald-400 uppercase">Bien apprendre le Coran</p>
                     </div>
-                    <div class="v-card">
-                        <video loop playsinline controls poster="https://images.unsplash.com/photo-1591604021695-0c69b7c05981?q=80&w=500">
-                            <source src="ablutions.mp4" type="video/mp4">
-                        </video>
-                        <div class="absolute bottom-10 left-4 bg-black/80 p-3 rounded-lg border-l-4 border-blue-500">
-                            <p class="font-bold text-blue-400 text-xs uppercase">Tuto : Les Ablutions</p>
-                        </div>
+                </div>
+                <div class="bg-black rounded-3xl overflow-hidden border border-blue-500 shadow-2xl">
+                    <video controls class="w-full h-96 object-cover">
+                        <source src="ablutions.mp4" type="video/mp4">
+                    </video>
+                    <div class="p-4 bg-slate-900 text-center">
+                        <p class="text-xs font-bold text-blue-400 uppercase">Tuto : Les Ablutions</p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="fixed bottom-0 left-0 w-full bg-white text-black py-2 px-6 flex justify-between items-center font-bold text-[9px] z-50">
-        <span>Soutenez l'App : Devenez membre Premium</span>
-        <span class="text-emerald-700 underline">EN SAVOIR PLUS</span>
+    <div class="fixed bottom-0 left-0 w-full bg-white text-black py-2 px-4 text-center font-bold text-[9px] border-t-4 border-amber-500 z-50">
+        OFFRE : -50% SUR LES LIVRES ISLAMIQUES <span class="text-blue-600 underline">CLIQUEZ ICI</span>
     </div>
 
     <script>
-        function showSection(id) {
+        function nav(id) {
             ['coran','quiz','doua','vip'].forEach(s => {
-                document.getElementById('section-'+s).classList.add('hidden');
-                document.getElementById('btn-'+s).classList.remove('tab-active');
+                document.getElementById('s-'+s).classList.add('hidden');
+                document.getElementById('b-'+s).classList.remove('active', 'bg-slate-800');
+                document.getElementById('b-'+s).classList.add('bg-slate-800');
             });
-            document.getElementById('section-'+id).classList.remove('hidden');
-            document.getElementById('btn-'+id).classList.add('tab-active');
+            document.getElementById('s-'+id).classList.remove('hidden');
+            document.getElementById('b-'+id).classList.add('active');
         }
 
-        function unlockVIP() {
-            document.getElementById('vip-lock').classList.add('hidden');
-            document.getElementById('vip-content').classList.remove('hidden');
+        // CHARGEMENT CORAN
+        async function load() {
+            const res = await fetch('https://api.alquran.cloud/v1/surah');
+            const data = await res.json();
+            const sel = document.getElementById('selectSurah');
+            sel.innerHTML = '<option value="">-- Choisir une sourate --</option>';
+            data.data.forEach(s => sel.innerHTML += `<option value="${s.number}">${s.number}. ${s.englishName}</option>`);
         }
 
-        // --- LOGIQUE CORAN (RÉTABLIE) ---
-        async function loadCoran() {
-            try {
-                const res = await fetch('https://api.alquran.cloud/v1/surah');
-                const data = await res.json();
-                const sel = document.getElementById('surahSelect');
-                sel.innerHTML = '<option value="">-- Choisir une sourate --</option>';
-                data.data.forEach(s => {
-                    sel.innerHTML += `<option value="${s.number}">${s.number}. ${s.englishName}</option>`;
-                });
-            } catch (err) {
-                document.getElementById('surahSelect').innerHTML = "<option>Erreur de chargement</option>";
-            }
-        }
-
-        document.getElementById('surahSelect').addEventListener('change', async (e) => {
+        document.getElementById('selectSurah').addEventListener('change', async (e) => {
             if(!e.target.value) return;
-            document.getElementById('coranContent').innerHTML = "<p class='text-center text-emerald-500 animate-pulse'>Chargement des versets...</p>";
-            try {
-                const res = await fetch(`https://api.alquran.cloud/v1/surah/${e.target.value}/fr.hamidullah`);
-                const data = await res.json();
-                let html = '<div class="arabic text-3xl text-center my-10 text-emerald-500">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>';
-                data.data.ayahs.forEach(a => {
-                    html += `<div class="p-4 bg-slate-900 rounded-xl mb-3 border border-white/5 text-sm leading-relaxed">${a.text} <span class="text-emerald-500 font-bold ml-2">(${a.numberInSurah})</span></div>`;
-                });
-                document.getElementById('coranContent').innerHTML = html;
-            } catch (err) {
-                document.getElementById('coranContent').innerHTML = "<p class='text-red-500'>Impossible de charger la sourate.</p>";
-            }
+            document.getElementById('contentCoran').innerHTML = "<p class='text-center animate-pulse py-10'>Chargement...</p>";
+            const res = await fetch(`https://api.alquran.cloud/v1/surah/${e.target.value}/fr.hamidullah`);
+            const data = await res.json();
+            let html = '<div class="arabic text-3xl text-center my-10 text-emerald-500">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>';
+            data.data.ayahs.forEach(a => {
+                html += `<div class="p-4 bg-slate-900 rounded-xl mb-3 border border-white/5 text-sm">${a.text} <span class="text-emerald-500 font-bold ml-2">(${a.numberInSurah})</span></div>`;
+            });
+            document.getElementById('contentCoran').innerHTML = html;
         });
 
-        // --- LOGIQUE QUIZ ---
-        const questions = [{q:"Combien de sourates y a-t-il dans le Coran ?", a:["114","112","116"], c:0}];
-        function initQuiz() {
-            const q = questions;
-            document.getElementById('q-text').textContent = q.q;
-            const cont = document.getElementById('opt-container');
-            q.a.forEach((o, i) => {
-                const b = document.createElement('button');
-                b.className = "w-full p-4 bg-slate-800 rounded-xl font-bold hover:bg-emerald-700 transition-colors";
-                b.textContent = o;
-                b.onclick = () => alert(i === q.c ? "Masha'Allah !" : "Réessaie");
-                cont.appendChild(b);
-            });
-        }
-
-        loadCoran();
-        initQuiz();
+        load();
     </script>
 </body>
 </html>
