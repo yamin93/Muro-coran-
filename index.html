@@ -3,17 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Muslim Protect & Savoir</title>
+    <title>Muslim App - Guide Complet</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Amiri&family=Inter:wght@400;700&display=swap');
-        body { font-family: 'Inter', sans-serif; background-color: #010409; color: #e6edf3; padding-bottom: 80px; }
-        .arabic { font-family: 'Amiri', serif; direction: rtl; line-height: 2; }
+        body { font-family: 'Inter', sans-serif; background-color: #010606; color: #e6edf3; padding-bottom: 80px; }
+        .arabic { font-family: 'Amiri', serif; direction: rtl; line-height: 1.8; }
         .hidden { display: none; }
-        .nav-active { background: #059669; color: white; border-bottom: 3px solid #34d399; }
-        .video-feed { height: 70vh; overflow-y: scroll; scroll-snap-type: y mandatory; border-radius: 20px; }
-        .v-card { height: 100%; scroll-snap-align: start; position: relative; background: #000; }
-        video { width: 100%; height: 100%; object-fit: cover; }
+        .nav-active { background: #059669; color: white; box-shadow: 0 0 15px rgba(5, 150, 105, 0.4); }
+        .step-card { background: #0a1212; border-left: 4px solid #059669; padding: 15px; border-radius: 10px; margin-bottom: 10px; }
+        video { width: 100%; height: 100%; object-fit: cover; border-radius: 15px; }
     </style>
 </head>
 <body class="p-3">
@@ -21,87 +20,101 @@
     <div class="max-w-md mx-auto">
         <div class="text-center py-6">
             <h1 class="text-3xl font-bold text-emerald-500 italic">Muslim App</h1>
-            <p class="text-[10px] text-emerald-800 tracking-widest uppercase">Protection & Apprentissage</p>
+            <p class="text-[10px] text-emerald-700 tracking-widest uppercase">Prière • Protection • Savoir</p>
         </div>
 
-        <nav class="grid grid-cols-4 gap-1 mb-6 bg-slate-900 p-1 rounded-2xl sticky top-2 z-50 border border-white/5">
-            <button id="b-coran" onclick="nav('coran')" class="py-2.5 rounded-xl text-[9px] font-bold nav-active">📖 CORAN</button>
-            <button id="b-quiz" onclick="nav('quiz')" class="py-2.5 rounded-xl text-[9px] font-bold">🧠 QUIZ</button>
-            <button id="b-protect" onclick="nav('protect')" class="py-2.5 rounded-xl text-[9px] font-bold">🛡️ PROTECTION</button>
-            <button id="b-vip" onclick="nav('vip')" class="py-2.5 rounded-xl text-[9px] font-bold text-amber-500">⭐ VIP</button>
+        <nav class="grid grid-cols-5 gap-1 mb-6 bg-slate-900/80 p-1 rounded-2xl sticky top-2 z-50 backdrop-blur-md">
+            <button id="b-prière" onclick="nav('prière')" class="py-2 rounded-xl text-[8px] font-bold nav-active">🕌 PRIÈRE</button>
+            <button id="b-coran" onclick="nav('coran')" class="py-2 rounded-xl text-[8px] font-bold">📖 CORAN</button>
+            <button id="b-quiz" onclick="nav('quiz')" class="py-2 rounded-xl text-[8px] font-bold">🧠 QUIZ</button>
+            <button id="b-doua" onclick="nav('doua')" class="py-2 rounded-xl text-[8px] font-bold">🛡️ PROTECT</button>
+            <button id="b-vip" onclick="nav('vip')" class="py-2 rounded-xl text-[8px] font-bold text-amber-500">⭐ VIP</button>
         </nav>
 
-        <div id="s-coran" class="space-y-4">
+        <div id="s-prière" class="space-y-4">
+            <h2 class="text-emerald-500 font-bold text-center text-sm uppercase mb-4">Guide de la Prière (Salat)</h2>
+            
+            <div class="step-card">
+                <p class="text-emerald-500 font-bold text-xs">1. L'Intention & Takbir</p>
+                <p class="arabic text-2xl text-right my-2">اللَّهُ أَكْبَرُ</p>
+                <p class="text-xs italic text-slate-400">Allahu Akbar</p>
+                <p class="text-[10px] text-slate-500">Allah est le plus Grand.</p>
+            </div>
+
+            <div class="step-card">
+                <p class="text-emerald-500 font-bold text-xs">2. L'Inclinaison (Ruku)</p>
+                <p class="arabic text-2xl text-right my-2">سُبْحَانَ رَبِّيَ الْعَظِيمِ</p>
+                <p class="text-xs italic text-slate-400">Subhana Rabbiyal 'Adhim (3x)</p>
+                <p class="text-[10px] text-slate-500">Gloire à mon Seigneur l'Incommensurable.</p>
+            </div>
+
+            <div class="step-card">
+                <p class="text-emerald-500 font-bold text-xs">3. La Prosternation (Sujud)</p>
+                <p class="arabic text-2xl text-right my-2">سُبْحَانَ رَبِّيَ الْأَعْلَى</p>
+                <p class="text-xs italic text-slate-400">Subhana Rabbiyal A'la (3x)</p>
+                <p class="text-[10px] text-slate-500">Gloire à mon Seigneur le Très-Haut.</p>
+            </div>
+        </div>
+
+        <div id="s-coran" class="hidden space-y-4">
             <select id="selSurah" class="w-full p-4 bg-slate-900 border border-emerald-900 rounded-xl text-emerald-400 font-bold outline-none"></select>
             <div id="contentCoran" class="mt-4"></div>
         </div>
 
         <div id="s-quiz" class="hidden">
             <div id="quiz-box" class="bg-slate-900 p-6 rounded-3xl border border-emerald-900">
-                <p id="q-text" class="text-lg font-bold mb-6 text-center"></p>
+                <p id="q-text" class="text-lg font-bold mb-6 text-center text-emerald-400"></p>
                 <div id="opt-container" class="grid gap-3"></div>
             </div>
-            <div id="quiz-result" class="hidden bg-slate-900 p-6 rounded-3xl border border-blue-500 text-center">
-                <h2 class="text-2xl font-bold mb-4">Score: <span id="score">0</span></h2>
-                <div id="correction-list" class="text-left text-xs space-y-2 mb-6"></div>
-                <button onclick="startQuiz()" class="w-full bg-emerald-600 py-3 rounded-xl font-bold">Refaire le quiz</button>
+            <div id="quiz-result" class="hidden bg-slate-900 p-6 rounded-3xl text-center">
+                <h2 class="text-2xl font-bold mb-4" id="score-display"></h2>
+                <button onclick="startQuiz()" class="w-full bg-emerald-600 py-3 rounded-xl font-bold">Recommencer</button>
             </div>
         </div>
 
-        <div id="s-protect" class="hidden space-y-4">
-            <div class="bg-slate-900 p-5 rounded-2xl border-l-4 border-red-500">
-                <p class="text-xs font-bold text-red-500 mb-2">CONTRE LE SHEITAN & LES DÉMONS</p>
+        <div id="s-doua" class="hidden space-y-4">
+            <div class="bg-red-900/20 p-5 rounded-2xl border border-red-900/50">
+                <p class="text-xs font-bold text-red-500 mb-2 uppercase">🛡️ Arme contre le mal</p>
                 <p class="arabic text-2xl text-right">أَعُوذُ بِاللَّهِ مِنَ الشَّيْطَانِ الرَّجِيمِ</p>
-                <p class="text-[10px] mt-2 italic text-slate-400">"A’oudhou billahi mina shaytani rajim"</p>
+                <p class="text-[10px] mt-2 italic text-slate-400 text-right">A’oudhou billahi mina shaytani rajim</p>
             </div>
 
-            <div class="bg-slate-900 p-5 rounded-2xl border-l-4 border-emerald-500">
-                <p class="text-xs font-bold text-emerald-500 mb-2">LES 3 PROTECTRICES (S. 112, 113, 114)</p>
-                <p class="text-[10px] text-slate-300 leading-relaxed italic">Récitez Al-Ikhlas, Al-Falaq et An-Nas 3 fois matin et soir. Rien ne pourra vous nuire par la volonté d'Allah.</p>
-            </div>
-
-            <div class="bg-slate-900 p-5 rounded-2xl border-l-4 border-amber-500">
-                <p class="text-xs font-bold text-amber-500 mb-2">INVOCATION DU MATIN & SOIR</p>
-                <p class="arabic text-xl text-right text-white">بِسْمِ اللهِ الذي لَا يَضُرُّ مع اسْمِهِ شَيْءٌ في الأرضِ ولا في السَّماءِ وهُوَ السَّمِيعُ العَلِيمُ</p>
-                <p class="text-[10px] mt-2 text-slate-400 italic">"Au nom d'Allah, tel qu'en compagnie de Son Nom rien ne peut nuire..." (3 fois)</p>
+            <div class="bg-slate-900 p-5 rounded-2xl border border-emerald-900/30">
+                <p class="text-xs font-bold text-emerald-500 mb-2">LES 3 PROTECTRICES</p>
+                <p class="text-[11px] text-slate-300">Récitez Sourate <b>Al-Ikhlas</b>, <b>Al-Falaq</b> et <b>An-Nas</b> 3 fois après le Fajr et après le Maghreb.</p>
             </div>
         </div>
 
         <div id="s-vip" class="hidden">
-            <div id="lock" class="bg-slate-900 p-10 rounded-3xl border border-amber-500/30 text-center">
-                <h2 class="text-2xl font-black text-amber-500 mb-2 italic uppercase">Accès VIP</h2>
-                <p class="text-xs text-slate-400 mb-6 italic">Apprendre le Coran & les Ablutions</p>
-                <button onclick="unlock()" class="w-full bg-amber-500 text-black font-black py-4 rounded-xl shadow-lg">DÉVERROUILLER (2,99€)</button>
+            <div id="lock" class="bg-slate-900 p-8 rounded-3xl border border-amber-500/30 text-center">
+                <h2 class="text-2xl font-black text-amber-500 mb-2 italic">PASS VIP</h2>
+                <p class="text-xs text-slate-400 mb-8">Vidéos : Coran & Ablutions HD</p>
+                <button onclick="unlock()" class="w-full bg-amber-500 text-black font-black py-4 rounded-xl">DÉBLOQUER (2,99€)</button>
             </div>
-
-            <div id="vids" class="hidden video-feed">
-                <div class="v-card">
-                    <video controls playsinline poster="https://i.imgur.com/8mU9NAt.jpg">
+            <div id="vids" class="hidden space-y-4">
+                <div class="bg-black p-2 rounded-2xl border border-emerald-500">
+                    <video controls poster="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=500">
                         <source src="coran.mp4" type="video/mp4">
                     </video>
-                    <div class="absolute bottom-10 left-4 bg-black/60 p-3 rounded border-l-4 border-emerald-500">
-                        <p class="text-xs font-bold text-white uppercase">Apprendre le Coran</p>
-                    </div>
+                    <p class="text-center text-[10px] font-bold py-2 text-emerald-500 uppercase">Cours : Apprendre le Coran</p>
                 </div>
-                <div class="v-card">
-                    <video controls playsinline poster="https://i.imgur.com/EayV2pZ.jpg">
+                <div class="bg-black p-2 rounded-2xl border border-blue-500">
+                    <video controls>
                         <source src="ablutions.mp4" type="video/mp4">
                     </video>
-                    <div class="absolute bottom-10 left-4 bg-black/60 p-3 rounded border-l-4 border-blue-500">
-                        <p class="text-xs font-bold text-white uppercase">Guide des Ablutions</p>
-                    </div>
+                    <p class="text-center text-[10px] font-bold py-2 text-blue-500 uppercase">Cours : Les Ablutions</p>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="fixed bottom-0 left-0 w-full bg-white text-black py-2 text-center font-bold text-[9px] border-t-4 border-amber-600 z-50">
-        OFFRE : TAPIS DE PRIÈRE ÉLECTRONIQUE DISPONIBLE <span class="text-blue-600 underline">ACHETER</span>
+    <div class="fixed bottom-0 left-0 w-full bg-white text-black py-2 text-center font-bold text-[9px] border-t-4 border-emerald-600 z-50">
+        SPONSOR : 🕌 Soutenez la construction de mosquées <span class="text-blue-600 underline">FAIRE UN DON</span>
     </div>
 
     <script>
         function nav(id) {
-            ['coran','quiz','protect','vip'].forEach(s => {
+            ['prière','coran','quiz','doua','vip'].forEach(s => {
                 document.getElementById('s-'+s).classList.add('hidden');
                 document.getElementById('b-'+s).classList.remove('nav-active');
             });
@@ -110,80 +123,55 @@
             if(id === 'quiz') startQuiz();
         }
 
-        // --- CORAN ---
+        // CORAN API
         async function loadCoran() {
             const res = await fetch('https://api.alquran.cloud/v1/surah');
             const data = await res.json();
             const sel = document.getElementById('selSurah');
-            sel.innerHTML = '<option value="">-- Choisir une sourate --</option>';
+            sel.innerHTML = '<option value="">-- Choisir une Sourate --</option>';
             data.data.forEach(s => sel.innerHTML += `<option value="${s.number}">${s.number}. ${s.englishName}</option>`);
         }
         document.getElementById('selSurah').addEventListener('change', async (e) => {
             if(!e.target.value) return;
             const res = await fetch(`https://api.alquran.cloud/v1/surah/${e.target.value}/fr.hamidullah`);
             const data = await res.json();
-            let html = '<div class="arabic text-3xl text-center my-10 text-emerald-500">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>';
-            data.data.ayahs.forEach(a => {
-                html += `<div class="p-4 bg-slate-900 rounded-xl mb-3 border border-white/5 text-sm">${a.text} <span class="text-emerald-500 font-bold ml-2">(${a.numberInSurah})</span></div>`;
-            });
+            let html = '<div class="arabic text-3xl text-center my-8 text-emerald-500">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>';
+            data.data.ayahs.forEach(a => html += `<div class="p-4 bg-slate-900 rounded-xl mb-3 border border-white/5 text-sm">${a.text} <span class="text-emerald-500 font-bold ml-1">(${a.numberInSurah})</span></div>`);
             document.getElementById('contentCoran').innerHTML = html;
         });
 
-        // --- QUIZ DYNAMIQUE ---
-        const questionsDB = [
-            {q: "Combien y a-t-il de sourates ?", a: ["110","114","120"], c: 1},
-            {q: "Le premier pilier de l'Islam ?", a: ["La Prière","La Shahada","Le Jeûne"], c: 1},
-            {q: "Le mois du pèlerinage ?", a: ["Dhou al-hijja","Ramadan","Rajab"], c: 0},
-            {q: "L'ange qui a révélé le Coran ?", a: ["Mikaïl","Israfil","Jibril"], c: 2},
-            {q: "La première sourate du Coran ?", a: ["Al-Baqara","Al-Fatiha","An-Nas"], c: 1}
+        // QUIZ SYSTEM
+        const db = [
+            {q:"Combien de prières par jour ?", a:["3","5","4"], c:1},
+            {q:"La direction de la Mecque ?", a:["Qibla","Kaaba","Safa"], c:0}
         ];
-        let currentQ = 0, score = 0, userChoices = [];
-
+        let cur = 0, score = 0;
         function startQuiz() {
-            currentQ = 0; score = 0; userChoices = [];
+            cur = 0; score = 0;
             document.getElementById('quiz-box').classList.remove('hidden');
             document.getElementById('quiz-result').classList.add('hidden');
-            renderQuestion();
+            renderQ();
         }
-
-        function renderQuestion() {
-            const q = questionsDB[currentQ];
+        function renderQ() {
+            const q = db[cur];
             document.getElementById('q-text').textContent = q.q;
             const cont = document.getElementById('opt-container');
             cont.innerHTML = '';
             q.a.forEach((o, i) => {
                 const btn = document.createElement('button');
-                btn.className = "w-full p-4 bg-slate-800 rounded-2xl text-sm font-bold border border-white/5";
+                btn.className = "w-full p-4 bg-slate-800 rounded-xl font-bold border border-white/5";
                 btn.textContent = o;
-                btn.onclick = () => nextQ(i);
+                btn.onclick = () => { if(i===q.c) score++; cur++; if(cur<db.length) renderQ(); else finish(); };
                 cont.appendChild(btn);
             });
         }
-
-        function nextQ(choice) {
-            userChoices.push(choice);
-            if(choice === questionsDB[currentQ].c) score++;
-            currentQ++;
-            if(currentQ < questionsDB.length) renderQuestion(); else finishQuiz();
-        }
-
-        function finishQuiz() {
+        function finish() {
             document.getElementById('quiz-box').classList.add('hidden');
             document.getElementById('quiz-result').classList.remove('hidden');
-            document.getElementById('score').textContent = `${score}/${questionsDB.length}`;
-            const list = document.getElementById('correction-list');
-            list.innerHTML = '<p class="font-bold text-blue-400 mb-2 uppercase">Correction :</p>';
-            questionsDB.forEach((q, i) => {
-                const correct = userChoices[i] === q.c;
-                list.innerHTML += `<div class="${correct?'text-emerald-500':'text-red-400'}">Q: ${q.q} <br> <span class="text-white">Rép: ${q.a[q.c]}</span></div>`;
-            });
+            document.getElementById('score-display').textContent = `Score : ${score}/${db.length}`;
         }
 
-        // --- VIP ---
-        function unlock() {
-            document.getElementById('lock').classList.add('hidden');
-            document.getElementById('vids').classList.remove('hidden');
-        }
+        function unlock() { document.getElementById('lock').classList.add('hidden'); document.getElementById('vids').classList.remove('hidden'); }
 
         loadCoran();
     </script>
