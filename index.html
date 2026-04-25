@@ -3,86 +3,154 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coran Online</title>
+    <title>Coran & Quiz App</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Amiri&family=Inter:wght@400;700&display=swap');
         body { font-family: 'Inter', sans-serif; background-color: #0f172a; color: #f1f5f9; }
         .arabic { font-family: 'Amiri', serif; direction: rtl; }
+        .hidden { display: none; }
+        .tab-active { background-color: #059669 !important; border-color: #10b981 !important; }
     </style>
 </head>
 <body class="p-4 sm:p-8">
 
     <div class="max-w-3xl mx-auto">
-        <h1 class="text-4xl font-bold text-center mb-10 text-emerald-400">Le Saint Coran</h1>
-        
-        <select id="surahSelect" class="w-full p-4 bg-slate-800 border-2 border-emerald-900 rounded-2xl mb-8 outline-none focus:border-emerald-500 transition-all text-lg">
-            <option value="">Chargement des sourates...</option>
-        </select>
+        <div class="flex justify-center space-x-2 mb-10 bg-slate-800 p-2 rounded-2xl border border-slate-700">
+            <button id="btn-lecture" onclick="showSection('lecture')" class="flex-1 py-3 rounded-xl font-bold transition-all tab-active">📖 Lecture</button>
+            <button id="btn-quiz" onclick="showSection('quiz')" class="flex-1 py-3 rounded-xl font-bold transition-all bg-slate-700">🧠 Quiz</button>
+        </div>
 
-        <div id="coranContent" class="space-y-6">
+        <div id="section-lecture">
+            <h1 class="text-3xl font-bold text-center mb-8 text-emerald-400">Le Saint Coran</h1>
+            <select id="surahSelect" class="w-full p-4 bg-slate-800 border-2 border-emerald-900 rounded-2xl mb-8 outline-none text-lg focus:border-emerald-500">
+                <option value="">Chargement des sourates...</option>
+            </select>
+            <div id="coranContent" class="space-y-6">
+                <p class="text-center text-slate-500">Choisissez une sourate pour commencer...</p>
             </div>
+        </div>
+
+        <div id="section-quiz" class="hidden">
+            <h1 class="text-3xl font-bold text-center mb-8 text-emerald-400">Apprendre l'Islam</h1>
+            <div id="quiz-container" class="bg-slate-800 p-6 sm:p-10 rounded-3xl border border-slate-700 shadow-2xl">
+                <div id="question-box">
+                    <div class="flex justify-between items-center mb-6">
+                        <span id="progress-text" class="text-emerald-400 font-bold">Question 1/5</span>
+                    </div>
+                    <p id="question-text" class="text-xl mb-8 font-semibold leading-relaxed"></p>
+                    <div id="options-container" class="grid gap-4"></div>
+                </div>
+                <div id="result-box" class="hidden text-center py-10">
+                    <h2 class="text-3xl font-bold mb-4">Résultat</h2>
+                    <p id="final-score" class="text-6xl text-emerald-400 font-bold mb-8"></p>
+                    <button onclick="resetQuiz()" class="w-full bg-emerald-600 hover:bg-emerald-500 px-8 py-4 rounded-2xl font-bold text-xl transition-all">Recommencer</button>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>
+        // --- GESTION DES ONGLETS ---
+        function showSection(section) {
+            document.getElementById('section-lecture').classList.toggle('hidden', section !== 'lecture');
+            document.getElementById('section-quiz').classList.toggle('hidden', section !== 'quiz');
+            
+            document.getElementById('btn-lecture').classList.toggle('tab-active', section === 'lecture');
+            document.getElementById('btn-quiz').classList.toggle('tab-active', section === 'quiz');
+        }
+
+        // --- LECTEUR DE SOURATES ---
         const surahSelect = document.getElementById('surahSelect');
         const coranContent = document.getElementById('coranContent');
 
         async function loadSurahList() {
             try {
-                const response = await fetch('https://api.alquran.cloud/v1/surah');
-                const data = await response.json();
-                surahSelect.innerHTML = '<option value="">-- Choisissez une sourate --</option>';
-                data.data.forEach(surah => {
-                    const option = document.createElement('option');
-                    option.value = surah.number;
-                    option.textContent = `${surah.number}. ${surah.englishName} (${surah.name})`;
-                    surahSelect.appendChild(option);
+                const res = await fetch('https://api.alquran.cloud/v1/surah');
+                const data = await res.json();
+                surahSelect.innerHTML = '<option value="">-- Sélectionnez une sourate --</option>';
+                data.data.forEach(s => {
+                    const opt = document.createElement('option');
+                    opt.value = s.number;
+                    opt.textContent = `${s.number}. ${s.englishName} (${s.name})`;
+                    surahSelect.appendChild(opt);
                 });
-            } catch (e) { coranContent.innerHTML = "Erreur de connexion."; }
+            } catch (e) { coranContent.innerHTML = "Erreur de chargement."; }
         }
 
         surahSelect.addEventListener('change', async (e) => {
             const num = e.target.value;
             if (!num) return;
-
-            coranContent.innerHTML = "<p class='text-center animate-pulse'>Ouverture de la sourate...</p>";
-
+            coranContent.innerHTML = "<p class='text-center animate-pulse'>Chargement...</p>";
             try {
-                // On charge la traduction française
-                const resFr = await fetch(`https://api.alquran.cloud/v1/surah/${num}/fr.hamidullah`);
-                const dataFr = await resFr.json();
-                
+                const res = await fetch(`https://api.alquran.cloud/v1/surah/${num}/fr.hamidullah`);
+                const data = await res.json();
                 let html = `
                     <div class="text-center mb-10">
-                        <h2 class="text-3xl font-extrabold text-emerald-400 mb-6">${dataFr.data.englishName}</h2>
-                        <div class="arabic text-5xl mb-4 text-white py-6 border-y border-slate-700">
-                            بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
-                        </div>
-                        <p class="text-slate-400 italic text-lg">"Au nom d'Allah, le Tout Miséricordieux, le Très Miséricordieux"</p>
-                    </div>
-                `;
-
-                dataFr.data.ayahs.forEach((ayah) => {
-                    // On retire la bismillah du texte si elle est déjà au début pour ne pas l'avoir en double
-                    let text = ayah.text;
-                    if (num != 1 && ayah.numberInSurah == 1) {
-                        text = text.replace("Au nom d'Allah, le Tout Miséricordieux, le Très Miséricordieux", "");
-                    }
-
-                    html += `
-                        <div class="bg-slate-800/50 p-6 rounded-2xl border border-slate-700 hover:border-emerald-500/50 transition-colors">
-                            <span class="inline-block bg-emerald-600 text-white text-xs font-bold px-2 py-1 rounded-md mb-3">Verset ${ayah.numberInSurah}</span>
-                            <p class="text-xl leading-relaxed text-slate-200">${text}</p>
-                        </div>
-                    `;
+                        <h2 class="text-3xl font-bold text-emerald-400 mb-4">${data.data.englishName}</h2>
+                        <div class="arabic text-5xl text-white py-6 border-y border-slate-700">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+                    </div>`;
+                data.data.ayahs.forEach(a => {
+                    let text = a.text;
+                    if (num != 1 && a.numberInSurah == 1) text = text.replace("Au nom d'Allah, le Tout Miséricordieux, le Très Miséricordieux", "");
+                    html += `<div class="bg-slate-800/40 p-6 rounded-2xl border border-slate-700"><p class="text-lg leading-relaxed">${text} <span class="text-emerald-500 font-bold ml-2">(${a.numberInSurah})</span></p></div>`;
                 });
                 coranContent.innerHTML = html;
                 window.scrollTo({ top: 0, behavior: 'smooth' });
-            } catch (e) { coranContent.innerHTML = "Erreur de chargement."; }
+            } catch (e) { coranContent.innerHTML = "Erreur réseau."; }
         });
 
+        // --- SYSTÈME DE QUIZ ---
+        const questions = [
+            { q: "Combien y a-t-il de sourates dans le Coran ?", a: ["110", "114", "120", "124"], correct: 1 },
+            { q: "Quel est le premier pilier de l'Islam ?", a: ["La Prière", "Le Jeûne", "La Shahada (Attestation)", "La Zakat"], correct: 2 },
+            { q: "Dans quelle ville le Prophète (SWS) est-il né ?", a: ["Médine", "La Mecque", "Jérusalem", "Taïf"], correct: 1 },
+            { q: "Quelle sourate est surnommée 'Le Cœur du Coran' ?", a: ["Al-Fatiha", "Al-Ikhlas", "Yasin", "Al-Baqarah"], correct: 2 },
+            { q: "Combien d'ailes possède l'ange Jibril selon la tradition ?", de: "Bonus", a: ["2", "4", "600", "99"], correct: 2 }
+        ];
+
+        let currentQ = 0;
+        let score = 0;
+
+        function displayQuestion() {
+            const q = questions[currentQ];
+            document.getElementById('progress-text').textContent = `Question ${currentQ + 1}/${questions.length}`;
+            document.getElementById('question-text').textContent = q.q;
+            const container = document.getElementById('options-container');
+            container.innerHTML = '';
+            
+            q.a.forEach((opt, i) => {
+                const btn = document.createElement('button');
+                btn.className = "w-full p-5 bg-slate-700 hover:bg-slate-600 rounded-2xl text-left transition-all border-2 border-transparent hover:border-emerald-500 text-lg";
+                btn.textContent = opt;
+                btn.onclick = () => checkAnswer(i);
+                container.appendChild(btn);
+            });
+        }
+
+        function checkAnswer(i) {
+            if(i === questions[currentQ].correct) score++;
+            currentQ++;
+            if(currentQ < questions.length) displayQuestion();
+            else showResult();
+        }
+
+        function showResult() {
+            document.getElementById('question-box').classList.add('hidden');
+            document.getElementById('result-box').classList.remove('hidden');
+            document.getElementById('final-score').textContent = `${score} / ${questions.length}`;
+        }
+
+        function resetQuiz() {
+            currentQ = 0; score = 0;
+            document.getElementById('question-box').classList.remove('hidden');
+            document.getElementById('result-box').classList.add('hidden');
+            displayQuestion();
+        }
+
+        // Lancement
         loadSurahList();
+        displayQuestion();
     </script>
 </body>
 </html>
