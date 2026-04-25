@@ -1,0 +1,40 @@
+body {
+  margin: 0;
+  overflow: hidden; /* Empêche le scroll vertical classique */
+}
+
+.snap-container {
+  display: flex;
+  width: 300vw; /* 3 écrans de large */
+  height: 100vh;
+  overflow-x: scroll;
+  scroll-snap-type: x mandatory; /* Force l'arrêt sur chaque écran */
+}
+
+.screen {
+  width: 100vw;
+  height: 100vh;
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Couleurs de fond pour différencier */
+#chat { background-color: #ffffff; }
+#camera { background: transparent; } /* Ici tu mettras ton flux vidéo */
+#stories { background-color: #f7f7f7; }
+
+/* La barre de navigation fixe */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 60px;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  color: white;
+}
