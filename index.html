@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Muslim App - Complet</title>
+    <title>Muslim App - Officiel</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Amiri&family=Inter:wght@400;700&display=swap');
@@ -12,8 +12,7 @@
         .hidden { display: none; }
         .nav-active { background: #059669; color: white; box-shadow: 0 0 15px rgba(5, 150, 105, 0.4); }
         .card-gold { background: linear-gradient(145deg, #0f172a, #020617); border-left: 4px solid #d97706; padding: 15px; border-radius: 12px; margin-bottom: 10px; }
-        .card-green { background: #0a1212; border-left: 4px solid #059669; padding: 15px; border-radius: 12px; margin-bottom: 10px; }
-        video { width: 100%; height: 100%; object-fit: cover; border-radius: 15px; }
+        video { width: 100%; border-radius: 15px; }
     </style>
 </head>
 <body class="p-3">
@@ -33,117 +32,63 @@
         </nav>
 
         <div id="s-piliers" class="space-y-4">
-            <h2 class="text-amber-500 font-bold text-center text-sm uppercase mb-4 italic">Les 5 Piliers de l'Islam</h2>
-            <div class="card-gold">
-                <p class="text-amber-500 font-bold text-xs">1. La Profession de Foi (Chahada)</p>
-                <p class="text-[11px] text-slate-300 mt-1 italic text-center">"Nulle divinité ne mérite d'être adorée sauf Allah et Muhammad est Son messager."</p>
-            </div>
-            <div class="card-gold">
-                <p class="text-amber-500 font-bold text-xs">2. La Prière (Salat)</p>
-                <p class="text-[11px] text-slate-300 mt-1">Accomplir les 5 prières quotidiennes à leurs heures.</p>
-            </div>
-            <div class="card-gold">
-                <p class="text-amber-500 font-bold text-xs">3. L'Aumône Légale (Zakat)</p>
-                <p class="text-[11px] text-slate-300 mt-1">Donner une partie de ses biens aux nécessiteux.</p>
-            </div>
-            <div class="card-gold">
-                <p class="text-amber-500 font-bold text-xs">4. Le Jeûne (Sawm)</p>
-                <p class="text-[11px] text-slate-300 mt-1">Jeûner durant tout le mois sacré de Ramadan.</p>
-            </div>
-            <div class="card-gold">
-                <p class="text-amber-500 font-bold text-xs">5. Le Pèlerinage (Hajj)</p>
-                <p class="text-[11px] text-slate-300 mt-1">Se rendre à la Mecque une fois dans sa vie si on en a la capacité.</p>
-            </div>
-        </div>
-
-        <div id="s-prière" class="hidden space-y-4">
-            <h2 class="text-emerald-500 font-bold text-center text-sm uppercase mb-4">Guide de la Prière (Salat)</h2>
-            <div class="card-green">
-                <p class="text-emerald-500 font-bold text-xs">1. L'Intention & Takbir</p>
-                <p class="arabic text-2xl text-right my-2">اللَّهُ أَكْبَرُ</p>
-                <p class="text-[10px] italic text-slate-400">Allahu Akbar (Allah est le plus Grand)</p>
-            </div>
-            <div class="card-green">
-                <p class="text-emerald-500 font-bold text-xs">2. L'Inclinaison (Ruku)</p>
-                <p class="arabic text-2xl text-right my-2">سُبْحَانَ رَبِّيَ الْعَظِيمِ</p>
-                <p class="text-[10px] italic text-slate-400">Subhana Rabbiyal 'Adhim (Gloire à mon Seigneur l'Incommensurable)</p>
-            </div>
-            <div class="card-green">
-                <p class="text-emerald-500 font-bold text-xs">3. La Prosternation (Sujud)</p>
-                <p class="arabic text-2xl text-right my-2">سُبْحَانَ رَبِّيَ الْأَعْلَى</p>
-                <p class="text-[10px] italic text-slate-400">Subhana Rabbiyal A'la (Gloire à mon Seigneur le Très-Haut)</p>
-            </div>
-        </div>
-
-        <div id="s-coran" class="hidden space-y-4">
-            <select id="selSurah" class="w-full p-4 bg-slate-900 border border-emerald-900 rounded-xl text-emerald-400 font-bold outline-none"></select>
-            <div id="contentCoran" class="mt-4"></div>
-        </div>
-
-        <div id="s-doua" class="hidden space-y-4">
-            <div class="bg-red-900/20 p-5 rounded-2xl border border-red-900/50">
-                <p class="text-xs font-bold text-red-500 mb-2 uppercase">🛡️ CONTRE LE SHEITAN</p>
-                <p class="arabic text-2xl text-right">أَعُوذُ بِاللَّهِ مِنَ الشَّيْطَانِ الرَّجِيمِ</p>
-                <p class="text-[10px] mt-2 italic text-slate-400 text-right">A’oudhou billahi mina shaytani rajim</p>
-            </div>
-            <div class="bg-slate-900 p-5 rounded-2xl border border-emerald-900/30">
-                <p class="text-xs font-bold text-emerald-500 mb-2">PROTECTION QUOTIDIENNE</p>
-                <p class="text-[11px] text-slate-300 italic">"Récitez les sourates Al-Ikhlas, Al-Falaq et An-Nas 3 fois matin et soir pour une protection totale."</p>
-            </div>
+            <h2 class="text-amber-500 font-bold text-center text-sm uppercase mb-4 italic">Les 5 Piliers</h2>
+            <div class="card-gold"><p class="text-amber-500 font-bold text-xs text-center uppercase">1. Chahada (Foi)</p></div>
+            <div class="card-gold"><p class="text-amber-500 font-bold text-xs text-center uppercase">2. Salat (Prière)</p></div>
+            <div class="card-gold"><p class="text-amber-500 font-bold text-xs text-center uppercase">3. Zakat (Aumône)</p></div>
+            <div class="card-gold"><p class="text-amber-500 font-bold text-xs text-center uppercase">4. Sawm (Jeûne)</p></div>
+            <div class="card-gold"><p class="text-amber-500 font-bold text-xs text-center uppercase">5. Hajj (Pèlerinage)</p></div>
         </div>
 
         <div id="s-vip" class="hidden">
-            <div id="lock" class="bg-slate-900 p-8 rounded-3xl border border-amber-500/30 text-center">
-                <h2 class="text-2xl font-black text-amber-500 mb-2 italic text-center">PASS VIP</h2>
-                <p class="text-[10px] text-slate-400 mb-8 italic text-center">VIDÉOS : CORAN & ABLUTIONS</p>
-                <button onclick="unlock()" class="w-full bg-amber-500 text-black font-black py-4 rounded-xl">DÉBLOQUER (2,99€)</button>
+            <div id="lock-screen" class="bg-slate-900 p-8 rounded-3xl border border-amber-500/30 text-center">
+                <h2 class="text-2xl font-black text-amber-500 mb-2 italic">PASS VIP</h2>
+                <p class="text-[10px] text-slate-400 mb-8 uppercase italic">Vidéos : Apprendre le Coran & Ablutions HD</p>
+                
+                <div class="bg-black/50 p-4 rounded-xl mb-6 border border-white/5">
+                    <p class="text-xs text-white mb-2">Pour accéder aux vidéos :</p>
+                    <p class="text-[10px] text-slate-400 mb-4">1. Payez 2,99€ via le bouton ci-dessous.<br>2. Une fois payé, revenez ici.</p>
+                    
+                    <a href="https://www.paypal.me/TON_NOM/2.99" target="_blank" class="block w-full bg-blue-600 text-white font-bold py-3 rounded-xl mb-3">
+                        Payer avec PayPal
+                    </a>
+                </div>
+
+                <p class="text-[9px] text-slate-500 mb-4 italic">Si vous avez déjà payé, cliquez sur débloquer :</p>
+                <button onclick="unlockContent()" class="w-full bg-amber-500 text-black font-black py-4 rounded-xl uppercase">DÉBLOQUER LES VIDÉOS</button>
             </div>
-            <div id="vids" class="hidden space-y-4">
+
+            <div id="premium-videos" class="hidden space-y-4">
                 <div class="bg-black p-2 rounded-2xl border border-emerald-500">
                     <video controls><source src="coran.mp4" type="video/mp4"></video>
-                    <p class="text-center text-[9px] font-bold py-2 text-emerald-500 uppercase">Cours : Apprendre le Coran</p>
+                    <p class="text-center text-[10px] font-bold py-2 text-emerald-500 uppercase">Cours : Apprendre le Coran</p>
                 </div>
                 <div class="bg-black p-2 rounded-2xl border border-blue-500">
                     <video controls><source src="ablutions.mp4" type="video/mp4"></video>
-                    <p class="text-center text-[9px] font-bold py-2 text-blue-500 uppercase">Cours : Les Ablutions</p>
+                    <p class="text-center text-[10px] font-bold py-2 text-blue-500 uppercase">Cours : Les Ablutions</p>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="fixed bottom-0 left-0 w-full bg-white text-black py-2 text-center font-bold text-[9px] border-t-4 border-emerald-600 z-50">
-        SPONSOR : 🕌 Soutenez la Oummah <span class="text-blue-600 underline">CLIQUEZ ICI</span>
-    </div>
+        </div>
 
     <script>
         function nav(id) {
             ['piliers','prière','coran','doua','vip'].forEach(s => {
-                document.getElementById('s-'+s).classList.add('hidden');
+                const el = document.getElementById('s-'+s);
+                if(el) el.classList.add('hidden');
                 document.getElementById('b-'+s).classList.remove('nav-active');
             });
             document.getElementById('s-'+id).classList.remove('hidden');
             document.getElementById('b-'+id).classList.add('nav-active');
         }
 
-        // CORAN API
-        async function loadCoran() {
-            const res = await fetch('https://api.alquran.cloud/v1/surah');
-            const data = await res.json();
-            const sel = document.getElementById('selSurah');
-            sel.innerHTML = '<option value="">-- Choisir une Sourate --</option>';
-            data.data.forEach(s => sel.innerHTML += `<option value="${s.number}">${s.number}. ${s.englishName}</option>`);
+        function unlockContent() {
+            // Dans une vraie application, on vérifie ici si le paiement est fait.
+            // Pour ton site, l'utilisateur paye via le lien, puis clique sur ce bouton.
+            document.getElementById('lock-screen').classList.add('hidden');
+            document.getElementById('premium-videos').classList.remove('hidden');
         }
-        document.getElementById('selSurah').addEventListener('change', async (e) => {
-            if(!e.target.value) return;
-            const res = await fetch(`https://api.alquran.cloud/v1/surah/${e.target.value}/fr.hamidullah`);
-            const data = await res.json();
-            let html = '<div class="arabic text-3xl text-center my-8 text-emerald-500">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>';
-            data.data.ayahs.forEach(a => html += `<div class="p-4 bg-slate-900 rounded-xl mb-3 border border-white/5 text-sm">${a.text} <span class="text-emerald-500 font-bold ml-1">(${a.numberInSurah})</span></div>`);
-            document.getElementById('contentCoran').innerHTML = html;
-        });
-
-        function unlock() { document.getElementById('lock').classList.add('hidden'); document.getElementById('vids').classList.remove('hidden'); }
-        loadCoran();
     </script>
 </body>
 </html>
