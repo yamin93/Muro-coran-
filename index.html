@@ -23,7 +23,7 @@
         </div>
 
         <div id="section-lecture">
-            <h1 class="text-2xl font-bold text-center mb-6 text-emerald-400">Le Saint Coran</h1>
+            <h1 class="text-2xl font-bold text-center mb-6 text-emerald-400 font-serif">Le Saint Coran</h1>
             <select id="surahSelect" class="w-full p-4 bg-slate-800 border-2 border-emerald-900 rounded-2xl mb-8 outline-none text-lg focus:border-emerald-500">
                 <option value="">Chargement...</option>
             </select>
@@ -31,40 +31,49 @@
         </div>
 
         <div id="section-quiz" class="hidden">
-            <div id="quiz-container" class="bg-slate-800 p-6 rounded-3xl border border-slate-700 shadow-2xl">
+            <div id="quiz-container" class="bg-slate-800 p-6 rounded-3xl border border-slate-700">
                 <div id="question-box">
                     <span id="progress-text" class="text-emerald-400 font-bold block mb-2">Question 1/5</span>
                     <p id="question-text" class="text-xl mb-6 font-semibold"></p>
                     <div id="options-container" class="grid gap-3"></div>
                 </div>
                 <div id="result-box" class="hidden">
-                    <h2 class="text-2xl font-bold text-center mb-2">Score Final</h2>
+                    <h2 class="text-2xl font-bold text-center mb-2">Résultat</h2>
                     <p id="final-score" class="text-5xl text-emerald-400 font-bold text-center mb-6"></p>
                     <div id="correction-list" class="space-y-4 mb-6 max-h-96 overflow-y-auto p-2"></div>
-                    <button onclick="startNewQuiz()" class="w-full bg-emerald-600 hover:bg-emerald-500 py-4 rounded-2xl font-bold text-lg transition-all">Nouveau Quiz</button>
+                    <button onclick="startNewQuiz()" class="w-full bg-emerald-600 py-4 rounded-2xl font-bold text-lg">Nouveau Quiz</button>
                 </div>
             </div>
         </div>
 
-        <div id="section-video" class="hidden space-y-8">
-            <div class="bg-slate-800 p-4 rounded-3xl border border-slate-700 shadow-xl">
-                <h3 class="text-emerald-400 font-bold mb-4 text-center">🚿 Apprendre les Ablutions</h3>
-                <div class="aspect-video rounded-xl overflow-hidden shadow-inner bg-black">
-                    <iframe class="w-full h-full" src="https://www.youtube.com/embed/jZ1H6x6pGsw" frameborder="0" allowfullscreen></iframe>
-                </div>
-            </div>
+        <div id="section-video" class="hidden space-y-6">
+            <h2 class="text-xl font-bold text-emerald-400 text-center mb-4">Vidéos d'Apprentissage</h2>
             
-            <div class="bg-slate-800 p-4 rounded-3xl border border-slate-700 shadow-xl">
-                <h3 class="text-emerald-400 font-bold mb-4 text-center">📖 Apprendre à lire le Coran</h3>
-                <div class="aspect-video rounded-xl overflow-hidden shadow-inner bg-black">
-                    <iframe class="w-full h-full" src="https://www.youtube.com/embed/S7U8nF_k9Y0" frameborder="0" allowfullscreen></iframe>
+            <a href="https://www.youtube.com/watch?v=283_H96vV3Y" target="_blank" class="block bg-slate-800 p-6 rounded-3xl border border-slate-700 hover:border-emerald-500 transition-all shadow-xl group">
+                <div class="flex items-center space-x-4">
+                    <div class="bg-emerald-600 p-4 rounded-2xl text-2xl group-hover:scale-110 transition-transform">🚿</div>
+                    <div>
+                        <h3 class="text-xl font-bold text-white">Apprendre les Ablutions</h3>
+                        <p class="text-slate-400 text-sm">Tutoriel complet étape par étape (Wudu)</p>
+                    </div>
                 </div>
-            </div>
+                <div class="mt-4 text-emerald-500 font-bold text-sm">Clique ici pour voir sur YouTube →</div>
+            </a>
+
+            <a href="https://www.youtube.com/watch?v=06u57Iatn84" target="_blank" class="block bg-slate-800 p-6 rounded-3xl border border-slate-700 hover:border-emerald-500 transition-all shadow-xl group">
+                <div class="flex items-center space-x-4">
+                    <div class="bg-emerald-600 p-4 rounded-2xl text-2xl group-hover:scale-110 transition-transform">📖</div>
+                    <div>
+                        <h3 class="text-xl font-bold text-white">Lire le Coran</h3>
+                        <p class="text-slate-400 text-sm">Méthode simple pour débutants</p>
+                    </div>
+                </div>
+                <div class="mt-4 text-emerald-500 font-bold text-sm">Clique ici pour voir sur YouTube →</div>
+            </a>
         </div>
     </div>
 
     <script>
-        // NAVIGATION
         function showSection(s) {
             ['lecture', 'quiz', 'video'].forEach(id => {
                 document.getElementById('section-'+id).classList.add('hidden');
@@ -74,7 +83,6 @@
             document.getElementById('btn-'+s).classList.replace('bg-slate-700', 'tab-active');
         }
 
-        // LECTURE CORAN
         async function loadSurahs() {
             const res = await fetch('https://api.alquran.cloud/v1/surah');
             const data = await res.json();
@@ -86,12 +94,11 @@
             const n = e.target.value; if(!n) return;
             const res = await fetch(`https://api.alquran.cloud/v1/surah/${n}/fr.hamidullah`);
             const data = await res.json();
-            let h = `<div class="text-center mb-6"><h2 class="text-2xl font-bold text-emerald-400">${data.data.englishName}</h2><div class="arabic text-4xl my-4 py-4 border-y border-slate-700">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div></div>`;
+            let h = `<div class="text-center mb-6"><h2 class="text-2xl font-bold text-emerald-400">${data.data.englishName}</h2><div class="arabic text-4xl my-4 py-4 border-y border-slate-700 text-white">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div></div>`;
             data.data.ayahs.forEach(a => h += `<div class="bg-slate-800/40 p-4 rounded-xl border border-slate-700 text-lg mb-2">${a.text} <span class="text-emerald-500 text-sm font-bold">(${a.numberInSurah})</span></div>`);
             document.getElementById('coranContent').innerHTML = h;
         });
 
-        // QUIZ DATA
         const db = [
             {q:"Combien de sourates dans le Coran ?", a:["110","114","120","112"], c:1},
             {q:"Le premier pilier de l'Islam ?", a:["Prière","Zakat","Shahada","Hajj"], c:2},
@@ -101,7 +108,6 @@
             {q:"L'ange de la révélation ?", a:["Mikaïl","Israfil","Jibril","Malik"], c:2},
             {q:"Nombre de prières obligatoires ?", a:["3","4","5","6"], c:2},
             {q:"Le livre révélé à Moussa ?", a:["Coran","Zabur","Injil","Tawrat"], c:3},
-            {q:"Direction de la prière ?", a:["Qibla","Minbar","Mihrab","Kaaba"], c:0},
             {q:"Dernier Prophète de l'Islam ?", a:["Ibrahim","Issa","Moussa","Muhammad (SWS)"], c:3},
             {q:"Quelle sourate n'a pas de Bismillah ?", a:["Yasin","At-Tawbah","An-Nasr","Al-Fil"], c:1}
         ];
@@ -139,9 +145,9 @@
             list.innerHTML = '<h3 class="font-bold text-emerald-400 mb-2">Correction :</h3>';
             questions.forEach((q, i) => {
                 const ok = userAns[i] === q.c;
-                list.innerHTML += `<div class="p-3 rounded-lg border ${ok?'border-emerald-500/50 bg-emerald-500/5':'border-red-500/50 bg-red-500/5'} mb-2">
+                list.innerHTML += `<div class="p-3 rounded-lg border ${ok?'border-emerald-500/50 bg-emerald-500/5':'border-red-500/50 bg-red-500/5'} mb-2 text-sm">
                     <p class="font-semibold">${q.q}</p>
-                    <p class="text-sm">Ta réponse : <span class="${ok?'text-emerald-400':'text-red-400'}">${q.a[userAns[i]]}</span> ${!ok ? ' | Vrai : <span class="text-emerald-400">'+q.a[q.c]+'</span>' : ''}</p>
+                    <p>Ta rép: <span class="${ok?'text-emerald-400':'text-red-400'}">${q.a[userAns[i]]}</span> ${!ok ? ' | Vrai: <span class="text-emerald-400">'+q.a[q.c]+'</span>' : ''}</p>
                 </div>`;
             });
         }
