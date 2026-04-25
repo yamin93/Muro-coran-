@@ -17,13 +17,13 @@
 
     <div class="max-w-3xl mx-auto">
         <div class="grid grid-cols-3 gap-2 mb-8 bg-slate-800 p-2 rounded-2xl border border-slate-700 shadow-lg">
-            <button id="btn-lecture" onclick="showSection('lecture')" class="py-3 rounded-xl font-bold transition-all tab-active">📖 Coran</button>
-            <button id="btn-quiz" onclick="showSection('quiz')" class="py-3 rounded-xl font-bold transition-all bg-slate-700">🧠 Quiz</button>
-            <button id="btn-video" onclick="showSection('video')" class="py-3 rounded-xl font-bold transition-all bg-slate-700">🎥 Vidéos</button>
+            <button id="btn-lecture" onclick="showSection('lecture')" class="py-3 rounded-xl font-bold transition-all tab-active text-xs sm:text-base">📖 Coran</button>
+            <button id="btn-quiz" onclick="showSection('quiz')" class="py-3 rounded-xl font-bold transition-all bg-slate-700 text-xs sm:text-base">🧠 Quiz</button>
+            <button id="btn-guide" onclick="showSection('guide')" class="py-3 rounded-xl font-bold transition-all bg-slate-700 text-xs sm:text-base">📚 Guides</button>
         </div>
 
         <div id="section-lecture">
-            <h1 class="text-2xl font-bold text-center mb-6 text-emerald-400 font-serif">Le Saint Coran</h1>
+            <h1 class="text-2xl font-bold text-center mb-6 text-emerald-400">Le Saint Coran</h1>
             <select id="surahSelect" class="w-full p-4 bg-slate-800 border-2 border-emerald-900 rounded-2xl mb-8 outline-none text-lg focus:border-emerald-500">
                 <option value="">Chargement...</option>
             </select>
@@ -37,45 +37,50 @@
                     <p id="question-text" class="text-xl mb-6 font-semibold"></p>
                     <div id="options-container" class="grid gap-3"></div>
                 </div>
-                <div id="result-box" class="hidden">
-                    <h2 class="text-2xl font-bold text-center mb-2">Résultat</h2>
-                    <p id="final-score" class="text-5xl text-emerald-400 font-bold text-center mb-6"></p>
-                    <div id="correction-list" class="space-y-4 mb-6 max-h-96 overflow-y-auto p-2"></div>
-                    <button onclick="startNewQuiz()" class="w-full bg-emerald-600 py-4 rounded-2xl font-bold text-lg">Nouveau Quiz</button>
+                <div id="result-box" class="hidden text-center">
+                    <h2 class="text-2xl font-bold mb-2">Score : <span id="final-score" class="text-emerald-400"></span></h2>
+                    <div id="correction-list" class="space-y-4 mb-6 text-left max-h-80 overflow-y-auto p-2"></div>
+                    <button onclick="startNewQuiz()" class="w-full bg-emerald-600 py-4 rounded-2xl font-bold transition-all">Nouveau Quiz</button>
                 </div>
             </div>
         </div>
 
-        <div id="section-video" class="hidden space-y-6">
-            <h2 class="text-xl font-bold text-emerald-400 text-center mb-4">Vidéos d'Apprentissage</h2>
-            
-            <a href="https://www.youtube.com/watch?v=283_H96vV3Y" target="_blank" class="block bg-slate-800 p-6 rounded-3xl border border-slate-700 hover:border-emerald-500 transition-all shadow-xl group">
-                <div class="flex items-center space-x-4">
-                    <div class="bg-emerald-600 p-4 rounded-2xl text-2xl group-hover:scale-110 transition-transform">🚿</div>
-                    <div>
-                        <h3 class="text-xl font-bold text-white">Apprendre les Ablutions</h3>
-                        <p class="text-slate-400 text-sm">Tutoriel complet étape par étape (Wudu)</p>
-                    </div>
+        <div id="section-guide" class="hidden space-y-6">
+            <div class="bg-slate-800 p-6 rounded-3xl border border-slate-700 shadow-xl">
+                <h3 class="text-2xl font-bold text-emerald-400 mb-4 flex items-center">
+                    <span class="mr-3 text-3xl">🚿</span> Les Ablutions (Wudu)
+                </h3>
+                <div class="space-y-3 text-slate-300">
+                    <p><strong>1. L'intention :</strong> Commencer par "Bismillah".</p>
+                    <p><strong>2. Les mains :</strong> Laver 3 fois jusqu'aux poignets.</p>
+                    <p><strong>3. La bouche :</strong> Rincer 3 fois avec la main droite.</p>
+                    <p><strong>4. Le nez :</strong> Aspirer l'eau et rejeter 3 fois.</p>
+                    <p><strong>5. Le visage :</strong> Laver 3 fois (du front au menton).</p>
+                    <p><strong>6. Les bras :</strong> Laver jusqu'aux coudes 3 fois (droite puis gauche).</p>
+                    <p><strong>7. La tête :</strong> Passer les mains mouillées sur les cheveux et les oreilles 1 fois.</p>
+                    <p><strong>8. Les pieds :</strong> Laver jusqu'aux chevilles 3 fois (droite puis gauche).</p>
                 </div>
-                <div class="mt-4 text-emerald-500 font-bold text-sm">Clique ici pour voir sur YouTube →</div>
-            </a>
+            </div>
 
-            <a href="https://www.youtube.com/watch?v=06u57Iatn84" target="_blank" class="block bg-slate-800 p-6 rounded-3xl border border-slate-700 hover:border-emerald-500 transition-all shadow-xl group">
-                <div class="flex items-center space-x-4">
-                    <div class="bg-emerald-600 p-4 rounded-2xl text-2xl group-hover:scale-110 transition-transform">📖</div>
-                    <div>
-                        <h3 class="text-xl font-bold text-white">Lire le Coran</h3>
-                        <p class="text-slate-400 text-sm">Méthode simple pour débutants</p>
-                    </div>
+            <div class="bg-slate-800 p-6 rounded-3xl border border-slate-700 shadow-xl">
+                <h3 class="text-2xl font-bold text-emerald-400 mb-4 flex items-center">
+                    <span class="mr-3 text-3xl">📖</span> Apprendre le Coran
+                </h3>
+                <div class="space-y-3 text-slate-300">
+                    <p><strong>1. L'alphabet :</strong> Commencer par apprendre les lettres arabes (Al-Qaïda An-Norania).</p>
+                    <p><strong>2. L'écoute :</strong> Écouter un récitateur précis (ex: Al-Housary) pour la prononciation.</p>
+                    <p><strong>3. La répétition :</strong> Répéter un verset plusieurs fois jusqu'à le connaître par cœur avant de passer au suivant.</p>
+                    <p><strong>4. La régularité :</strong> Mieux vaut apprendre 2 versets par jour tous les jours qu'une page entière une fois par mois.</p>
+                    <p><strong>5. Compréhension :</strong> Lire la traduction en français pour savoir ce que l'on récite.</p>
                 </div>
-                <div class="mt-4 text-emerald-500 font-bold text-sm">Clique ici pour voir sur YouTube →</div>
-            </a>
+            </div>
         </div>
     </div>
 
     <script>
+        // NAVIGATION
         function showSection(s) {
-            ['lecture', 'quiz', 'video'].forEach(id => {
+            ['lecture', 'quiz', 'guide'].forEach(id => {
                 document.getElementById('section-'+id).classList.add('hidden');
                 document.getElementById('btn-'+id).classList.replace('tab-active', 'bg-slate-700');
             });
@@ -83,6 +88,7 @@
             document.getElementById('btn-'+s).classList.replace('bg-slate-700', 'tab-active');
         }
 
+        // CORAN
         async function loadSurahs() {
             const res = await fetch('https://api.alquran.cloud/v1/surah');
             const data = await res.json();
@@ -99,19 +105,14 @@
             document.getElementById('coranContent').innerHTML = h;
         });
 
+        // QUIZ
         const db = [
             {q:"Combien de sourates dans le Coran ?", a:["110","114","120","112"], c:1},
             {q:"Le premier pilier de l'Islam ?", a:["Prière","Zakat","Shahada","Hajj"], c:2},
-            {q:"Le mois du jeûne ?", a:["Muharram","Ramadan","Safar","Rajab"], c:1},
-            {q:"La plus longue sourate ?", a:["Fatiha","Baqarah","Yasin","An-Nas"], c:1},
-            {q:"Lieu de naissance du Prophète (SWS) ?", a:["Médine","La Mecque","Damas","Taïf"], c:1},
-            {q:"L'ange de la révélation ?", a:["Mikaïl","Israfil","Jibril","Malik"], c:2},
-            {q:"Nombre de prières obligatoires ?", a:["3","4","5","6"], c:2},
-            {q:"Le livre révélé à Moussa ?", a:["Coran","Zabur","Injil","Tawrat"], c:3},
-            {q:"Dernier Prophète de l'Islam ?", a:["Ibrahim","Issa","Moussa","Muhammad (SWS)"], c:3},
-            {q:"Quelle sourate n'a pas de Bismillah ?", a:["Yasin","At-Tawbah","An-Nasr","Al-Fil"], c:1}
+            {q:"L'ange de la révélation ?", a:["Mikaïl","Jibril","Malik","Israfil"], c:1},
+            {q:"La plus longue sourate ?", a:["Al-Fatiha","Al-Baqarah","Yasin","An-Nas"], c:1},
+            {q:"Nombre de prières obligatoires ?", a:["3","5","4","6"], c:1}
         ];
-
         let questions = []; let cur = 0; let score = 0; let userAns = [];
 
         function startNewQuiz() {
@@ -142,12 +143,12 @@
             document.getElementById('result-box').classList.remove('hidden');
             document.getElementById('final-score').textContent = `${score}/5`;
             const list = document.getElementById('correction-list');
-            list.innerHTML = '<h3 class="font-bold text-emerald-400 mb-2">Correction :</h3>';
+            list.innerHTML = "";
             questions.forEach((q, i) => {
                 const ok = userAns[i] === q.c;
-                list.innerHTML += `<div class="p-3 rounded-lg border ${ok?'border-emerald-500/50 bg-emerald-500/5':'border-red-500/50 bg-red-500/5'} mb-2 text-sm">
-                    <p class="font-semibold">${q.q}</p>
-                    <p>Ta rép: <span class="${ok?'text-emerald-400':'text-red-400'}">${q.a[userAns[i]]}</span> ${!ok ? ' | Vrai: <span class="text-emerald-400">'+q.a[q.c]+'</span>' : ''}</p>
+                list.innerHTML += `<div class="p-3 rounded-lg border ${ok?'border-emerald-500/30 bg-emerald-500/5':'border-red-500/30 bg-red-500/5'} mb-2">
+                    <p class="font-bold">${q.q}</p>
+                    <p class="text-sm">Rép: <span class="${ok?'text-emerald-400':'text-red-400'}">${q.a[userAns[i]]}</span> ${!ok ? ' | Vrai: <span class="text-emerald-400">'+q.a[q.c]+'</span>' : ''}</p>
                 </div>`;
             });
         }
@@ -156,3 +157,4 @@
     </script>
 </body>
 </html>
+
