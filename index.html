@@ -1,14 +1,477 @@
-{
-  "surah": 1,
-  "name": "Al-Fatiha",
-  "ayahs": [
-    {
-      "number": 1,
-      "text": "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ"
-    },
-    {
-      "number": 2,
-      "text": "الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ"
-    }
-  ]
-}
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coran Online - Lecture du Saint Coran</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0f766e;
+            --primary-light: #14b8a6;
+            --bg-dark: #0f172a;
+            --bg-card: #1e293b;
+            --text-gold: #fbbf24;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-dark);
+            color: #e2e8f0;
+            min-height: 100vh;
+        }
+        
+        .arabic-font {
+            font-family: 'Amiri', serif;
+            line-height: 2.2;
+        }
+        
+        .sourate-card {
+            background: var(--bg-card);
+            border: 1px solid #334155;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .sourate-card:hover {
+            border-color: var(--primary-light);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(20, 184, 166, 0.1);
+        }
+        
+        .sourate-card.active {
+            border-color: var(--text-gold);
+            background: #1e293b;
+        }
+        
+        .verse-container {
+            background: var(--bg-card);
+            border-radius: 16px;
+            border: 1px solid #334155;
+        }
+        
+        .verse-number {
+            background: var(--primary);
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        
+        .arabic-text {
+            font-size: 1.5rem;
+            color: #fbbf24;
+            text-align: right;
+            direction: rtl;
+        }
+        
+        .french-text {
+            font-size: 0.95rem;
+            color: #94a3b8;
+            font-style: italic;
+            line-height: 1.6;
+        }
+        
+        .bismillah {
+            font-size: 2rem;
+            color: var(--text-gold);
+            text-align: center;
+            margin: 1.5rem 0;
+            direction: rtl;
+        }
+        
+        .search-input {
+            background: #1e293b;
+            border: 1px solid #334155;
+            color: white;
+            transition: all 0.3s;
+        }
+        
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 3px rgba(20, 184, 166, 0.2);
+        }
+        
+        .sidebar {
+            background: var(--bg-card);
+            border-right: 1px solid #334155;
+        }
+        
+        .scroll-smooth { scroll-behavior: smooth; }
+        
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        @media (max-width: 1024px) {
+            .sidebar { 
+                position: fixed; 
+                left: -100%; 
+                top: 0; 
+                height: 100vh; 
+                width: 300px; 
+                z-index: 50; 
+                transition: left 0.3s ease;
+            }
+            .sidebar.open { left: 0; }
+            .overlay { 
+                display: none; 
+                position: fixed; 
+                inset: 0; 
+                background: rgba(0,0,0,0.7); 
+                z-index: 40; 
+            }
+            .overlay.show { display: block; }
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            transition: all 0.3s;
+        }
+        .btn-primary:hover { background: var(--primary-light); }
+        
+        .progress-bar {
+            height: 3px;
+            background: var(--primary);
+            transition: width 0.3s;
+        }
+        
+        .bookmark-btn {
+            transition: all 0.2s;
+        }
+        .bookmark-btn:hover { color: var(--text-gold); }
+        .bookmark-btn.active { color: var(--text-gold); }
+    </style>
+</head>
+<body class="scroll-smooth">
+    <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+    
+    <div class="flex h-screen overflow-hidden">
+        <aside class="sidebar flex flex-col w-full lg:w-80 flex-shrink-0" id="sidebar">
+            <div class="p-4 border-b border-gray-700">
+                <div class="flex items-center justify-between mb-4">
+                    <h1 class="text-xl font-bold text-teal-400">📖 Coran Online</h1>
+                    <button onclick="toggleSidebar()" class="lg:hidden text-gray-400 hover:text-white">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                    </button>
+                </div>
+                <input type="text" id="searchInput" placeholder="Rechercher une sourate..." class="search-input w-full px-4 py-2 rounded-lg text-sm" oninput="filterSourates()">
+            </div>
+            
+            <div class="flex-1 overflow-y-auto hide-scrollbar p-2" id="sourateList"></div>
+            
+            <div class="p-4 border-t border-gray-700 text-xs text-gray-500 text-center">
+                Lecture complète du Saint Coran
+            </div>
+        </aside>
+        
+        <main class="flex-1 flex flex-col overflow-hidden">
+            <header class="bg-slate-800 border-b border-gray-700 px-4 py-3 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <button onclick="toggleSidebar()" class="lg:hidden text-gray-400 hover:text-white p-1">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                    </button>
+                    <div>
+                        <h2 id="currentSourateName" class="text-lg font-bold text-white">Al-Fatiha</h2>
+                        <p id="currentSourateInfo" class="text-xs text-gray-400">Mecquoise • 7 versets</p>
+                    </div>
+                </div>
+                
+                <div class="flex items-center gap-2">
+                    <button onclick="changeFontSize(-1)" class="p-2 rounded-lg bg-slate-700 hover:bg-slate-600 text-sm" title="Diminuer">A-</button>
+                    <button onclick="changeFontSize(1)" class="p-2 rounded-lg bg-slate-700 hover:bg-slate-600 text-sm" title="Augmenter">A+</button>
+                    <button onclick="toggleBookmarksPanel()" class="p-2 rounded-lg bg-slate-700 hover:bg-slate-600" title="Signets">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/></svg>
+                    </button>
+                </div>
+            </header>
+            
+            <div class="w-full bg-gray-800">
+                <div class="progress-bar" id="progressBar" style="width: 0%"></div>
+            </div>
+            
+            <div class="flex-1 overflow-y-auto p-4 lg:p-8" id="versesContainer">
+                <div class="max-w-4xl mx-auto verse-container p-6 lg:p-8">
+                    <div class="text-center mb-6">
+                        <div class="bismillah arabic-font">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+                        <p class="text-gray-400 text-sm italic">Au nom d'Allah, le Tout Miséricordieux, le Très Miséricordieux</p>
+                    </div>
+                    <div id="versesList" class="space-y-6"></div>
+                </div>
+                
+                <div class="max-w-4xl mx-auto mt-6 flex justify-between">
+                    <button onclick="prevSourate()" id="prevBtn" class="btn-primary px-6 py-3 rounded-lg flex items-center gap-2 opacity-50 cursor-not-allowed" disabled>
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+                        Sourate précédente
+                    </button>
+                    <button onclick="nextSourate()" id="nextBtn" class="btn-primary px-6 py-3 rounded-lg flex items-center gap-2">
+                        Sourate suivante
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <div id="bookmarksPanel" class="fixed right-0 top-0 h-full w-80 bg-slate-800 border-l border-gray-700 transform translate-x-full transition-transform duration-300 z-50 p-4">
+        <div class="flex items-center justify-between mb-4">
+            <h3 class="text-lg font-bold text-teal-400">Mes Signets</h3>
+            <button onclick="toggleBookmarksPanel()" class="text-gray-400 hover:text-white">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+            </button>
+        </div>
+        <div id="bookmarksList" class="space-y-2 overflow-y-auto h-full pb-20">
+            <p class="text-gray-500 text-sm text-center mt-8">Aucun signet pour l'instant</p>
+        </div>
+    </div>
+
+    <script>
+        const sourates = [
+            { id: 1, nom: "Al-Fatiha", arabe: "الفاتحة", type: "Mecquoise", versets: 7 },
+            { id: 2, nom: "Al-Baqarah", arabe: "البقرة", type: "Médinoise", versets: 286 },
+            { id: 3, nom: "Aal-E-Imran", arabe: "آل عمران", type: "Médinoise", versets: 200 },
+            { id: 4, nom: "An-Nisa", arabe: "النساء", type: "Médinoise", versets: 176 },
+            { id: 5, nom: "Al-Ma'idah", arabe: "المائدة", type: "Médinoise", versets: 120 },
+            { id: 6, nom: "Al-An'am", arabe: "الأنعام", type: "Mecquoise", versets: 165 },
+            { id: 7, nom: "Al-A'raf", arabe: "الأعراف", type: "Mecquoise", versets: 206 },
+            { id: 8, nom: "Al-Anfal", arabe: "الأنفال", type: "Médinoise", versets: 75 },
+            { id: 9, nom: "At-Tawbah", arabe: "التوبة", type: "Médinoise", versets: 129 },
+            { id: 10, nom: "Yunus", arabe: "يونس", type: "Mecquoise", versets: 109 },
+            { id: 11, nom: "Hud", arabe: "هود", type: "Mecquoise", versets: 123 },
+            { id: 12, nom: "Yusuf", arabe: "يوسف", type: "Mecquoise", versets: 111 },
+            { id: 13, nom: "Ar-Ra'd", arabe: "الرعد", type: "Médinoise", versets: 43 },
+            { id: 14, nom: "Ibrahim", arabe: "إبراهيم", type: "Mecquoise", versets: 52 },
+            { id: 15, nom: "Al-Hijr", arabe: "الحجر", type: "Mecquoise", versets: 99 },
+            { id: 16, nom: "An-Nahl", arabe: "النحل", type: "Mecquoise", versets: 128 },
+            { id: 17, nom: "Al-Isra", arabe: "الإسراء", type: "Mecquoise", versets: 111 },
+            { id: 18, nom: "Al-Kahf", arabe: "الكهف", type: "Mecquoise", versets: 110 },
+            { id: 19, nom: "Maryam", arabe: "مريم", type: "Mecquoise", versets: 98 },
+            { id: 20, nom: "Ta-Ha", arabe: "طه", type: "Mecquoise", versets: 135 },
+            { id: 21, nom: "Al-Anbiya", arabe: "الأنبياء", type: "Mecquoise", versets: 112rench-text {
+            font-size: 0.95rem;
+            color: #94a3b8;
+            font-style: italic;
+            line-height: 1.6;
+        }
+        
+        .bismillah {
+            font-size: 2rem;
+            color: var(--text-gold);
+            text-align: center;
+            margin: 1.5rem 0;
+            direction: rtl;
+        }
+        
+        .search-input {
+            background: #1e293b;
+            border: 1px solid #334155;
+            color: white;
+            transition: all 0.3s;
+        }
+        
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 3px rgba(20, 184, 166, 0.2);
+        }
+        
+        .sidebar {
+            background: var(--bg-card);
+            border-right: 1px solid #334155;
+        }
+        
+        .scroll-smooth { scroll-behavior: smooth; }
+        
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        @media (max-width: 1024px) {
+            .sidebar { 
+                position: fixed; 
+                left: -100%; 
+                top: 0; 
+                height: 100vh; 
+                width: 300px; 
+                z-index: 50; 
+                transition: left 0.3s ease;
+            }
+            .sidebar.open { left: 0; }
+            .overlay { 
+                display: none; 
+                position: fixed; 
+                inset: 0; 
+                background: rgba(0,0,0,0.7); 
+                z-index: 40; 
+            }
+            .overlay.show { display: block; }
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            transition: all 0.3s;
+        }
+        .btn-primary:hover { background: var(--primary-light); }
+        
+        .progress-bar {
+            height: 3px;
+            background: var(--primary);
+            transition: width 0.3s;
+        }
+        
+        .bookmark-btn {
+            transition: all 0.2s;
+        }
+        .bookmark-btn:hover { color: var(--text-gold); }
+        .bookmark-btn.active { color: var(--text-gold); }
+    </style>
+</head>
+<body class="scroll-smooth">
+    <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+    
+    <div class="flex h-screen overflow-hidden">
+        <aside class="sidebar flex flex-col w-full lg:w-80 flex-shrink-0" id="sidebar">
+            <div class="p-4 border-b border-gray-700">
+                <div class="flex items-center justify-between mb-4">
+                    <h1 class="text-xl font-bold text-teal-400">📖 Coran Online</h1>
+                    <button onclick="toggleSidebar()" class="lg:hidden text-gray-400 hover:text-white">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                    </button>
+                </div>
+                <input type="text" id="searchInput" placeholder="Rechercher une sourate..." class="search-input w-full px-4 py-2 rounded-lg text-sm" oninput="filterSourates()">
+            </div>
+            
+            <div class="flex-1 overflow-y-auto hide-scrollbar p-2" id="sourateList"></div>
+            
+            <div class="p-4 border-t border-gray-700 text-xs text-gray-500 text-center">
+                Lecture complète du Saint Coran
+            </div>
+        </aside>
+        
+        <main class="flex-1 flex flex-col overflow-hidden">
+            <header class="bg-slate-800 border-b border-gray-700 px-4 py-3 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <button onclick="toggleSidebar()" class="lg:hidden text-gray-400 hover:text-white p-1">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                    </button>
+                    <div>
+                        <h2 id="currentSourateName" class="text-lg font-bold text-white">Al-Fatiha</h2>
+                        <p id="currentSourateInfo" class="text-xs text-gray-400">Mecquoise • 7 versets</p>
+                    </div>
+                </div>
+                
+                <div class="flex items-center gap-2">
+                    <button onclick="changeFontSize(-1)" class="p-2 rounded-lg bg-slate-700 hover:bg-slate-600 text-sm" title="Diminuer">A-</button>
+                    <button onclick="changeFontSize(1)" class="p-2 rounded-lg bg-slate-700 hover:bg-slate-600 text-sm" title="Augmenter">A+</button>
+                    <button onclick="toggleBookmarksPanel()" class="p-2 rounded-lg bg-slate-700 hover:bg-slate-600" title="Signets">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/></svg>
+                    </button>
+                </div>
+            </header>
+            
+            <div class="w-full bg-gray-800">
+                <div class="progress-bar" id="progressBar" style="width: 0%"></div>
+            </div>
+            
+            <div class="flex-1 overflow-y-auto p-4 lg:p-8" id="versesContainer">
+                <div class="max-w-4xl mx-auto verse-container p-6 lg:p-8">
+                    <div class="text-center mb-6">
+                        <div class="bismillah arabic-font">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+                        <p class="text-gray-400 text-sm italic">Au nom d'Allah, le Tout Miséricordieux, le Très Miséricordieux</p>
+                    </div>
+                    <div id="versesList" class="space-y-6"></div>
+                </div>
+                
+                <div class="max-w-4xl mx-auto mt-6 flex justify-between">
+                    <button onclick="prevSourate()" id="prevBtn" class="btn-primary px-6 py-3 rounded-lg flex items-center gap-2 opacity-50 cursor-not-allowed" disabled>
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+                        Sourate précédente
+                    </button>
+                    <button onclick="nextSourate()" id="nextBtn" class="btn-primary px-6 py-3 rounded-lg flex items-center gap-2">
+                        Sourate suivante
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <div id="bookmarksPanel" class="fixed right-0 top-0 h-full w-80 bg-slate-800 border-l border-gray-700 transform translate-x-full transition-transform duration-300 z-50 p-4">
+        <div class="flex items-center justify-between mb-4">
+            <h3 class="text-lg font-bold text-teal-400">Mes Signets</h3>
+            <button onclick="toggleBookmarksPanel()" class="text-gray-400 hover:text-white">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+            </button>
+        </div>
+        <div id="bookmarksList" class="space-y-2 overflow-y-auto h-full pb-20">
+            <p class="text-gray-500 text-sm text-center mt-8">Aucun signet pour l'instant</p>
+        </div>
+    </div>
+
+    <script>
+        const sourates = [
+            { id: 1, nom: "Al-Fatiha", arabe: "الفاتحة", type: "Mecquoise", versets: 7 },
+            { id: 2, nom: "Al-Baqarah", arabe: "البقرة", type: "Médinoise", versets: 286 },
+            { id: 3, nom: "Aal-E-Imran", arabe: "آل عمران", type: "Médinoise", versets: 200 },
+            { id: 4, nom: "An-Nisa", arabe: "النساء", type: "Médinoise", versets: 176 },
+            { id: 5, nom: "Al-Ma'idah", arabe: "المائدة", type: "Médinoise", versets: 120 },
+            { id: 6, nom: "Al-An'am", arabe: "الأنعام", type: "Mecquoise", versets: 165 },
+            { id: 7, nom: "Al-A'raf", arabe: "الأعراف", type: "Mecquoise", versets: 206 },
+            { id: 8, nom: "Al-Anfal", arabe: "الأنفال", type: "Médinoise", versets: 75 },
+            { id: 9, nom: "At-Tawbah", arabe: "التوبة", type: "Médinoise", versets: 129 },
+            { id: 10, nom: "Yunus", arabe: "يونس", type: "Mecquoise", versets: 109 },
+            { id: 11, nom: "Hud", arabe: "هود", type: "Mecquoise", versets: 123 },
+            { id: 12, nom: "Yusuf", arabe: "يوسف", type: "Mecquoise", versets: 111 },
+            { id: 13, nom: "Ar-Ra'd", arabe: "الرعد", type: "Médinoise", versets: 43 },
+            { id: 14, nom: "Ibrahim", arabe: "إبراهيم", type: "Mecquoise", versets: 52 },
+            { id: 15, nom: "Al-Hijr", arabe: "الحجر", type: "Mecquoise", versets: 99 },
+            { id: 16, nom: "An-Nahl", arabe: "النحل", type: "Mecquoise", versets: 128 },
+            { id: 17, nom: "Al-Isra", arabe: "الإسراء", type: "Mecquoise", versets: 111 },
+            { id: 18, nom: "Al-Kahf", arabe: "الكهف", type: "Mecquoise", versets: 110 },
+            { id: 19, nom: "Maryam", arabe: "مريم", type: "Mecquoise", versets: 98 },
+            { id: 20, nom: "Ta-Ha", arabe: "طه", type: "Mecquoise", versets: 135 },
+            { id: 21, nom: "Al-Anbiya", arabe: "الأنبياء", type: "Mecquoise", versets: 112 },
+            { id: 22, nom: "Al-Hajj", arabe: "الحج", type: "Médinoise", versets: 78 },
+            { id: 23, nom: "Al-Mu'minun", arabe: "المؤمنون", type: "Mecquoise", versets: 118 },
+            { id: 24, nom: "An-Nur", arabe: "النور", type: "Médinoise", versets: 64 },
+            { id: 25, nom: "Al-Furqan", arabe: "الفرقان", type: "Mecquoise", versets: 77 },
+            { id: 26, nom: "Ash-Shu'ara", arabe: "الشعراء", type: "Mecquoise", versets: 227 },
+            { id: 27, nom: "An-Naml", arabe: "النمل", type: "Mecquoise", versets: 93 },
+            { id: 28, nom: "Al-Qasas", arabe: "القصص", type: "Mecquoise", versets: 88 },
+            { id: 29, nom: "Al-Ankabut", arabe: "العنكبوت", type: "Mecquoise", versets: 69 },
+            { id: 30, nom: "Ar-Rum", arabe: "الروم", type: "Mecquoise", versets: 60 },
+            { id: 31, nom: "Luqman", arabe: "لقمان", type: "Mecquoise", versets: 34 },
+            { id: 32, nom: "As-Sajda", arabe: "السجدة", type: "Mecquoise", versets: 30 },
+            { id: 33, nom: "Al-Ahzab", arabe: "الأحزاب", type: "Médinoise", versets: 73 },
+            { id: 34, nom: "Saba", arabe: "سبأ", type: "Mecquoise", versets: 54 },
+            { id: 35, nom: "Fatir", arabe: "فاطر", type: "Mecquoise", versets: 45 },
+            { id: 36, nom: "Ya-Sin", arabe: "يس", type: "Mecquoise", versets: 83 },
+            { id: 37, nom: "As-Saffat", arabe: "الصافات", type: "Mecquoise", versets: 182 },
+            { id: 38, nom: "Sad", arabe: "ص", type: "Mecquoise", versets: 88 },
+            { id: 39, nom: "Az-Zumar", arabe: "الزمر", type: "Mecquoise", versets: 75 },
+            { id: 40, nom: "Ghafir", arabe: "غافر", type: "Mecquoise", versets: 85 },
+            { id: 41, nom: "Fussilat", arabe: "فصلت", type: "Mecquoise", versets: 54 },
+            { id: 42, nom: "Ash-Shura", arabe: "الشورى", type: "Mecquoise", versets: 53 },
+            { id: 43, nom: "Az-Zukhruf", arabe: "الزخرف", type: "Mecquoise", versets: 89 },
+            { id: 44, nom: "Ad-Dukhan", arabe: "الدخان", type: "Mecquoise", versets: 59 },
+            { id: 45, nom: "Al-Jathiya", arabe: "الجاثية", type: "Mecquoise", versets: 37 },
+            { id: 46, nom: "Al-Ahqaf", arabe: "الأحقاف", type: "Mecquoise", versets: 35 },
+            { id: 47, nom: "Muhammad", arabe: "محمد", type: "Médinoise", versets: 38 },
+            { id: 48, nom: "Al-Fath", arabe: "الفتح", type: "Médinoise", versets: 29 },
+            { id: 49, nom: "Al-Hujurat", arabe: "الحجرات", type: "Médinoise", versets: 18 },
+            { id: 50, nom: "Qaf", arabe: "ق", type: "Mecquoise", versets: 45 },
+            { id: 51, nom: "Adh-Dhariyat", arabe: "الذاريات", type: "Mecquoise", versets: 60 },
+            { id: 52, nom: "At-Tur", arabe: "الطور", type: "Mecquoise", versets: 49 },
+            { id: 53, nom: "An-Najm", arabe: "النجم", type: "Mecquoise", versets: 62 },
+            { id: 54, nom: "Al-Qamar", arabe: "القمر", type: "Mecquoise", versets: 55 },
+            { id: 55, nom: "Ar-Rahman", arabe:
