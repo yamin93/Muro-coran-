@@ -3,278 +3,240 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MUSLIM APP - Pack VIP</title>
+    <title>Muslim App - Montfermeil</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            background-color: #000000;
-            color: #ffffff;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding-top: 60px;
-        }
-
-        /* Logo */
-        .logo-container {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .logo {
-            font-size: 42px;
-            font-weight: 900;
-            font-style: italic;
-            color: #4ade80;
-            letter-spacing: -1px;
-            text-transform: uppercase;
-        }
-
-        .date {
-            font-size: 14px;
-            color: #4ade80;
-            opacity: 0.8;
-            margin-top: 8px;
-            letter-spacing: 2px;
-        }
-
-        /* Navigation */
-        .nav-container {
-            background: #1a1a2e;
-            border-radius: 30px;
-            padding: 6px;
-            display: flex;
-            gap: 4px;
-            margin-bottom: 40px;
-            width: 90%;
-            max-width: 400px;
-        }
-
-        .nav-item {
-            flex: 1;
-            text-align: center;
-            padding: 12px 8px;
-            border-radius: 25px;
-            font-size: 12px;
-            font-weight: 600;
-            color: #a0a0a0;
-            cursor: pointer;
-            transition: all 0.3s;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .nav-item.active {
-            background: #0f0f1e;
-            color: #ffffff;
-        }
-
-        /* Card VIP */
-        .vip-card {
-            background: #0f0f1e;
-            border: 1px solid #1a1a2e;
-            border-radius: 25px;
-            padding: 40px 30px;
-            width: 90%;
-            max-width: 380px;
-            text-align: center;
-        }
-
-        .pack-title {
-            font-size: 32px;
-            font-weight: 900;
-            font-style: italic;
-            color: #f59e0b;
-            margin-bottom: 40px;
-            text-transform: uppercase;
-        }
-
-        .price {
-            font-size: 48px;
-            font-weight: 800;
-            color: #ffffff;
-            margin-bottom: 30px;
-        }
-
-        /* PayPal Button Container */
-        .paypal-wrapper {
-            margin-bottom: 20px;
-        }
-
-        /* Fallback button style if PayPal doesn't load */
-        .btn-paypal-fallback {
-            background: #3b82f6;
-            color: white;
-            border: none;
-            border-radius: 30px;
-            padding: 16px;
-            width: 100%;
-            font-size: 14px;
-            font-weight: 700;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            transition: transform 0.2s;
-        }
-
-        .btn-paypal-fallback:hover {
-            transform: scale(1.02);
-        }
-
-        /* Activate button */
-        .btn-activate {
-            background: #f59e0b;
-            color: #000000;
-            border: none;
-            border-radius: 30px;
-            padding: 18px;
-            width: 100%;
-            font-size: 14px;
-            font-weight: 800;
-            cursor: pointer;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-top: 10px;
-            transition: transform 0.2s;
-        }
-
-        .btn-activate:hover {
-            transform: scale(1.02);
-        }
-
-        /* Footer */
-        .footer {
-            margin-top: auto;
-            padding: 30px 20px;
-            text-align: center;
-            width: 100%;
-            background: #ffffff;
-            color: #000000;
-        }
-
-        .footer-text {
-            font-size: 14px;
-            font-weight: 600;
-            text-transform: uppercase;
-        }
-
-        .footer-link {
-            color: #3b82f6;
-            text-decoration: none;
-            font-weight: 700;
-        }
-
-        /* PayPal SDK overrides for dark theme */
-        #paypal-button-container {
-            min-height: 45px;
-        }
+        @import url('https://fonts.googleapis.com/css2?family=Amiri&family=Inter:wght@400;700;900&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #010606; color: #e6edf3; padding-bottom: 110px; }
+        .arabic { font-family: 'Amiri', serif; direction: rtl; line-height: 1.6; }
+        .hidden { display: none; }
+        .nav-active { background: #059669; color: white; border-bottom: 3px solid #34d399; }
+        .card { background: #0a1212; border-radius: 20px; padding: 20px; border: 1px solid #1e293b; margin-bottom: 15px; }
+        .gold-border { border-left: 5px solid #d97706; }
+        .glass { background: rgba(15, 23, 42, 0.8); backdrop-blur: 10px; border: 1px solid rgba(255,255,255,0.05); }
     </style>
 </head>
-<body>
+<body class="p-4" onload="initApp()">
 
-    <!-- Logo -->
-    <div class="logo-container">
-        <div class="logo">MUSLIM APP</div>
-        <div class="date">9 RAMADAN 1447</div>
-    </div>
-
-    <!-- Navigation -->
-    <div class="nav-container">
-        <div class="nav-item">ACCUEIL</div>
-        <div class="nav-item active">PILIERS</div>
-        <div class="nav-item">CORAN</div>
-        <div class="nav-item">OUTILS</div>
-    </div>
-
-    <!-- VIP Card -->
-    <div class="vip-card">
-        <div class="pack-title">PACK VIP</div>
-        
-        <div class="price">2,99€</div>
-        
-        <!-- PayPal Button -->
-        <div class="paypal-wrapper">
-            <div id="paypal-button-container"></div>
+    <div class="max-w-md mx-auto">
+        <div class="text-center py-6">
+            <h1 class="text-4xl font-black text-emerald-500 italic uppercase tracking-tighter">Muslim App</h1>
+            <p id="hijri-date" class="text-[10px] text-emerald-700 font-bold uppercase mt-1 tracking-widest">Chargement...</p>
         </div>
-        
-        <button class="btn-activate" onclick="activateAccess()">
-            ACTIVER MON ACCÈS
-        </button>
-    </div>
 
-    <!-- Footer -->
-    <div class="footer">
-        <div class="footer-text">
-            BOUTIQUE : <a href="#" class="footer-link">CORAN NOBLE ÉDITION</a>
+        <nav class="grid grid-cols-4 gap-1 mb-6 glass p-1 rounded-2xl sticky top-2 z-50 shadow-2xl">
+            <button id="b-home" onclick="nav('home')" class="py-3 rounded-xl text-[8px] font-bold nav-active uppercase">Accueil</button>
+            <button id="b-piliers" onclick="nav('piliers')" class="py-3 rounded-xl text-[8px] font-bold uppercase">Piliers</button>
+            <button id="b-coran" onclick="nav('coran')" class="py-3 rounded-xl text-[8px] font-bold uppercase">Coran</button>
+            <button id="b-outils" onclick="nav('outils')" class="py-3 rounded-xl text-[8px] font-bold uppercase">Outils</button>
+        </nav>
+
+        <div id="s-home" class="space-y-4">
+            <div class="card border-t-4 border-emerald-600">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-[10px] font-bold uppercase text-emerald-500 italic">Mosquée Montfermeil</h3>
+                    <span id="live-day" class="text-[8px] text-slate-500 uppercase font-bold"></span>
+                </div>
+                <div class="grid grid-cols-5 gap-2 text-center" id="prayer-times">
+                    </div>
+            </div>
+
+            <div class="card text-center bg-slate-900/50">
+                <p class="text-[10px] font-bold uppercase text-slate-500 mb-4 tracking-widest">Compteur Tasbih</p>
+                <div class="text-5xl font-black text-emerald-500 mb-6" id="tasbih-count">0</div>
+                <div class="flex gap-2">
+                    <button onclick="countTasbih()" class="flex-1 bg-emerald-600 py-6 rounded-3xl font-black text-lg active:scale-95 transition-transform shadow-lg shadow-emerald-600/20">+1</button>
+                    <button onclick="resetTasbih()" class="px-6 bg-slate-800 rounded-3xl text-xs uppercase font-bold">Reset</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="s-piliers" class="hidden space-y-3">
+            <h2 class="text-amber-500 font-black text-center text-xs uppercase mb-6 tracking-widest">Les 5 Piliers de l'Islam</h2>
+            <div class="card gold-border"><p class="text-amber-500 font-bold text-xs uppercase">1. La Chahada (Attestation de foi)</p></div>
+            <div class="card gold-border"><p class="text-amber-500 font-bold text-xs uppercase">2. La Salat (Les 5 prières)</p></div>
+            <div class="card gold-border"><p class="text-amber-500 font-bold text-xs uppercase">3. La Zakat (Aumône légale)</p></div>
+            <div class="card gold-border"><p class="text-amber-500 font-bold text-xs uppercase">4. Le Sawm (Jeûne du Ramadan)</p></div>
+            <div class="card gold-border"><p class="text-amber-500 font-bold text-xs uppercase">5. Le Hajj (Pèlerinage à la Mecque)</p></div>
+        </div>
+
+        <div id="s-coran" class="hidden space-y-4">
+            <h2 class="text-emerald-500 font-black text-center text-xs uppercase mb-4 tracking-widest">Le Noble Coran</h2>
+            <select id="selSurah" class="w-full p-4 bg-slate-900 border border-emerald-900 rounded-xl text-emerald-400 font-bold outline-none text-xs">
+                <option>Chargement des sourates...</option>
+            </select>
+            <div id="contentCoran" class="mt-4 space-y-2">
+                <p class="text-center text-slate-500 text-[10px] mt-10">Choisissez une sourate pour commencer la lecture.</p>
+            </div>
+        </div>
+
+        <div id="s-outils" class="hidden space-y-4">
+            <button onclick="nav('quiz')" class="w-full card border-l-4 border-blue-500 flex justify-between items-center py-6">
+                <span class="font-bold uppercase text-[10px]">📝 Quiz & Correction</span>
+                <span>➜</span>
+            </button>
+            <button onclick="nav('doua')" class="w-full card border-l-4 border-red-500 flex justify-between items-center py-6">
+                <span class="font-bold uppercase text-[10px]">🛡️ Protection (Doua)</span>
+                <span>➜</span>
+            </button>
+            <button onclick="nav('vip')" class="w-full card border-l-4 border-amber-500 flex justify-between items-center py-6 bg-amber-500/5">
+                <span class="font-bold uppercase text-[10px] text-amber-500">⭐ Pack VIP (Ablutions)</span>
+                <span>➜</span>
+            </button>
+        </div>
+
+        <div id="s-quiz" class="hidden">
+            <div id="quiz-box" class="card">
+                <div class="flex justify-between text-[9px] font-bold text-emerald-500 mb-4 uppercase">
+                    <span id="q-count">Question 1/8</span>
+                    <span id="q-score">Score: 0</span>
+                </div>
+                <p id="q-text" class="text-lg font-bold mb-6 text-center"></p>
+                <div id="opt-container" class="grid gap-3"></div>
+            </div>
+            <div id="quiz-result" class="hidden card text-center border-2 border-emerald-500">
+                <h2 class="text-2xl font-black mb-4 uppercase" id="score-text"></h2>
+                <div id="correction-list" class="text-left text-[10px] space-y-2 mb-6 max-h-60 overflow-y-auto"></div>
+                <button onclick="startQuiz()" class="w-full bg-emerald-600 py-4 rounded-xl font-bold uppercase text-xs">Recommencer</button>
+            </div>
+        </div>
+
+        <div id="s-doua" class="hidden card border-l-4 border-red-600">
+            <p class="arabic text-3xl text-right mb-4 text-red-500">أَعُوذُ بِاللَّهِ مِنَ الشَّيْطَانِ الرَّجِيمِ</p>
+            <p class="text-[10px] text-center italic text-slate-400 uppercase font-bold tracking-widest">A’oudhou billahi mina shaytani rajim</p>
+        </div>
+
+        <div id="s-vip" class="hidden">
+            <div id="vip-lock" class="card text-center p-8">
+                <h2 class="text-2xl font-black text-amber-500 mb-6 italic uppercase">Pack VIP</h2>
+                <div class="bg-black/40 p-6 rounded-3xl mb-6">
+                    <p class="text-3xl font-black text-white mb-6">2,99€</p>
+                    <button onclick="window.open('https://www.paypal.me/TON_NOM/2.99','_blank');localStorage.setItem('paid','true')" class="w-full bg-blue-600 text-white font-black py-5 rounded-2xl text-[10px] uppercase">💰 PAYER VIA PAYPAL</button>
+                </div>
+                <button onclick="checkVIP()" class="w-full bg-amber-500 text-black font-black py-4 rounded-2xl text-[10px] uppercase">ACTIVER MON ACCÈS</button>
+            </div>
+            <div id="vip-content" class="hidden card gold-border">
+                <p class="text-amber-500 font-black text-xs uppercase mb-4 underline">Guide des Ablutions</p>
+                <div class="text-[11px] leading-relaxed space-y-3 text-slate-300">
+                    <p>1. Intention & Bismillah.</p>
+                    <p>2. Mains (3x), Bouche (3x), Nez (3x).</p>
+                    <p>3. Visage (3x), Bras (3x).</p>
+                    <p>4. Tête (1x), Oreilles (1x).</p>
+                    <p>5. Pieds (3x).</p>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- PayPal SDK -->
-    <script src="https://www.paypal.com/sdk/js?client-id=YOUR_PAYPAL_CLIENT_ID&currency=EUR&locale=fr_FR"></script>
-    
+    <div class="fixed bottom-0 left-0 w-full bg-white text-black py-3 text-center font-black text-[9px] border-t-4 border-emerald-600 z-50">
+        BOUTIQUE : <span class="text-blue-600">CORAN NOBLE ÉDITION</span>
+    </div>
+
     <script>
-        // Configuration PayPal
-        if (typeof paypal !== 'undefined') {
-            paypal.Buttons({
-                style: {
-                    color: 'blue',
-                    shape: 'pill',
-                    label: 'pay',
-                    height: 45,
-                    layout: 'horizontal'
-                },
-                
-                createOrder: function(data, actions) {
-                    return actions.order.create({
-                        purchase_units: [{
-                            amount: {
-                                value: '2.99',
-                                currency_code: 'EUR'
-                            },
-                            description: 'Pack VIP - Muslim App'
-                        }]
-                    });
-                },
-                
-                onApprove: function(data, actions) {
-                    return actions.order.capture().then(function(details) {
-                        alert('✅ Paiement réussi ! Bienvenue dans le Pack VIP, ' + details.payer.name.given_name);
-                        // Redirection après paiement
-                        // window.location.href = '/vip-success';
-                    });
-                },
-                
-                onError: function(err) {
-                    console.error('Erreur PayPal:', err);
-                    alert('❌ Erreur de paiement. Veuillez réessayer.');
-                },
-                
-                onCancel: function(data) {
-                    console.log('Paiement annulé');
-                }
-                
-            }).render('#paypal-button-container');
-        } else {
-            // Fallback si PayPal ne charge pas
-            document.getElementById('paypal-button-container').innerHTML = 
-                '<button class="btn-paypal-fallback" onclick="window.open(\'https://www.paypal.com/paypalme/VOTRE_LIEN_PAYPAL/2.99EUR\', \'_blank\')">' +
-                '💰 PAYER VIA PAYPAL' +
-                '</button>';
+        function nav(id) {
+            ['home','piliers','coran','outils','quiz','doua','vip'].forEach(s => {
+                const el = document.getElementById('s-'+s);
+                if(el) el.classList.add('hidden');
+                const btn = document.getElementById('b-'+s);
+                if(btn) btn.classList.remove('nav-active');
+            });
+            document.getElementById('s-'+id).classList.remove('hidden');
+            const activeBtn = document.getElementById('b-'+id);
+            if(activeBtn) activeBtn.classList.add('nav-active');
+            if(id === 'quiz') startQuiz();
         }
 
-        function activateAccess() {
-            alert('Veuillez d\'abord effectuer le paiement PayPal pour activer votre accès VIP.');
+        async function initApp() {
+            try {
+                // Horaires auto Montfermeil
+                const r = await fetch(`https://api.aladhan.com/v1/timingsByCity?city=Montfermeil&country=France&method=3`);
+                const d = await r.json();
+                const t = d.data.timings;
+                document.getElementById('prayer-times').innerHTML = `
+                    <div class="bg-slate-900 p-2 rounded-lg border border-white/5"><p class="text-[7px] text-slate-500 uppercase">Fajr</p><p class="text-[10px] font-bold text-emerald-400">${t.Fajr}</p></div>
+                    <div class="bg-slate-900 p-2 rounded-lg border border-white/5"><p class="text-[7px] text-slate-500 uppercase">Duhr</p><p class="text-[10px] font-bold">${t.Dhuhr}</p></div>
+                    <div class="bg-slate-900 p-2 rounded-lg border border-white/5"><p class="text-[7px] text-slate-500 uppercase">Asr</p><p class="text-[10px] font-bold">${t.Asr}</p></div>
+                    <div class="bg-slate-900 p-2 rounded-lg border border-white/5"><p class="text-[7px] text-slate-500 uppercase">Magh.</p><p class="text-[10px] font-bold text-emerald-400">${t.Maghrib}</p></div>
+                    <div class="bg-slate-900 p-2 rounded-lg border border-white/5"><p class="text-[7px] text-slate-500 uppercase">Icha</p><p class="text-[10px] font-bold">${t.Isha}</p></div>
+                `;
+                document.getElementById('live-day').textContent = d.data.date.readable;
+                document.getElementById('hijri-date').textContent = d.data.date.hijri.day + " " + d.data.date.hijri.month.fr + " " + d.data.date.hijri.year;
+            } catch(e) {}
+            loadCoran();
+        }
+
+        async function loadCoran() {
+            const r = await fetch('https://api.alquran.cloud/v1/surah');
+            const d = await r.json();
+            const sel = document.getElementById('selSurah');
+            sel.innerHTML = '<option value="">-- Choisissez une Sourate --</option>';
+            d.data.forEach(s => sel.innerHTML += `<option value="${s.number}">${s.number}. ${s.englishName}</option>`);
+        }
+
+        document.getElementById('selSurah').addEventListener('change', async (e) => {
+            if(!e.target.value) return;
+            const cont = document.getElementById('contentCoran');
+            cont.innerHTML = '<p class="text-center py-10 text-emerald-500 font-bold text-[10px] animate-pulse">CHARGEMENT...</p>';
+            const r = await fetch(`https://api.alquran.cloud/v1/surah/${e.target.value}/fr.hamidullah`);
+            const d = await r.json();
+            let h = '<div class="arabic text-3xl text-center my-6 text-emerald-500">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>';
+            d.data.ayahs.forEach(a => h += `<div class="p-4 bg-slate-900/60 rounded-2xl mb-2 border border-white/5 text-[11px] leading-relaxed">${a.text}</div>`);
+            cont.innerHTML = h;
+        });
+
+        let count = 0;
+        function countTasbih() { count++; document.getElementById('tasbih-count').textContent = count; if(navigator.vibrate) navigator.vibrate(50); }
+        function resetTasbih() { count = 0; document.getElementById('tasbih-count').textContent = 0; }
+
+        const qList = [
+            {q: "Combien y a-t-il de piliers de l'Islam ?", a: ["3","5","7"], c: 1},
+            {q: "Quelle est la direction de la prière ?", a: ["Est","Qibla","Nord"], c: 1},
+            {q: "Quel est le mois sacré du jeûne ?", a: ["Ramadan","Safar","Rajab"], c: 0}
+        ];
+        let quizPool = [], qScore = 0, qIdx = 0, qHist = [];
+        function startQuiz() {
+            qScore = 0; qIdx = 0; qHist = [];
+            quizPool = [...qList].sort(() => Math.random() - 0.5);
+            document.getElementById('quiz-box').classList.remove('hidden');
+            document.getElementById('quiz-result').classList.add('hidden');
+            showQ();
+        }
+        function showQ() {
+            const q = quizPool[qIdx];
+            document.getElementById('q-count').textContent = `Question ${qIdx + 1}/${quizPool.length}`;
+            document.getElementById('q-score').textContent = `Score: ${qScore}`;
+            document.getElementById('q-text').textContent = q.q;
+            const cont = document.getElementById('opt-container');
+            cont.innerHTML = '';
+            q.a.forEach((opt, i) => {
+                const btn = document.createElement('button');
+                btn.className = "w-full p-4 bg-slate-800 rounded-2xl text-[11px] font-bold active:bg-emerald-600";
+                btn.textContent = opt;
+                btn.onclick = () => {
+                    const win = (i === q.c); if(win) qScore++;
+                    qHist.push({q: q.q, user: opt, correct: q.a[q.c], win: win});
+                    qIdx++; if(qIdx < quizPool.length) showQ(); else endQ();
+                };
+                cont.appendChild(btn);
+            });
+        }
+        function endQ() {
+            document.getElementById('quiz-box').classList.add('hidden');
+            document.getElementById('quiz-result').classList.remove('hidden');
+            document.getElementById('score-text').textContent = `SCORE : ${qScore}/${quizPool.length}`;
+            const list = document.getElementById('correction-list');
+            list.innerHTML = '<p class="font-bold text-emerald-500 mb-2">Correction :</p>';
+            qHist.forEach(h => { list.innerHTML += `<div class="${h.win?'text-emerald-400':'text-red-400'} border-b border-white/5 pb-2"><b>${h.q}</b><br>Rép: ${h.correct} ${h.win?'✅':'❌'}</div>`; });
+        }
+
+        function checkVIP() {
+            if(localStorage.getItem('paid') === 'true') {
+                document.getElementById('vip-lock').classList.add('hidden');
+                document.getElementById('vip-content').classList.remove('hidden');
+            } else { alert("Veuillez d'abord payer via PayPal."); }
         }
     </script>
-
 </body>
 </html>
+
+        
