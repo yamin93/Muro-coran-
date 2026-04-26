@@ -3,47 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Muslim App - Full Version</title>
+    <title>Muslim App</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Amiri&family=Inter:wght@400;700;900&display=swap');
         body { font-family: 'Inter', sans-serif; background-color: #010606; color: #e6edf3; padding-bottom: 100px; }
         .hidden { display: none; }
-        .nav-active { background: #059669; color: white; border-bottom: 3px solid #34d399; }
-        .card { background: #0a1212; border-radius: 20px; padding: 20px; border: 1px solid #1e293b; margin-bottom: 15px; }
+        .nav-active { background: #059669; color: white; border-radius: 12px; }
+        .card { background: #0a1212; border-radius: 24px; padding: 20px; border: 1px solid #1e293b; margin-bottom: 15px; }
         .arabic { font-family: 'Amiri', serif; direction: rtl; line-height: 2.5; }
         
         /* BOUTON PAYPAL COMME TA PHOTO */
-        .paypal-btn {
-            background-color: #0070ba;
+        .btn-paypal {
+            background-color: #3b66f5; /* Le bleu exact de ta photo */
             color: white;
-            padding: 16px;
-            border-radius: 50px;
+            padding: 18px;
+            border-radius: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
             text-decoration: none;
-            box-shadow: 0 4px 15px rgba(0, 112, 186, 0.3);
-            transition: 0.2s;
+            font-weight: 800;
+            font-size: 14px;
             width: 100%;
         }
-        .paypal-logo { font-style: italic; font-weight: 900; font-size: 20px; margin-right: 8px; }
-        .paypal-text { font-weight: 700; font-size: 14px; }
+        /* BOUTON ACTIVER ORANGE */
+        .btn-activate {
+            background-color: #f1a944; /* Orange de ta photo */
+            color: #000;
+            padding: 18px;
+            border-radius: 20px;
+            font-weight: 900;
+            text-transform: uppercase;
+            width: 100%;
+            margin-top: 15px;
+        }
     </style>
 </head>
 <body class="p-4" onload="initApp()">
 
     <div class="max-w-md mx-auto">
-        <div class="text-center py-6">
-            <h1 class="text-4xl font-black text-emerald-500 italic uppercase">Muslim App</h1>
+        <div class="text-center py-8">
+            <h1 class="text-5xl font-black text-emerald-500 italic uppercase tracking-tighter">Muslim App</h1>
+            <p class="text-[10px] text-emerald-800 font-bold mt-2 uppercase tracking-widest">9 Undefined 1447</p>
         </div>
 
-        <nav class="grid grid-cols-5 gap-1 mb-6 bg-slate-900/50 p-1 rounded-2xl sticky top-2 z-50">
-            <button id="b-home" onclick="nav('home')" class="py-3 rounded-xl text-[7px] font-bold nav-active uppercase">Home</button>
-            <button id="b-piliers" onclick="nav('piliers')" class="py-3 rounded-xl text-[7px] font-bold uppercase">Piliers</button>
-            <button id="b-coran" onclick="nav('coran')" class="py-3 rounded-xl text-[7px] font-bold uppercase">Coran</button>
-            <button id="b-quiz" onclick="nav('quiz')" class="py-3 rounded-xl text-[7px] font-bold uppercase">Quiz</button>
-            <button id="b-vip" onclick="nav('vip')" class="py-3 rounded-xl text-[7px] font-bold uppercase text-amber-500 border border-amber-500/20">⭐ VIP</button>
+        <nav class="grid grid-cols-4 gap-2 mb-8 bg-[#111827] p-2 rounded-2xl sticky top-2 z-50">
+            <button id="b-home" onclick="nav('home')" class="py-3 text-[9px] font-bold uppercase">Accueil</button>
+            <button id="b-piliers" onclick="nav('piliers')" class="py-3 text-[9px] font-bold uppercase">Piliers</button>
+            <button id="b-coran" onclick="nav('coran')" class="py-3 text-[9px] font-bold uppercase">Coran</button>
+            <button id="b-vip" onclick="nav('vip')" class="py-3 text-[9px] font-bold uppercase">Outils</button>
         </nav>
 
         <div id="s-home" class="space-y-4">
@@ -52,81 +61,92 @@
             </div>
             <div class="card text-center">
                 <div class="text-4xl font-black text-emerald-500 mb-4" id="tasbih-count">0</div>
-                <button onclick="countTasbih()" class="w-full bg-emerald-600 py-4 rounded-2xl font-black uppercase text-xs">+1 Tasbih</button>
+                <button onclick="countTasbih()" class="w-full bg-emerald-600 py-4 rounded-2xl font-black uppercase text-xs">Faire mon Tasbih</button>
             </div>
         </div>
 
-        <div id="s-piliers" class="hidden space-y-2">
-            <div class="card border-l-4 border-amber-500 py-3 font-bold text-[10px] uppercase">1. La Chahada</div>
-            <div class="card border-l-4 border-amber-500 py-3 font-bold text-[10px] uppercase">2. La Salat</div>
-            <div class="card border-l-4 border-amber-500 py-3 font-bold text-[10px] uppercase">3. La Zakat</div>
-            <div class="card border-l-4 border-amber-500 py-3 font-bold text-[10px] uppercase">4. Le Sawm</div>
-            <div class="card border-l-4 border-amber-500 py-3 font-bold text-[10px] uppercase">5. Le Hajj</div>
+        <div id="s-piliers" class="hidden space-y-3">
+            <div class="card border-l-4 border-amber-500 font-bold text-[11px] uppercase">1. La Chahada</div>
+            <div class="card border-l-4 border-amber-500 font-bold text-[11px] uppercase">2. La Salat</div>
+            <div class="card border-l-4 border-amber-500 font-bold text-[11px] uppercase">3. La Zakat</div>
+            <div class="card border-l-4 border-amber-500 font-bold text-[11px] uppercase">4. Le Sawm</div>
+            <div class="card border-l-4 border-amber-500 font-bold text-[11px] uppercase">5. Le Hajj</div>
         </div>
 
         <div id="s-coran" class="hidden space-y-4">
-            <select id="selSurah" class="w-full p-4 bg-slate-900 border border-emerald-900 rounded-xl text-emerald-400 font-bold text-xs uppercase" onchange="loadSurahContent()"></select>
+            <select id="selSurah" class="w-full p-4 bg-[#0a1212] border border-emerald-900 rounded-xl text-emerald-400 font-bold text-xs" onchange="loadSurahContent()"></select>
             <div class="flex gap-2">
-                <button onclick="changeLang('ar.alafasy')" id="btn-ar" class="flex-1 bg-emerald-600/20 py-2 rounded-lg text-[10px] font-bold border border-emerald-600">ARABE</button>
-                <button onclick="changeLang('fr.hamidullah')" id="btn-fr" class="flex-1 bg-slate-800 py-2 rounded-lg text-[10px] font-bold border border-white/5">FRANÇAIS</button>
+                <button onclick="changeLang('ar.alafasy')" id="btn-ar" class="flex-1 bg-emerald-600/20 py-2 rounded-lg text-[10px] font-bold border border-emerald-600">VERSION ARABE</button>
+                <button onclick="changeLang('fr.hamidullah')" id="btn-fr" class="flex-1 bg-slate-800 py-2 rounded-lg text-[10px] font-bold border border-white/5">VERSION FRANÇAIS</button>
             </div>
             <div id="contentCoran" class="mt-4"></div>
         </div>
 
-        <div id="s-quiz" class="hidden">
-            <div id="quiz-box" class="card">
-                <p id="q-text" class="text-sm font-bold mb-6 text-center text-emerald-400 uppercase italic"></p>
-                <div id="opt-container" class="grid gap-3"></div>
-            </div>
-            <div id="quiz-result" class="hidden card text-center">
-                <h2 class="text-2xl font-black text-emerald-500 mb-4">TERMINÉ !</h2>
-                <button onclick="startQuiz()" class="w-full bg-emerald-600 py-4 rounded-xl font-bold uppercase text-xs">Recommencer</button>
-            </div>
-        </div>
-
         <div id="s-vip" class="hidden">
-            <div id="vip-lock" class="card text-center p-8 border-2 border-dashed border-amber-600/30">
-                <div class="text-6xl mb-6">🔒</div>
-                <h2 class="text-xl font-black text-white mb-2 uppercase">Zone VIP</h2>
-                <p class="text-[9px] text-slate-400 mb-8 uppercase">Payez pour débloquer les 2 grands tableaux</p>
-                <div class="bg-black/60 p-6 rounded-[35px] border border-white/5 mb-6">
-                    <p class="text-3xl font-black text-white mb-6">2,99€</p>
-                    <a href="https://www.paypal.me/YaminDjaouat881/2.99" target="_blank" onclick="localStorage.setItem('paid_vip','true')" class="paypal-btn">
-                        <span class="paypal-logo">PayPal</span>
-                        <span class="paypal-text">Payer avec PayPal</span>
+            <div id="vip-lock" class="space-y-6">
+                <h2 class="text-2xl font-black text-[#f1a944] italic text-center uppercase">Pack VIP</h2>
+                
+                <div class="card bg-[#0a0f14] p-10 text-center border-none shadow-2xl">
+                    <p class="text-5xl font-black text-white mb-10">2,99€</p>
+                    
+                    <a href="https://www.paypal.me/YaminDjaouat881/2.99" target="_blank" class="btn-paypal">
+                        💰 PAYER VIA PAYPAL
                     </a>
                 </div>
-                <button onclick="checkAccess()" class="text-amber-500 text-[10px] font-bold underline uppercase">Vérifier l'accès</button>
+
+                <button onclick="checkAccess(true)" class="btn-activate">
+                    Activer mon accès
+                </button>
             </div>
+
             <div id="vip-content" class="hidden space-y-4">
-                <div class="card border-t-4 border-amber-500 font-bold text-xs uppercase">✓ Tableau Ablutions Débloqué</div>
-                <div class="card border-t-4 border-emerald-500 font-bold text-xs uppercase">✓ Tableau Histoire Débloqué</div>
+                <div class="card border-2 border-amber-500 p-6 flex justify-between items-center">
+                    <span class="font-bold text-sm uppercase">✓ Tableau Ablutions Débloqué</span>
+                </div>
+                <div class="card border-2 border-emerald-500 p-6 flex justify-between items-center">
+                    <span class="font-bold text-sm uppercase">✓ Tableau Histoire Débloqué</span>
+                </div>
+                <div class="card bg-blue-900/20 border border-blue-500 p-6 text-center">
+                    <p class="text-xs font-bold uppercase mb-4 text-blue-400 italic">Entraînement Quizz</p>
+                    <button onclick="alert('Lancement du Quiz...')" class="w-full bg-blue-600 py-3 rounded-xl font-bold text-[10px] uppercase">Lancer le Quizz</button>
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="fixed bottom-0 left-0 w-full bg-white text-black py-4 text-center font-black text-[9px] border-t-4 border-emerald-600 z-50 uppercase">
-        Boutique : <span class="text-blue-600">Coran Noble Édition</span>
+    <div class="fixed bottom-0 left-0 w-full bg-white text-black py-4 text-center font-black text-[9px] border-t-4 border-emerald-600 z-50">
+        BOUTIQUE : <span class="text-blue-600 uppercase">Coran Noble Édition</span>
     </div>
 
     <script>
         let currentLang = 'ar.alafasy';
-        
+
         function nav(id) {
-            ['home','piliers','coran','quiz','vip'].forEach(s => {
+            ['home','piliers','coran','vip'].forEach(s => {
                 document.getElementById('s-'+s).classList.add('hidden');
                 document.getElementById('b-'+s).classList.remove('nav-active');
             });
             document.getElementById('s-'+id).classList.remove('hidden');
             document.getElementById('b-'+id).classList.add('nav-active');
-            if(id === 'quiz') startQuiz();
-            if(id === 'vip') checkAccess();
+            if(id === 'vip') checkAccess(false);
+        }
+
+        function checkAccess(triedToActivate) {
+            const isPaid = localStorage.getItem('vip_paid') === 'true';
+            if(isPaid) {
+                document.getElementById('vip-lock').classList.add('hidden');
+                document.getElementById('vip-content').classList.remove('hidden');
+            } else if(triedToActivate) {
+                // Simule une vérification. Dans la vraie vie, tu devrais vérifier ton PayPal.
+                localStorage.setItem('vip_paid', 'true');
+                location.reload();
+            }
         }
 
         function changeLang(lang) {
             currentLang = lang;
-            document.getElementById('btn-ar').classList.toggle('bg-emerald-600/20', lang === 'ar.alafasy');
-            document.getElementById('btn-fr').classList.toggle('bg-emerald-600/20', lang === 'fr.hamidullah');
+            document.getElementById('btn-ar').style.backgroundColor = lang === 'ar.alafasy' ? 'rgba(16, 185, 129, 0.2)' : '#1e293b';
+            document.getElementById('btn-fr').style.backgroundColor = lang === 'fr.hamidullah' ? 'rgba(16, 185, 129, 0.2)' : '#1e293b';
             loadSurahContent();
         }
 
@@ -136,49 +156,8 @@
             const r = await fetch(`https://api.alquran.cloud/v1/surah/${num}/${currentLang}`);
             const d = await r.json();
             let h = '';
-            d.data.ayahs.forEach(a => h += `<div class="p-4 bg-slate-900 mb-2 rounded-xl text-[12px] ${currentLang.startsWith('ar') ? 'arabic text-2xl' : ''}">${a.text}</div>`);
+            d.data.ayahs.forEach(a => h += `<div class="p-4 bg-slate-900 mb-2 rounded-xl text-[12px] ${currentLang.startsWith('ar') ? 'arabic text-2xl text-emerald-400' : ''}">${a.text}</div>`);
             document.getElementById('contentCoran').innerHTML = h;
-        }
-
-        // QUIZ SYSTEM
-        const questions = [
-            {q: "Combien y a-t-il de piliers en Islam ?", a: ["3","5","7"], c: 1},
-            {q: "En quelle année a débuté la révélation ?", a: ["610","622","632"], c: 0},
-            {q: "Quel est le premier mois du calendrier Hijri ?", a: ["Ramadan","Muharram","Safat"], c: 1}
-        ];
-        let qIdx = 0;
-        function startQuiz() {
-            qIdx = 0;
-            document.getElementById('quiz-result').classList.add('hidden');
-            document.getElementById('quiz-box').classList.remove('hidden');
-            showQ();
-        }
-        function showQ() {
-            let q = questions[qIdx];
-            document.getElementById('q-text').innerText = q.q;
-            let cont = document.getElementById('opt-container');
-            cont.innerHTML = '';
-            q.a.forEach((opt, i) => {
-                let btn = document.createElement('button');
-                btn.className = "w-full p-4 bg-slate-800 rounded-xl text-xs font-bold active:bg-emerald-600";
-                btn.innerText = opt;
-                btn.onclick = () => {
-                    qIdx++;
-                    if(qIdx < questions.length) showQ();
-                    else {
-                        document.getElementById('quiz-box').classList.add('hidden');
-                        document.getElementById('quiz-result').classList.remove('hidden');
-                    }
-                };
-                cont.appendChild(btn);
-            });
-        }
-
-        function checkAccess() {
-            if(localStorage.getItem('paid_vip') === 'true') {
-                document.getElementById('vip-lock').classList.add('hidden');
-                document.getElementById('vip-content').classList.remove('hidden');
-            }
         }
 
         async function initApp() {
@@ -189,11 +168,13 @@
                 document.getElementById('prayer-times').innerHTML = `<div>FAJR<br>${t.Fajr}</div><div>DUHR<br>${t.Dhuhr}</div><div>ASR<br>${t.Asr}</div><div>MAGH<br>${t.Maghrib}</div><div>ICHA<br>${t.Isha}</div>`;
             } catch(e) {}
             
-            const rSurah = await fetch('https://api.alquran.cloud/v1/surah');
-            const dSurah = await rSurah.json();
+            const rS = await fetch('https://api.alquran.cloud/v1/surah');
+            const dS = await rS.json();
             const sel = document.getElementById('selSurah');
-            sel.innerHTML = '<option value="">CHOISIR SOURATE</option>';
-            dSurah.data.forEach(s => sel.innerHTML += `<option value="${s.number}">${s.number}. ${s.englishName}</option>`);
+            sel.innerHTML = '<option value="">SÉLECTIONNER SOURATE</option>';
+            dS.data.forEach(s => sel.innerHTML += `<option value="${s.number}">${s.number}. ${s.englishName}</option>`);
+            
+            nav('home');
         }
 
         let count = 0;
