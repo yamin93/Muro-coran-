@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Muslim App - Sécurité VIP</title>
+    <title>Muslim App - Protection VIP</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Amiri&family=Inter:wght@400;700;900&display=swap');
@@ -29,13 +29,13 @@
             <button id="b-outils" onclick="nav('outils')" class="py-3 rounded-xl text-[8px] font-bold uppercase">Outils</button>
         </nav>
 
-        <div id="s-home" class="space-y-4">
+        <div id="s-home">
             <div class="card border-t-4 border-emerald-600">
                 <div id="prayer-times" class="grid grid-cols-5 gap-2 text-center text-[9px] font-bold text-emerald-400"></div>
             </div>
             <div class="card text-center">
                 <div class="text-4xl font-black text-emerald-500 mb-4" id="tasbih-count">0</div>
-                <button onclick="countTasbih()" class="w-full bg-emerald-600 py-4 rounded-2xl font-black shadow-lg shadow-emerald-900/20 active:scale-95 uppercase text-xs">+1 Tasbih</button>
+                <button onclick="countTasbih()" class="w-full bg-emerald-600 py-4 rounded-2xl font-black uppercase text-xs active:scale-95 transition">+1 TASBIH</button>
             </div>
         </div>
 
@@ -56,8 +56,8 @@
             <button onclick="nav('quiz')" class="w-full card border-l-4 border-blue-500 flex justify-between py-6">
                 <span class="font-bold text-[10px] uppercase">📝 Quizz de l'Islam</span>
             </button>
-            <button onclick="nav('vip')" class="w-full card border-l-4 border-amber-500 flex justify-between py-6 bg-amber-500/5">
-                <span class="font-bold text-[10px] text-amber-500 uppercase italic">⭐ Pack VIP (Ablutions & Histoire)</span>
+            <button onclick="nav('vip')" class="w-full card border-l-4 border-amber-500 flex justify-between py-6 bg-amber-500/10">
+                <span class="font-bold text-[10px] text-amber-500 uppercase italic">⭐ Accéder au Pack VIP</span>
                 <span>🔒</span>
             </button>
         </div>
@@ -68,7 +68,7 @@
                 <div id="opt-container" class="grid gap-3"></div>
             </div>
             <div id="quiz-result" class="hidden card text-center">
-                <h2 id="score-text" class="text-2xl font-black text-emerald-500 mb-4">Bravo !</h2>
+                <h2 id="score-text" class="text-2xl font-black text-emerald-500 mb-4">Quiz Terminé !</h2>
                 <button onclick="startQuiz()" class="w-full bg-emerald-600 py-4 rounded-xl font-bold uppercase text-xs">Recommencer</button>
             </div>
         </div>
@@ -76,55 +76,53 @@
         <div id="s-vip" class="hidden">
             <div id="vip-lock-screen" class="card text-center p-8 border-2 border-dashed border-amber-600/30">
                 <div class="text-6xl mb-6">🔒</div>
-                <h2 class="text-xl font-black text-amber-500 mb-2 uppercase">Pack VIP Bloqué</h2>
-                <p class="text-[9px] text-slate-400 mb-8 uppercase leading-relaxed">
-                    Pour accéder aux deux grands tableaux (Ablutions + Histoire),<br>
-                    le paiement via PayPal est obligatoire.
-                </p>
+                <h2 class="text-xl font-black text-amber-500 mb-2 uppercase">Zone VIP Protégée</h2>
+                <p class="text-[9px] text-slate-400 mb-8 uppercase">Débloquez les Grands Tableaux : Ablutions & Histoire</p>
                 
-                <div class="bg-black/50 p-6 rounded-[30px] border border-white/5 mb-6">
+                <div class="bg-black/80 p-6 rounded-[30px] border border-white/10 mb-6">
                     <p class="text-3xl font-black text-white mb-6">2,99€</p>
                     
-                    <a href="https://www.paypal.me/YaminDjaouat881/2.99" target="_blank" onclick="localStorage.setItem('paid','true')" class="block w-full bg-blue-600 text-white font-black py-4 rounded-2xl text-[11px] uppercase shadow-lg shadow-blue-600/20 active:bg-blue-700">
-                        Payer avec PayPal
+                    <a href="https://www.paypal.me/YaminDjaouat881/2.99" target="_blank" onclick="localStorage.setItem('paid','true')" class="block w-full bg-blue-600 text-white font-black py-4 rounded-2xl text-[12px] uppercase shadow-lg shadow-blue-600/30">
+                        PAYER AVEC PAYPAL
                     </a>
                 </div>
                 
-                <button onclick="checkAccess()" class="text-amber-500 text-[10px] font-bold underline uppercase">Vérifier mon achat après paiement</button>
+                <button onclick="checkAccess()" class="text-amber-500 text-[10px] font-bold underline uppercase">Vérifier mon achat</button>
             </div>
 
             <div id="vip-unlocked-content" class="hidden space-y-8">
                 <div class="card border-t-4 border-amber-600 px-0 overflow-hidden">
-                    <h3 class="p-4 font-black text-amber-500 uppercase text-xs italic">Tableau Complet : Les Ablutions</h3>
-                    <div class="grid grid-cols-3 bg-amber-600/10 p-3 text-[9px] font-bold border-b border-white/10 uppercase">
-                        <div>Étape</div><div class="col-span-2 text-right">Instruction</div>
+                    <h3 class="p-4 font-black text-amber-500 uppercase text-xs italic">Guide Complet des Ablutions</h3>
+                    <div class="grid grid-cols-2 bg-amber-600/20 p-3 text-[9px] font-bold border-b border-white/10 uppercase">
+                        <div>Étape</div><div class="text-right">Action</div>
                     </div>
-                    <div class="grid grid-cols-3 p-3 border-b border-white/5 text-[10px]"><div>01. Intention</div><div class="col-span-2 text-right italic text-slate-400">Dire Bismillah dans son coeur.</div></div>
-                    <div class="grid grid-cols-3 p-3 border-b border-white/5 text-[10px] bg-white/5"><div>02. Mains</div><div class="col-span-2 text-right italic text-slate-400">Laver 3 fois les mains.</div></div>
-                    <div class="grid grid-cols-3 p-3 border-b border-white/5 text-[10px]"><div>03. Bouche</div><div class="col-span-2 text-right italic text-slate-400">Rincer 3 fois la bouche.</div></div>
-                    <div class="grid grid-cols-3 p-3 border-b border-white/5 text-[10px] bg-white/5"><div>04. Nez</div><div class="col-span-2 text-right italic text-slate-400">Inspirer et rejeter l'eau (3x).</div></div>
-                    <div class="grid grid-cols-3 p-3 border-b border-white/5 text-[10px]"><div>05. Visage</div><div class="col-span-2 text-right italic text-slate-400">Laver tout le visage (3x).</div></div>
-                    <div class="grid grid-cols-3 p-3 border-b border-white/5 text-[10px] bg-white/5"><div>06. Bras</div><div class="col-span-2 text-right italic text-slate-400">Jusqu'au coude inclus (3x).</div></div>
-                    <div class="grid grid-cols-3 p-3 border-b border-white/5 text-[10px]"><div>07. Tête/Oreilles</div><div class="col-span-2 text-right italic text-slate-400">Passer les mains 1 fois.</div></div>
-                    <div class="grid grid-cols-3 p-3 text-[10px] bg-white/5"><div>08. Pieds</div><div class="col-span-2 text-right italic text-slate-400">Jusqu'aux chevilles (3x).</div></div>
+                    <div class="grid grid-cols-2 p-3 border-b border-white/5 text-[10px]"><div>Intention</div><div class="text-right italic text-slate-400">Bismillah (dans le coeur)</div></div>
+                    <div class="grid grid-cols-2 p-3 border-b border-white/5 text-[10px] bg-white/5"><div>Mains</div><div class="text-right italic text-slate-400">3 fois jusqu'aux poignets</div></div>
+                    <div class="grid grid-cols-2 p-3 border-b border-white/5 text-[10px]"><div>Bouche</div><div class="text-right italic text-slate-400">Rincer 3 fois</div></div>
+                    <div class="grid grid-cols-2 p-3 border-b border-white/5 text-[10px] bg-white/5"><div>Nez</div><div class="text-right italic text-slate-400">Aspirer/Expulser 3 fois</div></div>
+                    <div class="grid grid-cols-2 p-3 border-b border-white/5 text-[10px]"><div>Visage</div><div class="text-right italic text-slate-400">3 fois entièrement</div></div>
+                    <div class="grid grid-cols-2 p-3 border-b border-white/5 text-[10px] bg-white/5"><div>Bras</div><div class="text-right italic text-slate-400">Jusqu'aux coudes (3 fois)</div></div>
+                    <div class="grid grid-cols-2 p-3 border-b border-white/5 text-[10px]"><div>Tête</div><div class="text-right italic text-slate-400">Essuyer 1 fois</div></div>
+                    <div class="grid grid-cols-2 p-3 border-b border-white/5 text-[10px] bg-white/5"><div>Oreilles</div><div class="text-right italic text-slate-400">Essuyer 1 fois</div></div>
+                    <div class="grid grid-cols-2 p-3 text-[10px]"><div>Pieds</div><div class="text-right italic text-slate-400">Jusqu'aux chevilles (3 fois)</div></div>
                 </div>
 
                 <div class="card border-t-4 border-emerald-600 px-0 overflow-hidden">
-                    <h3 class="p-4 font-black text-emerald-500 uppercase text-xs italic">Tableau Complet : Histoire du Coran</h3>
-                    <div class="grid grid-cols-3 bg-emerald-600/10 p-3 text-[9px] font-bold border-b border-white/10 uppercase">
-                        <div>Période</div><div class="col-span-2 text-right">Événement</div>
+                    <h3 class="p-4 font-black text-emerald-500 uppercase text-xs italic">Grand Tableau : Histoire du Coran</h3>
+                    <div class="grid grid-cols-2 bg-emerald-600/20 p-3 text-[9px] font-bold border-b border-white/10 uppercase">
+                        <div>Époque</div><div class="text-right">Événement Clé</div>
                     </div>
-                    <div class="grid grid-cols-3 p-3 border-b border-white/5 text-[10px]"><div>An 610</div><div class="col-span-2 text-right italic text-slate-400">Début de la révélation (Grotte Hira).</div></div>
-                    <div class="grid grid-cols-3 p-3 border-b border-white/5 text-[10px] bg-white/5"><div>23 ans</div><div class="col-span-2 text-right italic text-slate-400">Durée totale de la révélation.</div></div>
-                    <div class="grid grid-cols-3 p-3 border-b border-white/5 text-[10px]"><div>Abou Bakr</div><div class="col-span-2 text-right italic text-slate-400">Compilation en un seul livre (Mushaf).</div></div>
-                    <div class="grid grid-cols-3 p-3 text-[10px] bg-white/5"><div>Othman</div><div class="col-span-2 text-right italic text-slate-400">Unification du texte pour l'Ummah.</div></div>
+                    <div class="grid grid-cols-2 p-3 border-b border-white/5 text-[10px]"><div>An 610</div><div class="text-right italic text-slate-400">Début Révélation (Grotte de Hira)</div></div>
+                    <div class="grid grid-cols-2 p-3 border-b border-white/5 text-[10px] bg-white/5"><div>23 ans</div><div class="text-right italic text-slate-400">Temps total de la révélation</div></div>
+                    <div class="grid grid-cols-2 p-3 border-b border-white/5 text-[10px]"><div>Abou Bakr</div><div class="text-right italic text-slate-400">Compilation en 1 seul Mushaf</div></div>
+                    <div class="grid grid-cols-2 p-3 text-[10px] bg-white/5"><div>Calife Othman</div><div class="text-right italic text-slate-400">Standardisation et distribution</div></div>
                 </div>
             </div>
         </div>
     </div>
 
     <div class="fixed bottom-0 left-0 w-full bg-white text-black py-3 text-center font-black text-[9px] border-t-4 border-emerald-600 z-50 uppercase tracking-widest">
-        Boutique Officielle : <span class="text-blue-600">Coran Noble Édition</span>
+        Boutique : <span class="text-blue-600">Coran Noble Édition</span>
     </div>
 
     <script>
@@ -146,11 +144,8 @@
             }
         }
 
-        // --- QUIZZ ---
-        const questions = [
-            {q: "Combien d'étapes pour les pieds ?", a: ["1","2","3"], c: 2},
-            {q: "Le Coran a été révélé en combien d'ans ?", a: ["10","23","40"], c: 1}
-        ];
+        // QUIZ 
+        const questions = [{q: "Combien d'ans de révélation ?", a: ["10","23","40"], c: 1}, {q: "La chahada est le pilier n°?", a: ["1","3","5"], c: 0}];
         let qIdx = 0;
         function startQuiz() {
             qIdx = 0;
@@ -165,7 +160,7 @@
             cont.innerHTML = '';
             q.a.forEach((opt, i) => {
                 let btn = document.createElement('button');
-                btn.className = "w-full p-4 bg-slate-800 rounded-xl text-xs font-bold active:bg-emerald-600 transition-colors";
+                btn.className = "w-full p-4 bg-slate-800 rounded-xl text-xs font-bold active:bg-emerald-600 transition";
                 btn.innerText = opt;
                 btn.onclick = () => {
                     qIdx++;
@@ -179,7 +174,6 @@
             });
         }
 
-        // --- APIS ---
         async function initApp() {
             try {
                 const r = await fetch('https://api.aladhan.com/v1/timingsByCity?city=Montfermeil&country=France&method=3');
@@ -195,7 +189,7 @@
             const r = await fetch('https://api.alquran.cloud/v1/surah');
             const d = await r.json();
             const sel = document.getElementById('selSurah');
-            sel.innerHTML = '<option value="">-- SOURATES --</option>';
+            sel.innerHTML = '<option value="">-- CHOISIR SOURATE --</option>';
             d.data.forEach(s => sel.innerHTML += `<option value="${s.number}">${s.number}. ${s.englishName}</option>`);
         }
 
