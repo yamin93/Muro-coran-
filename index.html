@@ -3,14 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Muslim App - Complet</title>
+    <title>Muslim App - Expert Edition</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Amiri&family=Inter:wght@400;700;900&display=swap');
         body { font-family: 'Inter', sans-serif; background-color: #010606; color: #e6edf3; padding-bottom: 110px; }
+        .arabic { font-family: 'Amiri', serif; direction: rtl; line-height: 1.6; }
         .hidden { display: none; }
         .nav-active { background: #059669; color: white; border-bottom: 3px solid #34d399; }
         .card { background: #0a1212; border-radius: 20px; padding: 20px; border: 1px solid #1e293b; margin-bottom: 15px; }
+        .gold-border { border-left: 5px solid #d97706; }
     </style>
 </head>
 <body class="p-4" onload="initApp()">
@@ -21,7 +23,7 @@
             <p id="hijri-date" class="text-[10px] text-emerald-700 font-bold uppercase mt-1">Chargement...</p>
         </div>
 
-        <nav class="grid grid-cols-4 gap-1 mb-6 bg-slate-900/50 p-1 rounded-2xl sticky top-2 z-50">
+        <nav class="grid grid-cols-4 gap-1 mb-6 bg-slate-900/50 p-1 rounded-2xl sticky top-2 z-50 shadow-2xl">
             <button id="b-home" onclick="nav('home')" class="py-3 rounded-xl text-[8px] font-bold nav-active uppercase">Accueil</button>
             <button id="b-piliers" onclick="nav('piliers')" class="py-3 rounded-xl text-[8px] font-bold uppercase">Piliers</button>
             <button id="b-coran" onclick="nav('coran')" class="py-3 rounded-xl text-[8px] font-bold uppercase">Coran</button>
@@ -31,35 +33,35 @@
         <div id="s-home" class="space-y-4">
             <div class="card border-t-4 border-emerald-600">
                 <div class="flex justify-between items-center mb-4 text-[10px] font-bold uppercase text-emerald-500">
-                    <span>Montfermeil</span>
+                    <span>Mosquée de Montfermeil</span>
                     <span id="live-day" class="text-slate-500"></span>
                 </div>
                 <div class="grid grid-cols-5 gap-2 text-center" id="prayer-times"></div>
             </div>
-            <div class="card text-center">
-                <p class="text-[10px] font-bold text-slate-500 mb-4 uppercase">Tasbih</p>
+            <div class="card text-center bg-slate-900/50">
+                <p class="text-[10px] font-bold text-slate-500 mb-4 uppercase">Compteur Tasbih</p>
                 <div class="text-5xl font-black text-emerald-500 mb-6" id="tasbih-count">0</div>
-                <button onclick="countTasbih()" class="w-full bg-emerald-600 py-6 rounded-3xl font-black text-lg">+1</button>
+                <button onclick="countTasbih()" class="w-full bg-emerald-600 py-6 rounded-3xl font-black text-lg active:scale-95 transition-transform">+1</button>
             </div>
         </div>
 
         <div id="s-piliers" class="hidden space-y-3">
-            <h2 class="text-center text-amber-500 font-black text-xs uppercase mb-4">Les 5 Piliers de l'Islam</h2>
-            <div class="card border-l-4 border-amber-500 py-4"><p class="font-bold text-[10px] uppercase">1. La Chahada (Attestation de foi)</p></div>
-            <div class="card border-l-4 border-amber-500 py-4"><p class="font-bold text-[10px] uppercase">2. La Salat (Prière quotidienne)</p></div>
-            <div class="card border-l-4 border-amber-500 py-4"><p class="font-bold text-[10px] uppercase">3. La Zakat (Aumône légale)</p></div>
-            <div class="card border-l-4 border-amber-500 py-4"><p class="font-bold text-[10px] uppercase">4. Le Sawm (Jeûne du Ramadan)</p></div>
-            <div class="card border-l-4 border-amber-500 py-4"><p class="font-bold text-[10px] uppercase">5. Le Hajj (Pèlerinage à la Mecque)</p></div>
+            <h2 class="text-center text-amber-500 font-black text-xs uppercase mb-4 tracking-widest">Les Fondements de l'Islam</h2>
+            <div class="card border-l-4 border-amber-500 py-4"><p class="font-bold text-[10px] uppercase">1. La Chahada (L'attestation de foi)</p></div>
+            <div class="card border-l-4 border-amber-500 py-4"><p class="font-bold text-[10px] uppercase">2. La Salat (Les cinq prières quotidiennes)</p></div>
+            <div class="card border-l-4 border-amber-500 py-4"><p class="font-bold text-[10px] uppercase">3. La Zakat (L'aumône légale aux pauvres)</p></div>
+            <div class="card border-l-4 border-amber-500 py-4"><p class="font-bold text-[10px] uppercase">4. Le Sawm (Le jeûne du mois de Ramadan)</p></div>
+            <div class="card border-l-4 border-amber-500 py-4"><p class="font-bold text-[10px] uppercase">5. Le Hajj (Le pèlerinage à la Mecque)</p></div>
         </div>
 
-        <div id="s-coran" class="hidden space-y-4">
-            <select id="selSurah" class="w-full p-4 bg-slate-900 border border-emerald-900 rounded-xl text-emerald-400 font-bold text-xs"></select>
-            <div id="contentCoran" class="mt-4"></div>
+        <div id="s-coran" class="hidden space-y-4 text-center">
+            <select id="selSurah" class="w-full p-4 bg-slate-900 border border-emerald-900 rounded-xl text-emerald-400 font-bold text-xs outline-none"></select>
+            <div id="contentCoran" class="mt-4 text-left"></div>
         </div>
 
         <div id="s-outils" class="hidden space-y-4">
             <button onclick="nav('vip')" class="w-full card border-l-4 border-amber-500 flex justify-between items-center py-6 bg-amber-500/5">
-                <span class="font-bold uppercase text-[10px] text-amber-500">⭐ Pack VIP (Guide & Histoire)</span>
+                <span class="font-bold uppercase text-[10px] text-amber-500 italic">⭐ Débloquer Pack VIP (Exclusif)</span>
                 <span>🔒</span>
             </button>
         </div>
@@ -67,54 +69,74 @@
         <div id="s-vip" class="hidden">
             <div id="vip-lock-screen" class="card text-center p-8 border-2 border-dashed border-amber-900/50">
                 <div class="text-6xl mb-4">🔒</div>
-                <h2 class="text-xl font-black text-amber-500 mb-2 uppercase">Zone VIP</h2>
+                <h2 class="text-xl font-black text-amber-500 mb-2 uppercase">Contenu Verrouillé</h2>
+                <p class="text-[9px] text-slate-400 mb-6 uppercase tracking-widest">Guide des Ablutions + Histoire du Coran</p>
                 <div class="bg-black p-6 rounded-3xl mb-4 border border-white/5">
-                    <p class="text-3xl font-black mb-6">2,99€</p>
-                    <button onclick="window.open('https://www.paypal.me/YaminDjaouat881/2.99','_blank'); localStorage.setItem('paid','true')" class="w-full bg-blue-600 text-white font-black py-4 rounded-2xl text-[10px] uppercase">Payer via PayPal</button>
+                    <p class="text-3xl font-black mb-6 text-white">2,99€</p>
+                    <button onclick="window.open('https://www.paypal.me/YaminDjaouat881/2.99','_blank'); localStorage.setItem('paid','true')" class="w-full bg-blue-600 text-white font-black py-4 rounded-2xl text-[10px] uppercase shadow-lg shadow-blue-900/40">Payer via PayPal</button>
                 </div>
-                <button onclick="checkAccess()" class="text-amber-500 font-bold text-[10px] underline uppercase">Vérifier mon achat pour débloquer</button>
+                <button onclick="checkAccess()" class="text-amber-500 font-bold text-[10px] underline uppercase">J'ai payé, débloquer l'accès</button>
             </div>
 
-            <div id="vip-unlocked-content" class="hidden space-y-6"></div>
+            <div id="vip-unlocked-content" class="hidden space-y-6">
+                <div class="card border-t-2 border-amber-500 px-0 overflow-hidden">
+                    <h3 class="px-4 text-amber-500 font-black text-[11px] uppercase mb-4 italic">Guide Illustré des Ablutions</h3>
+                    <div class="grid grid-cols-2 text-[9px] bg-amber-500/10 font-bold uppercase p-3 border-b border-white/10 text-amber-200">
+                        <div>Étape</div><div>Description Précise</div>
+                    </div>
+                    <div class="grid grid-cols-2 text-[10px] p-3 border-b border-white/5">
+                        <div class="text-slate-400 font-bold">1. L'Intention</div><div class="italic">Dire "Bismillah" et avoir l'intention dans le cœur.</div>
+                    </div>
+                    <div class="grid grid-cols-2 text-[10px] p-3 border-b border-white/5 bg-white/5">
+                        <div class="text-slate-400 font-bold">2. Les Mains</div><div class="italic">Laver les mains jusqu'aux poignets (3 fois).</div>
+                    </div>
+                    <div class="grid grid-cols-2 text-[10px] p-3 border-b border-white/5">
+                        <div class="text-slate-400 font-bold">3. La Bouche</div><div class="italic">Rincer la bouche avec la main droite (3 fois).</div>
+                    </div>
+                    <div class="grid grid-cols-2 text-[10px] p-3 border-b border-white/5 bg-white/5">
+                        <div class="text-slate-400 font-bold">4. Le Nez</div><div class="italic">Inspirer l'eau et moucher (3 fois).</div>
+                    </div>
+                    <div class="grid grid-cols-2 text-[10px] p-3 border-b border-white/5">
+                        <div class="text-slate-400 font-bold">5. Le Visage</div><div class="italic">Laver tout le visage, du front au menton (3 fois).</div>
+                    </div>
+                    <div class="grid grid-cols-2 text-[10px] p-3 border-b border-white/5 bg-white/5">
+                        <div class="text-slate-400 font-bold">6. Les Bras</div><div class="italic">Bras droit puis gauche jusqu'aux coudes (3 fois).</div>
+                    </div>
+                    <div class="grid grid-cols-2 text-[10px] p-3 border-b border-white/5">
+                        <div class="text-slate-400 font-bold">7. La Tête</div><div class="italic">Passer les mains mouillées de l'avant à l'arrière (1 fois).</div>
+                    </div>
+                    <div class="grid grid-cols-2 text-[10px] p-3">
+                        <div class="text-slate-400 font-bold">8. Les Pieds</div><div class="italic">Pied droit puis gauche jusqu'aux chevilles (3 fois).</div>
+                    </div>
+                </div>
+
+                <div class="card border-t-2 border-emerald-500 px-0 overflow-hidden">
+                    <h3 class="px-4 text-emerald-500 font-black text-[11px] uppercase mb-4 italic">Chronologie du Noble Coran</h3>
+                    <div class="grid grid-cols-2 text-[9px] bg-emerald-500/10 font-bold uppercase p-3 border-b border-white/10 text-emerald-200">
+                        <div>Période</div><div>Événement Majeur</div>
+                    </div>
+                    <div class="grid grid-cols-2 text-[10px] p-3 border-b border-white/5">
+                        <div class="text-slate-400 font-bold">An 610</div><div class="italic">Première révélation à la grotte de Hira par Jibril (AS).</div>
+                    </div>
+                    <div class="grid grid-cols-2 text-[10px] p-3 border-b border-white/5 bg-white/5">
+                        <div class="text-slate-400 font-bold">23 Ans</div><div class="italic">Durée de la révélation progressive du message divin.</div>
+                    </div>
+                    <div class="grid grid-cols-2 text-[10px] p-3 border-b border-white/5">
+                        <div class="text-slate-400 font-bold">Calife Abou Bakr</div><div class="italic">Premier rassemblement des écrits sur un seul support.</div>
+                    </div>
+                    <div class="grid grid-cols-2 text-[10px] p-3 bg-white/5">
+                        <div class="text-slate-400 font-bold">Calife Othman</div><div class="italic">Standardisation et distribution du Mushaf officiel.</div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
-    <div class="fixed bottom-0 left-0 w-full bg-white text-black py-3 text-center font-black text-[9px] border-t-4 border-emerald-600 z-50 uppercase">
-        Boutique : <span class="text-blue-600">Coran Noble Édition</span>
+    <div class="fixed bottom-0 left-0 w-full bg-white text-black py-3 text-center font-black text-[9px] border-t-4 border-emerald-600 z-50 uppercase tracking-widest">
+        Boutique Officielle : <span class="text-blue-600">Coran Noble Édition</span>
     </div>
 
     <script>
-        const VIP_DATA = `
-            <div class="card border-t-2 border-amber-500 px-0 overflow-hidden">
-                <h3 class="px-4 text-amber-500 font-black text-[10px] uppercase mb-4 italic italic">Tableau : Les Ablutions</h3>
-                <div class="grid grid-cols-2 text-[10px] bg-white/5 font-bold uppercase p-3 border-b border-white/10">
-                    <div>Étape</div><div>Action</div>
-                </div>
-                <div class="grid grid-cols-2 text-[10px] p-3 border-b border-white/5">
-                    <div class="text-slate-500 font-bold">01. Intention</div><div class="italic">Dire "Bismillah"</div>
-                </div>
-                <div class="grid grid-cols-2 text-[10px] p-3 border-b border-white/5 bg-white/5">
-                    <div class="text-slate-500 font-bold">02. Visage</div><div class="italic">Laver 3 fois</div>
-                </div>
-                <div class="grid grid-cols-2 text-[10px] p-3 border-b border-white/5">
-                    <div class="text-slate-500 font-bold">03. Bras</div><div class="italic">Jusqu'aux coudes (3x)</div>
-                </div>
-            </div>
-
-            <div class="card border-t-2 border-emerald-500 px-0 overflow-hidden">
-                <h3 class="px-4 text-emerald-500 font-black text-[10px] uppercase mb-4 italic">Tableau : Histoire du Coran</h3>
-                <div class="grid grid-cols-2 text-[10px] bg-white/5 font-bold uppercase p-3 border-b border-white/10">
-                    <div>Époque</div><div>Fait Marquant</div>
-                </div>
-                <div class="grid grid-cols-2 text-[10px] p-3 border-b border-white/5">
-                    <div class="text-slate-500 font-bold">610 ap. J-C</div><div class="italic">Début de la révélation</div>
-                </div>
-                <div class="grid grid-cols-2 text-[10px] p-3 border-b border-white/5 bg-white/5">
-                    <div class="text-slate-500 font-bold">Abou Bakr</div><div class="italic">Premier recueil écrit</div>
-                </div>
-            </div>
-        `;
-
         function nav(id) {
             ['home','piliers','coran','outils','vip'].forEach(s => {
                 document.getElementById('s-'+s)?.classList.add('hidden');
@@ -128,9 +150,7 @@
         function checkAccess() {
             if(localStorage.getItem('paid') === 'true') {
                 document.getElementById('vip-lock-screen').classList.add('hidden');
-                const content = document.getElementById('vip-unlocked-content');
-                content.innerHTML = VIP_DATA;
-                content.classList.remove('hidden');
+                document.getElementById('vip-unlocked-content').classList.remove('hidden');
             }
         }
 
@@ -165,8 +185,8 @@
             if(!e.target.value) return;
             const r = await fetch(`https://api.alquran.cloud/v1/surah/${e.target.value}/fr.hamidullah`);
             const d = await r.json();
-            let h = '';
-            d.data.ayahs.forEach(a => h += `<div class="p-4 bg-slate-900/60 rounded-xl mb-2 border border-white/5 text-[11px]">${a.text}</div>`);
+            let h = '<div class="arabic text-3xl text-center my-6 text-emerald-500">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>';
+            d.data.ayahs.forEach(a => h += `<div class="p-4 bg-slate-900/60 rounded-xl mb-2 border border-white/5 text-[11px] leading-relaxed">${a.text}</div>`);
             document.getElementById('contentCoran').innerHTML = h;
         });
 
