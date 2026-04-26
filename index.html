@@ -3,19 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Muslim App</title>
+    <title>Muslim App - Pro</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Amiri&family=Inter:wght@400;700;900&display=swap');
-        body { font-family: 'Inter', sans-serif; background-color: #010606; color: #e6edf3; padding-bottom: 110px; }
+        body { font-family: 'Inter', sans-serif; background-color: #010606; color: #e6edf3; padding-bottom: 120px; }
         .hidden { display: none; }
-        .nav-active { background: #059669; color: white; border-radius: 12px; }
+        .nav-active { background: #059669 !important; color: white !important; border-radius: 12px; }
         .card { background: #0a1212; border-radius: 24px; padding: 20px; border: 1px solid #1e293b; margin-bottom: 15px; }
         .arabic { font-family: 'Amiri', serif; direction: rtl; line-height: 2.5; }
         
-        /* DESIGN DU GROS BOUTON PAYPAL COMME TA PHOTO */
         .btn-paypal-large {
-            background-color: #3b66f5; /* Bleu PayPal vif */
+            background-color: #3b66f5;
             color: white;
             padding: 22px;
             border-radius: 25px;
@@ -30,7 +29,6 @@
             text-transform: uppercase;
         }
         
-        /* BOUTON ACTIVER ORANGE */
         .btn-activate {
             background-color: #f1a944;
             color: #000;
@@ -41,6 +39,19 @@
             width: 100%;
             margin-top: 20px;
         }
+
+        .audio-btn {
+            background: #10b981;
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body class="p-4" onload="initApp()">
@@ -48,14 +59,14 @@
     <div class="max-w-md mx-auto">
         <div class="text-center py-8">
             <h1 class="text-5xl font-black text-emerald-500 italic uppercase tracking-tighter">Muslim App</h1>
-            <p class="text-[10px] text-emerald-800 font-bold mt-2 uppercase tracking-widest">9 Undefined 1447</p>
+            <p id="hijri-date" class="text-[10px] text-emerald-800 font-bold mt-2 uppercase tracking-widest">Chargement...</p>
         </div>
 
         <nav class="grid grid-cols-4 gap-2 mb-8 bg-[#111827] p-2 rounded-2xl sticky top-2 z-50">
-            <button id="b-home" onclick="nav('home')" class="py-3 text-[9px] font-bold uppercase">Accueil</button>
-            <button id="b-piliers" onclick="nav('piliers')" class="py-3 text-[9px] font-bold uppercase">Piliers</button>
-            <button id="b-coran" onclick="nav('coran')" class="py-3 text-[9px] font-bold uppercase">Coran</button>
-            <button id="b-vip" onclick="nav('vip')" class="py-3 text-[9px] font-bold uppercase">Outils</button>
+            <button id="b-home" onclick="nav('home')" class="py-3 text-[9px] font-bold uppercase text-slate-400 bg-transparent">Accueil</button>
+            <button id="b-piliers" onclick="nav('piliers')" class="py-3 text-[9px] font-bold uppercase text-slate-400 bg-transparent">Piliers</button>
+            <button id="b-coran" onclick="nav('coran')" class="py-3 text-[9px] font-bold uppercase text-slate-400 bg-transparent">Coran</button>
+            <button id="b-vip" onclick="nav('vip')" class="py-3 text-[9px] font-bold uppercase text-slate-400 bg-transparent">Outils</button>
         </nav>
 
         <div id="s-home" class="space-y-4">
@@ -79,40 +90,34 @@
         <div id="s-coran" class="hidden space-y-4">
             <select id="selSurah" class="w-full p-4 bg-[#0a1212] border border-emerald-900 rounded-xl text-emerald-400 font-bold text-xs uppercase" onchange="loadSurahContent()"></select>
             <div class="flex gap-2">
-                <button onclick="changeLang('ar.alafasy')" id="btn-ar" class="flex-1 bg-emerald-600/20 py-2 rounded-lg text-[10px] font-bold border border-emerald-600">ARABE</button>
-                <button onclick="changeLang('fr.hamidullah')" id="btn-fr" class="flex-1 bg-slate-800 py-2 rounded-lg text-[10px] font-bold border border-white/5">FRANÇAIS</button>
+                <button onclick="changeLang('ar.alafasy')" id="btn-ar" class="flex-1 bg-emerald-600/20 py-2 rounded-lg text-[10px] font-bold border border-emerald-600">VERSION ARABE</button>
+                <button onclick="changeLang('fr.hamidullah')" id="btn-fr" class="flex-1 bg-slate-800 py-2 rounded-lg text-[10px] font-bold border border-white/5">VERSION FRANÇAIS</button>
             </div>
             <div id="contentCoran" class="mt-4"></div>
         </div>
 
         <div id="s-vip" class="hidden">
-            <div id="vip-lock" class="space-y-6">
+            <div id="vip-lock">
                 <h2 class="text-3xl font-black text-[#f1a944] italic text-center uppercase tracking-tighter">Pack VIP</h2>
-                
-                <div class="card bg-[#0a0f14] p-12 text-center border-none shadow-2xl">
+                <div class="card bg-[#0a0f14] p-12 text-center border-none shadow-2xl mt-4">
                     <p class="text-6xl font-black text-white mb-10">2,99€</p>
-                    
                     <a href="https://www.paypal.me/YaminDjaouat881/2.99" target="_blank" class="btn-paypal-large">
                         💰 PAYER VIA PAYPAL
                     </a>
                 </div>
-
-                <button onclick="activateVIP()" class="btn-activate">
-                    Activer mon accès
-                </button>
-                <p class="text-[8px] text-center text-slate-500 uppercase tracking-widest mt-4 italic">Une fois le paiement effectué, cliquez sur Activer pour débloquer.</p>
+                <button onclick="activateVIP()" class="btn-activate">Activer mon accès</button>
+                <p class="text-[8px] text-center text-slate-500 uppercase tracking-widest mt-4 italic">Une fois le paiement effectué, cliquez sur Activer.</p>
             </div>
 
             <div id="vip-content" class="hidden space-y-4">
-                <div class="card border-2 border-amber-500 p-8 flex justify-between items-center bg-amber-500/5">
+                <div class="card border-2 border-amber-500 p-8 bg-amber-500/5">
                     <span class="font-black text-sm uppercase italic">✓ Tableau Ablutions Débloqué</span>
                 </div>
-                <div class="card border-2 border-emerald-500 p-8 flex justify-between items-center bg-emerald-500/5">
+                <div class="card border-2 border-emerald-500 p-8 bg-emerald-500/5">
                     <span class="font-black text-sm uppercase italic">✓ Tableau Histoire Débloqué</span>
                 </div>
                 <div class="card bg-blue-900/20 border border-blue-500 p-8 text-center">
-                    <p class="text-xs font-black uppercase mb-4 text-blue-400 italic">Mode Challenge</p>
-                    <button onclick="alert('Lancement du Quiz...')" class="w-full bg-blue-600 py-4 rounded-2xl font-black text-[11px] uppercase shadow-lg">Lancer le Quizz</button>
+                    <button onclick="alert('Quiz en cours de chargement...')" class="w-full bg-blue-600 py-4 rounded-2xl font-black text-[11px] uppercase">Lancer le Quizz</button>
                 </div>
             </div>
         </div>
@@ -124,6 +129,7 @@
 
     <script>
         let currentLang = 'ar.alafasy';
+        let currentAudio = null;
 
         function nav(id) {
             ['home','piliers','coran','vip'].forEach(s => {
@@ -136,7 +142,6 @@
         }
 
         function activateVIP() {
-            // Cette fonction enregistre le fait que le bouton a été cliqué
             localStorage.setItem('vip_unlocked', 'true');
             checkStatus();
         }
@@ -155,22 +160,47 @@
             loadSurahContent();
         }
 
+        function playAyah(num) {
+            if(currentAudio) currentAudio.pause();
+            currentAudio = new Audio(`https://cdn.islamic.network/quran/audio/128/ar.alafasy/${num}.mp3`);
+            currentAudio.play();
+        }
+
         async function loadSurahContent() {
             const num = document.getElementById('selSurah').value;
             if(!num) return;
-            const r = await fetch(`https://api.alquran.cloud/v1/surah/${num}/${currentLang}`);
-            const d = await r.json();
-            let h = '';
-            d.data.ayahs.forEach(a => h += `<div class="p-5 bg-[#0a1212] mb-3 rounded-2xl text-[13px] border border-white/5 ${currentLang.startsWith('ar') ? 'arabic text-3xl text-emerald-400' : ''}">${a.text}</div>`);
-            document.getElementById('contentCoran').innerHTML = h;
+            document.getElementById('contentCoran').innerHTML = '<p class="text-center text-xs animate-pulse">Chargement...</p>';
+            
+            try {
+                const r = await fetch(`https://api.alquran.cloud/v1/surah/${num}/${currentLang}`);
+                const d = await r.json();
+                let h = '';
+                d.data.ayahs.forEach(a => {
+                    const audioBtn = currentLang.startsWith('ar') ? 
+                        `<div class="audio-btn" onclick="playAyah(${a.number})">▶</div>` : '';
+                    
+                    h += `
+                    <div class="p-5 bg-[#0a1212] mb-3 rounded-2xl border border-white/5 flex flex-col gap-3">
+                        <div class="flex justify-between items-start">
+                            <span class="text-[10px] text-emerald-700 font-bold">Verset ${a.numberInSurah}</span>
+                            ${audioBtn}
+                        </div>
+                        <div class="text-[13px] ${currentLang.startsWith('ar') ? 'arabic text-3xl text-emerald-400' : ''}">${a.text}</div>
+                    </div>`;
+                });
+                document.getElementById('contentCoran').innerHTML = h;
+            } catch(e) {
+                document.getElementById('contentCoran').innerHTML = '<p class="text-red-500 text-center">Erreur de connexion</p>';
+            }
         }
 
         async function initApp() {
             try {
-                const r = await fetch('https://api.aladhan.com/v1/timingsByCity?city=Montfermeil&country=France&method=3');
+                const r = await fetch('https://api.aladhan.com/v1/timingsByCity?city=Paris&country=France&method=3');
                 const d = await r.json();
                 const t = d.data.timings;
                 document.getElementById('prayer-times').innerHTML = `<div>FAJR<br>${t.Fajr}</div><div>DUHR<br>${t.Dhuhr}</div><div>ASR<br>${t.Asr}</div><div>MAGH<br>${t.Maghrib}</div><div>ICHA<br>${t.Isha}</div>`;
+                document.getElementById('hijri-date').innerText = d.data.date.hijri.day + " " + d.data.date.hijri.month.fr + " " + d.data.date.hijri.year;
             } catch(e) {}
             
             const rS = await fetch('https://api.alquran.cloud/v1/surah');
@@ -179,6 +209,7 @@
             sel.innerHTML = '<option value="">SÉLECTIONNER SOURATE</option>';
             dS.data.forEach(s => sel.innerHTML += `<option value="${s.number}">${s.number}. ${s.englishName}</option>`);
             
+            nav('home');
             checkStatus();
         }
 
