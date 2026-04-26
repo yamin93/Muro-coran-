@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Muslim App - Pro</title>
+    <title>Muslim App - Version Finale</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Amiri&family=Inter:wght@400;700;900&display=swap');
@@ -40,17 +40,10 @@
             margin-top: 20px;
         }
 
-        .audio-btn {
-            background: #10b981;
-            color: white;
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
+        .audio-controls {
             display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 14px;
-            cursor: pointer;
+            gap: 10px;
+            margin-bottom: 15px;
         }
     </style>
 </head>
@@ -59,14 +52,14 @@
     <div class="max-w-md mx-auto">
         <div class="text-center py-8">
             <h1 class="text-5xl font-black text-emerald-500 italic uppercase tracking-tighter">Muslim App</h1>
-            <p id="hijri-date" class="text-[10px] text-emerald-800 font-bold mt-2 uppercase tracking-widest">Chargement...</p>
+            <p id="hijri-date" class="text-[10px] text-emerald-800 font-bold mt-2 uppercase">Chargement...</p>
         </div>
 
         <nav class="grid grid-cols-4 gap-2 mb-8 bg-[#111827] p-2 rounded-2xl sticky top-2 z-50">
-            <button id="b-home" onclick="nav('home')" class="py-3 text-[9px] font-bold uppercase text-slate-400 bg-transparent">Accueil</button>
-            <button id="b-piliers" onclick="nav('piliers')" class="py-3 text-[9px] font-bold uppercase text-slate-400 bg-transparent">Piliers</button>
-            <button id="b-coran" onclick="nav('coran')" class="py-3 text-[9px] font-bold uppercase text-slate-400 bg-transparent">Coran</button>
-            <button id="b-vip" onclick="nav('vip')" class="py-3 text-[9px] font-bold uppercase text-slate-400 bg-transparent">Outils</button>
+            <button id="b-home" onclick="nav('home')" class="py-3 text-[9px] font-bold uppercase text-slate-400">Accueil</button>
+            <button id="b-piliers" onclick="nav('piliers')" class="py-3 text-[9px] font-bold uppercase text-slate-400">Piliers</button>
+            <button id="b-coran" onclick="nav('coran')" class="py-3 text-[9px] font-bold uppercase text-slate-400">Coran</button>
+            <button id="b-vip" onclick="nav('vip')" class="py-3 text-[9px] font-bold uppercase text-slate-400">Outils</button>
         </nav>
 
         <div id="s-home" class="space-y-4">
@@ -89,6 +82,12 @@
 
         <div id="s-coran" class="hidden space-y-4">
             <select id="selSurah" class="w-full p-4 bg-[#0a1212] border border-emerald-900 rounded-xl text-emerald-400 font-bold text-xs uppercase" onchange="loadSurahContent()"></select>
+            
+            <div class="audio-controls">
+                <button onclick="playFullSurah()" class="flex-1 bg-blue-600 py-2 rounded-lg text-[9px] font-bold">LIRE TOUTE LA SOURATE</button>
+                <button onclick="stopAudio()" class="bg-red-600 px-4 py-2 rounded-lg text-[9px] font-bold">STOP</button>
+            </div>
+
             <div class="flex gap-2">
                 <button onclick="changeLang('ar.alafasy')" id="btn-ar" class="flex-1 bg-emerald-600/20 py-2 rounded-lg text-[10px] font-bold border border-emerald-600">VERSION ARABE</button>
                 <button onclick="changeLang('fr.hamidullah')" id="btn-fr" class="flex-1 bg-slate-800 py-2 rounded-lg text-[10px] font-bold border border-white/5">VERSION FRANÇAIS</button>
@@ -98,37 +97,56 @@
 
         <div id="s-vip" class="hidden">
             <div id="vip-lock">
-                <h2 class="text-3xl font-black text-[#f1a944] italic text-center uppercase tracking-tighter">Pack VIP</h2>
-                <div class="card bg-[#0a0f14] p-12 text-center border-none shadow-2xl mt-4">
+                <h2 class="text-3xl font-black text-[#f1a944] italic text-center uppercase">Pack VIP</h2>
+                <div class="card bg-[#0a0f14] p-12 text-center mt-4">
                     <p class="text-6xl font-black text-white mb-10">2,99€</p>
                     <a href="https://www.paypal.me/YaminDjaouat881/2.99" target="_blank" class="btn-paypal-large">
                         💰 PAYER VIA PAYPAL
                     </a>
                 </div>
                 <button onclick="activateVIP()" class="btn-activate">Activer mon accès</button>
-                <p class="text-[8px] text-center text-slate-500 uppercase tracking-widest mt-4 italic">Une fois le paiement effectué, cliquez sur Activer.</p>
             </div>
 
-            <div id="vip-content" class="hidden space-y-4">
-                <div class="card border-2 border-amber-500 p-8 bg-amber-500/5">
-                    <span class="font-black text-sm uppercase italic">✓ Tableau Ablutions Débloqué</span>
+            <div id="vip-content" class="hidden space-y-6">
+                <div class="card border-2 border-amber-500 bg-amber-500/5">
+                    <h3 class="font-black text-amber-500 uppercase mb-4 italic">✓ Guide des Ablutions</h3>
+                    <div class="text-[11px] space-y-2">
+                        <p>1. L'intention & Bismillah</p>
+                        <p>2. Laver les mains (3x)</p>
+                        <p>3. Rincer la bouche & nez (3x)</p>
+                        <p>4. Laver le visage (3x)</p>
+                        <p>5. Bras jusqu'aux coudes (3x)</p>
+                        <p>6. Passer les mains sur la tête & oreilles</p>
+                        <p>7. Laver les pieds (3x)</p>
+                    </div>
                 </div>
-                <div class="card border-2 border-emerald-500 p-8 bg-emerald-500/5">
-                    <span class="font-black text-sm uppercase italic">✓ Tableau Histoire Débloqué</span>
+
+                <div class="card border-2 border-emerald-500 bg-emerald-500/5">
+                    <h3 class="font-black text-emerald-500 uppercase mb-4 italic">✓ Histoire du Coran</h3>
+                    <div class="text-[11px] space-y-2">
+                        <p>• Révélé pendant 23 ans au Prophète (SWS)</p>
+                        <p>• Première compilation sous Abou Bakr</p>
+                        <p>• Standardisation sous Othman</p>
+                    </div>
                 </div>
-                <div class="card bg-blue-900/20 border border-blue-500 p-8 text-center">
-                    <button onclick="alert('Quiz en cours de chargement...')" class="w-full bg-blue-600 py-4 rounded-2xl font-black text-[11px] uppercase">Lancer le Quizz</button>
+
+                <div id="quiz-area" class="card bg-blue-900/20 border border-blue-500">
+                    <p id="quiz-q" class="text-xs font-black uppercase text-blue-400 mb-4 text-center italic">Prêt pour le Quiz ?</p>
+                    <div id="quiz-opts" class="grid gap-2">
+                        <button onclick="startQuiz()" class="w-full bg-blue-600 py-3 rounded-xl font-bold text-[11px] uppercase">Lancer le Quizz</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
     <div class="fixed bottom-0 left-0 w-full bg-white text-black py-5 text-center font-black text-[10px] border-t-4 border-emerald-600 z-50">
-        BOUTIQUE : <span class="text-blue-600 uppercase tracking-widest">Coran Noble Édition</span>
+        BOUTIQUE : <span class="text-blue-600 uppercase">Coran Noble Édition</span>
     </div>
 
     <script>
         let currentLang = 'ar.alafasy';
+        let audioList = [];
         let currentAudio = null;
 
         function nav(id) {
@@ -153,45 +171,81 @@
             }
         }
 
-        function changeLang(lang) {
-            currentLang = lang;
-            document.getElementById('btn-ar').style.backgroundColor = lang === 'ar.alafasy' ? 'rgba(16, 185, 129, 0.2)' : '#1e293b';
-            document.getElementById('btn-fr').style.backgroundColor = lang === 'fr.hamidullah' ? 'rgba(16, 185, 129, 0.2)' : '#1e293b';
-            loadSurahContent();
-        }
-
+        // --- GESTION AUDIO ---
         function playAyah(num) {
-            if(currentAudio) currentAudio.pause();
+            stopAudio();
             currentAudio = new Audio(`https://cdn.islamic.network/quran/audio/128/ar.alafasy/${num}.mp3`);
             currentAudio.play();
+        }
+
+        function stopAudio() {
+            if(currentAudio) { currentAudio.pause(); currentAudio = null; }
+        }
+
+        async function playFullSurah() {
+            const num = document.getElementById('selSurah').value;
+            const r = await fetch(`https://api.alquran.cloud/v1/surah/${num}/ar.alafasy`);
+            const d = await r.json();
+            let index = 0;
+            const playNext = () => {
+                if(index < d.data.ayahs.length) {
+                    currentAudio = new Audio(d.data.ayahs[index].audio);
+                    currentAudio.play();
+                    currentAudio.onended = () => { index++; playNext(); };
+                }
+            };
+            playNext();
+        }
+
+        // --- QUIZ SYSTEM ---
+        const questions = [
+            {q: "Combien de piliers en Islam ?", a: ["3", "5", "7"], c: 1},
+            {q: "Quelle est la première sourate ?", a: ["Al-Baqara", "Al-Fatiha", "An-Nas"], c: 1},
+            {q: "Combien de versets dans la Fatiha ?", a: ["5", "6", "7"], c: 2}
+        ];
+        let qIdx = 0;
+        function startQuiz() {
+            qIdx = 0;
+            showQ();
+        }
+        function showQ() {
+            let q = questions[qIdx];
+            document.getElementById('quiz-q').innerText = q.q;
+            let h = '';
+            q.a.forEach((opt, i) => {
+                h += `<button onclick="answer(${i})" class="w-full p-4 bg-slate-800 rounded-xl text-[10px] font-bold uppercase">${opt}</button>`;
+            });
+            document.getElementById('quiz-opts').innerHTML = h;
+        }
+        function answer(i) {
+            if(i === questions[qIdx].c) alert("CORRECT ! ✅");
+            else alert("MAUVAIS ! ❌");
+            qIdx++;
+            if(qIdx < questions.length) showQ();
+            else {
+                document.getElementById('quiz-q').innerText = "Quiz Terminé ! Bravo.";
+                document.getElementById('quiz-opts').innerHTML = `<button onclick="startQuiz()" class="w-full bg-emerald-600 py-3 rounded-xl font-bold text-[11px] uppercase">Recommencer</button>`;
+            }
         }
 
         async function loadSurahContent() {
             const num = document.getElementById('selSurah').value;
             if(!num) return;
-            document.getElementById('contentCoran').innerHTML = '<p class="text-center text-xs animate-pulse">Chargement...</p>';
-            
-            try {
-                const r = await fetch(`https://api.alquran.cloud/v1/surah/${num}/${currentLang}`);
-                const d = await r.json();
-                let h = '';
-                d.data.ayahs.forEach(a => {
-                    const audioBtn = currentLang.startsWith('ar') ? 
-                        `<div class="audio-btn" onclick="playAyah(${a.number})">▶</div>` : '';
-                    
-                    h += `
-                    <div class="p-5 bg-[#0a1212] mb-3 rounded-2xl border border-white/5 flex flex-col gap-3">
-                        <div class="flex justify-between items-start">
-                            <span class="text-[10px] text-emerald-700 font-bold">Verset ${a.numberInSurah}</span>
-                            ${audioBtn}
-                        </div>
+            const r = await fetch(`https://api.alquran.cloud/v1/surah/${num}/${currentLang}`);
+            const d = await r.json();
+            let h = '';
+            d.data.ayahs.forEach(a => {
+                h += `<div class="p-5 bg-[#0a1212] mb-3 rounded-2xl border border-white/5" onclick="playAyah(${a.number})">
+                        <div class="text-[10px] text-emerald-700 font-bold mb-2">Verset ${a.numberInSurah} (Clique pour l'audio)</div>
                         <div class="text-[13px] ${currentLang.startsWith('ar') ? 'arabic text-3xl text-emerald-400' : ''}">${a.text}</div>
                     </div>`;
-                });
-                document.getElementById('contentCoran').innerHTML = h;
-            } catch(e) {
-                document.getElementById('contentCoran').innerHTML = '<p class="text-red-500 text-center">Erreur de connexion</p>';
-            }
+            });
+            document.getElementById('contentCoran').innerHTML = h;
+        }
+
+        function changeLang(lang) {
+            currentLang = lang;
+            loadSurahContent();
         }
 
         async function initApp() {
@@ -206,7 +260,7 @@
             const rS = await fetch('https://api.alquran.cloud/v1/surah');
             const dS = await rS.json();
             const sel = document.getElementById('selSurah');
-            sel.innerHTML = '<option value="">SÉLECTIONNER SOURATE</option>';
+            sel.innerHTML = '<option value="">CHOISIR SOURATE</option>';
             dS.data.forEach(s => sel.innerHTML += `<option value="${s.number}">${s.number}. ${s.englishName}</option>`);
             
             nav('home');
