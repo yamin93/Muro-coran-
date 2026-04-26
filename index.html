@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Muslim App - Expert</title>
+    <title>Muslim App - Ultimate</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Amiri&family=Inter:wght@400;700&display=swap');
@@ -23,30 +23,26 @@
             <p class="text-[9px] text-emerald-700 tracking-[0.3em] font-bold uppercase">Savoir • Prière • Protection</p>
         </div>
 
-        <nav class="grid grid-cols-6 gap-1 mb-6 bg-slate-900/90 p-1 rounded-2xl sticky top-2 z-50 backdrop-blur-md border border-white/10 shadow-xl">
-            <button id="b-piliers" onclick="nav('piliers')" class="py-3 rounded-xl text-[7px] font-bold nav-active uppercase">Piliers</button>
-            <button id="b-prière" onclick="nav('prière')" class="py-3 rounded-xl text-[7px] font-bold uppercase">Prière</button>
-            <button id="b-coran" onclick="nav('coran')" class="py-3 rounded-xl text-[7px] font-bold uppercase">Coran</button>
-            <button id="b-quiz" onclick="nav('quiz')" class="py-3 rounded-xl text-[7px] font-bold uppercase">Quiz</button>
-            <button id="b-doua" onclick="nav('doua')" class="py-3 rounded-xl text-[7px] font-bold uppercase text-red-400">🛡️</button>
-            <button id="b-vip" onclick="nav('vip')" class="py-3 rounded-xl text-[7px] font-bold text-amber-500 uppercase">⭐</button>
+        <nav class="grid grid-cols-6 gap-1 mb-6 bg-slate-900/90 p-1 rounded-2xl sticky top-2 z-50 backdrop-blur-md border border-white/10">
+            <button id="b-piliers" onclick="nav('piliers')" class="py-3 rounded-xl text-[7px] font-bold nav-active">PILIERS</button>
+            <button id="b-prière" onclick="nav('prière')" class="py-3 rounded-xl text-[7px] font-bold">PRIÈRE</button>
+            <button id="b-coran" onclick="nav('coran')" class="py-3 rounded-xl text-[7px] font-bold">CORAN</button>
+            <button id="b-quiz" onclick="nav('quiz')" class="py-3 rounded-xl text-[7px] font-bold">QUIZ</button>
+            <button id="b-doua" onclick="nav('doua')" class="py-3 rounded-xl text-[7px] font-bold text-red-400">🛡️</button>
+            <button id="b-vip" onclick="nav('vip')" class="py-3 rounded-xl text-[7px] font-bold text-amber-500">⭐</button>
         </nav>
 
         <div id="s-piliers" class="space-y-2">
-            <h2 class="text-amber-500 font-bold text-center text-[10px] uppercase mb-4 italic tracking-widest underline">Les Fondements de l'Islam</h2>
-            <div class="card gold-border py-3"><p class="text-amber-500 font-bold text-[10px] uppercase">1. La Chahada (Foi)</p></div>
-            <div class="card gold-border py-3"><p class="text-amber-500 font-bold text-[10px] uppercase">2. La Salat (Prière)</p></div>
-            <div class="card gold-border py-3"><p class="text-amber-500 font-bold text-[10px] uppercase">3. La Zakat (Aumône)</p></div>
-            <div class="card gold-border py-3"><p class="text-amber-500 font-bold text-[10px] uppercase">4. Le Sawm (Jeûne)</p></div>
-            <div class="card gold-border py-3"><p class="text-amber-500 font-bold text-[10px] uppercase">5. Le Hajj (Pèlerinage)</p></div>
+            <h2 class="text-amber-500 font-bold text-center text-[10px] uppercase mb-4 italic tracking-widest underline">Les Fondements</h2>
+            <div class="card gold-border py-3"><p class="text-amber-500 font-bold text-[10px] uppercase text-center">1. La Chahada • 2. La Salat • 3. La Zakat • 4. Le Sawm • 5. Le Hajj</p></div>
         </div>
 
-        <div id="s-prière" class="hidden space-y-3">
-            <h2 class="text-emerald-500 font-bold text-center text-[10px] uppercase mb-4">Guide de la Salat</h2>
+        <div id="s-prière" class="hidden space-y-3 text-center">
+            <h2 class="text-emerald-500 font-bold text-[10px] uppercase mb-4 tracking-widest">Guide de la Salat (Écrit)</h2>
             <div class="card border-l-4 border-emerald-600">
-                <p class="text-emerald-500 font-bold text-[10px]">Le Takbir</p>
-                <p class="arabic text-2xl text-right my-2">اللَّهُ أَكْبَرُ</p>
-                <p class="text-[9px] text-slate-400 italic">Allahu Akbar (Allah est le plus Grand)</p>
+                <p class="text-emerald-500 font-bold text-[10px] mb-2 uppercase">Étape 1 : Le Takbir</p>
+                <p class="arabic text-3xl mb-2 text-white">اللَّهُ أَكْبَرُ</p>
+                <p class="text-[10px] text-slate-400">"Allahu Akbar" (Allah est le plus Grand)</p>
             </div>
         </div>
 
@@ -57,50 +53,71 @@
 
         <div id="s-quiz" class="hidden">
             <div id="quiz-box" class="bg-slate-900 p-6 rounded-3xl border border-emerald-900 shadow-2xl">
-                <p id="q-text" class="text-lg font-bold mb-6 text-center text-emerald-400"></p>
+                <div class="flex justify-between mb-4 text-[10px] font-bold text-emerald-500 uppercase">
+                    <span id="q-count">Question 1/10</span>
+                    <span id="q-score">Score: 0</span>
+                </div>
+                <p id="q-text" class="text-lg font-bold mb-6 text-center text-white"></p>
                 <div id="opt-container" class="grid gap-3"></div>
             </div>
-            <div id="quiz-result" class="hidden bg-slate-900 p-6 rounded-3xl text-center border border-blue-500">
-                <h2 class="text-2xl font-black mb-2" id="score-text"></h2>
-                <div id="correction-area" class="text-left text-[10px] space-y-2 my-4 max-h-60 overflow-y-auto"></div>
-                <button onclick="startQuiz()" class="w-full bg-emerald-600 py-4 rounded-2xl font-bold uppercase text-xs">Recommencer</button>
+            <div id="quiz-result" class="hidden bg-slate-900 p-8 rounded-3xl text-center border-2 border-emerald-500">
+                <h2 class="text-3xl font-black text-emerald-500 mb-4" id="score-text"></h2>
+                <button onclick="startQuiz()" class="w-full bg-emerald-600 py-4 rounded-2xl font-bold uppercase text-xs">Recommencer le défi</button>
             </div>
         </div>
 
         <div id="s-doua" class="hidden space-y-4">
             <div class="bg-red-950/30 p-6 rounded-3xl border border-red-900/50">
-                <p class="text-[10px] font-black text-red-500 mb-4 uppercase text-center underline">Protection Sheitan</p>
+                <p class="text-[10px] font-black text-red-500 mb-4 uppercase text-center underline">Protection Divine</p>
                 <p class="arabic text-3xl text-right mb-4">أَعُوذُ بِاللَّهِ مِنَ الشَّيْطَانِ الرَّجِيمِ</p>
-                <p class="text-[10px] italic text-slate-400 text-center">A’oudhou billahi mina shaytani rajim</p>
+                <p class="text-[10px] italic text-slate-400 text-center uppercase font-bold">A’oudhou billahi mina shaytani rajim</p>
             </div>
         </div>
 
         <div id="s-vip" class="hidden">
             <div id="vip-lock" class="bg-slate-900 p-8 rounded-[40px] border border-amber-600/30 text-center shadow-2xl">
-                <h2 class="text-2xl font-black text-amber-500 mb-2 italic">PASS VIP</h2>
-                <p class="text-[10px] text-slate-400 mb-8 uppercase font-bold text-center italic tracking-tighter">Accédez aux secrets de mémorisation</p>
+                <h2 class="text-2xl font-black text-amber-500 mb-2 italic uppercase">FORMATION VIP</h2>
+                <p class="text-[10px] text-slate-400 mb-8 uppercase font-bold text-center italic tracking-tighter">Guide Complet des Ablutions & Mémorisation</p>
                 
                 <div class="bg-black/40 p-6 rounded-3xl border border-white/5 mb-6">
                     <p class="text-3xl font-black text-white mb-6 text-center">2,99€</p>
                     
-                    <a href="https://www.paypal.me/TON_NOM/2.99" target="_blank" onclick="localStorage.setItem('hasPaid','yes')" class="block w-full bg-blue-600 text-white font-black py-5 rounded-2xl text-[10px] uppercase tracking-widest shadow-xl shadow-blue-600/20 mb-4">
-                        💰 PAYER AVEC PAYPAL
-                    </a>
+                    <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank" onsubmit="localStorage.setItem('paid','true')">
+                        <input type="hidden" name="cmd" value="_xclick">
+                        <input type="hidden" name="business" value="TON_EMAIL_ICI@gmail.com"> <input type="hidden" name="item_name" value="Muslim App VIP">
+                        <input type="hidden" name="amount" value="2.99">
+                        <input type="hidden" name="currency_code" value="EUR">
+                        <button type="submit" class="w-full bg-blue-600 text-white font-black py-5 rounded-2xl text-[10px] uppercase tracking-widest shadow-xl shadow-blue-600/20 mb-4">
+                            💰 PAYER VIA PAYPAL
+                        </button>
+                    </form>
                 </div>
 
-                <p class="text-[8px] text-slate-500 mb-4 italic text-center">Une fois payé, cliquez ici pour débloquer :</p>
-                <button onclick="checkVIP()" class="w-full bg-amber-500 text-black font-black py-4 rounded-2xl text-[10px] uppercase tracking-widest shadow-lg">DÉBLOQUER L'ACCÈS</button>
+                <p class="text-[8px] text-slate-500 mb-4 italic text-center">Une fois le paiement fait, clique sur le bouton doré :</p>
+                <button onclick="checkVIP()" class="w-full bg-amber-500 text-black font-black py-4 rounded-2xl text-[10px] uppercase tracking-widest">DÉBLOQUER TOUT MAINTENANT</button>
             </div>
 
             <div id="vip-content" class="hidden space-y-4">
-                <div class="card gold-border"><p class="text-amber-500 font-bold text-[10px] uppercase mb-2">Cours : Mémorisation</p><p class="text-[10px] text-slate-300">Répétez chaque verset 20 fois après le Fajr pour ne jamais l'oublier.</p></div>
-                <div class="card gold-border"><p class="text-amber-500 font-bold text-[10px] uppercase mb-2">Cours : Ablutions</p><p class="text-[10px] text-slate-300">Frottez bien entre chaque doigt, c'est un secret pour la validité totale.</p></div>
+                <div class="card gold-border bg-amber-900/10">
+                    <p class="text-amber-500 font-black text-xs uppercase mb-3 text-center underline">Comment faire les Ablutions (Wudu)</p>
+                    <div class="text-[10px] leading-relaxed text-slate-300 space-y-2">
+                        <p><b>1. L'Intention :</b> Dans ton cœur, tu as l'intention de te purifier.</p>
+                        <p><b>2. Bismillah :</b> Dis "Au nom d'Allah".</p>
+                        <p><b>3. Les Mains :</b> Lave tes mains jusqu'aux poignets (3 fois).</p>
+                        <p><b>4. La Bouche :</b> Rince-toi la bouche avec de l'eau (3 fois).</p>
+                        <p><b>5. Le Nez :</b> Aspire un peu d'eau dans le nez et rejette-la (3 fois).</p>
+                        <p><b>6. Le Visage :</b> Lave tout ton visage du front au menton (3 fois).</p>
+                        <p><b>7. Les Bras :</b> Lave tes bras jusqu'aux coudes en commençant par le droit (3 fois).</p>
+                        <p><b>8. La Tête & Oreilles :</b> Passe tes mains mouillées sur tes cheveux une fois, puis fais l'intérieur de tes oreilles.</p>
+                        <p><b>9. Les Pieds :</b> Lave tes pieds jusqu'aux chevilles (3 fois), lave bien entre les orteils.</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
     <div class="fixed bottom-0 left-0 w-full bg-white text-black py-3 text-center font-black text-[9px] border-t-4 border-emerald-600 z-50">
-        BOUTIQUE : <span class="text-blue-600">TAPIS DE PRIÈRE ÉLECTRONIQUE</span> • <span class="underline">ACHETER</span>
+        BOUTIQUE : <span class="text-blue-600">LIVRES D'APPRENTISSAGE</span> • <span class="underline uppercase">CLIQUEZ ICI</span>
     </div>
 
     <script>
@@ -119,7 +136,7 @@
             const r = await fetch('https://api.alquran.cloud/v1/surah');
             const d = await r.json();
             const sel = document.getElementById('selSurah');
-            sel.innerHTML = '<option value="">-- Choisissez une Sourate --</option>';
+            sel.innerHTML = '<option value="">-- Sélectionnez une Sourate --</option>';
             d.data.forEach(s => sel.innerHTML += `<option value="${s.number}">${s.number}. ${s.englishName}</option>`);
         }
         document.getElementById('selSurah').addEventListener('change', async (e) => {
@@ -133,59 +150,60 @@
             cont.innerHTML = h;
         });
 
-        // --- QUIZ DYNAMIQUE ---
-        const questions = [
-            {q: "Combien y a-t-il de piliers ?", a: ["3","5","7"], c: 1},
-            {q: "Quelle est la direction de la prière ?", a: ["La Mecque","Jérusalem","Médine"], c: 0},
-            {q: "Le mois du jeûne ?", a: ["Chawwal","Ramadan","Rajab"], c: 1},
-            {q: "Le premier Prophète ?", a: ["Issa","Adam","Nuh"], c: 1}
+        // --- QUIZ ALÉATOIRE ---
+        const allQuestions = [
+            {q: "Combien y a-t-il de piliers de l'Islam ?", a: ["3","5","6"], c: 1},
+            {q: "Quelle est la ville sainte de la Qibla ?", a: ["Médine","La Mecque","Jérusalem"], c: 1},
+            {q: "Lequel est un pilier de l'Islam ?", a: ["La Zakat","Le Jihad","Le Mariage"], c: 0},
+            {q: "Le Prophète de l'Islam est ?", a: ["Issa","Moussa","Muhammad"], c: 2},
+            {q: "Combien de prières par jour ?", a: ["4","5","2"], c: 1},
+            {q: "Le mois du jeûne s'appelle ?", a: ["Chawwal","Ramadan","Safar"], c: 1},
+            {q: "Que dit-on avant de manger ?", a: ["Hamdoulilah","Bismillah","Allahu Akbar"], c: 1},
+            {q: "La prière du matin s'appelle ?", a: ["Asr","Fajr","Icha"], c: 1}
         ];
-        let cur = 0, score = 0, history = [];
+        let quizPool = [], score = 0, currentIdx = 0;
 
         function startQuiz() {
-            cur = 0; score = 0; history = [];
+            score = 0; currentIdx = 0;
+            quizPool = [...allQuestions].sort(() => Math.random() - 0.5); // MÉLANGE ALÉATOIRE
             document.getElementById('quiz-box').classList.remove('hidden');
             document.getElementById('quiz-result').classList.add('hidden');
-            showQ();
+            showQuestion();
         }
 
-        function showQ() {
-            const q = questions[cur];
+        function showQuestion() {
+            const q = quizPool[currentIdx];
+            document.getElementById('q-count').textContent = `Question ${currentIdx + 1}/${quizPool.length}`;
+            document.getElementById('q-score').textContent = `Score: ${score}`;
             document.getElementById('q-text').textContent = q.q;
-            const cont = document.getElementById('opt-container');
-            cont.innerHTML = '';
-            q.a.forEach((o, i) => {
-                const b = document.createElement('button');
-                b.className = "w-full p-4 bg-slate-800 rounded-2xl text-[11px] font-bold border border-white/5 active:bg-emerald-600 transition-colors";
-                b.textContent = o;
-                b.onclick = () => {
-                    history.push({q: q.q, correct: q.a[q.c], user: o, win: i===q.c});
+            const container = document.getElementById('opt-container');
+            container.innerHTML = '';
+            q.a.forEach((opt, i) => {
+                const btn = document.createElement('button');
+                btn.className = "w-full p-4 bg-slate-800 rounded-2xl text-[11px] font-bold border border-white/5 active:bg-emerald-600";
+                btn.textContent = opt;
+                btn.onclick = () => {
                     if(i === q.c) score++;
-                    cur++;
-                    if(cur < questions.length) showQ(); else endQuiz();
+                    currentIdx++;
+                    if(currentIdx < quizPool.length) showQuestion(); else finishQuiz();
                 };
-                cont.appendChild(b);
+                container.appendChild(btn);
             });
         }
 
-        function endQuiz() {
+        function finishQuiz() {
             document.getElementById('quiz-box').classList.add('hidden');
             document.getElementById('quiz-result').classList.remove('hidden');
-            document.getElementById('score-text').textContent = `SCORE : ${score}/${questions.length}`;
-            const area = document.getElementById('correction-area');
-            area.innerHTML = '<p class="font-bold text-blue-400 mb-2 underline">CORRECTION :</p>';
-            history.forEach(h => {
-                area.innerHTML += `<div class="${h.win?'text-emerald-500':'text-red-400'}"><b>Q: ${h.q}</b><br>Rép: ${h.correct}</div>`;
-            });
+            document.getElementById('score-text').textContent = `SCORE FINAL : ${score}/${quizPool.length}`;
         }
 
         // --- VIP ---
         function checkVIP() {
-            if(localStorage.getItem('hasPaid') === 'yes') {
+            if(localStorage.getItem('paid') === 'true') {
                 document.getElementById('vip-lock').classList.add('hidden');
                 document.getElementById('vip-content').classList.remove('hidden');
             } else {
-                alert("Erreur : Payez d'abord via le bouton PayPal !");
+                alert("Vous n'avez pas encore payé ! Cliquez sur le bouton PayPal.");
             }
         }
 
