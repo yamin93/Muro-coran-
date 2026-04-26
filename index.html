@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Muslim App - VIP</title>
+    <title>Muslim App - VIP Final</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
@@ -12,47 +12,55 @@
         .nav-active { background: #059669; color: white; border-bottom: 3px solid #34d399; }
         .card { background: #0a1212; border-radius: 20px; padding: 20px; border: 1px solid #1e293b; margin-bottom: 15px; }
         
-        /* BOUTON PAYPAL COMME TA PHOTO */
+        /* BOUTON PAYPAL EXACTEMENT COMME TA PHOTO */
         .paypal-btn {
-            background: #0070ba;
+            background-color: #0070ba; /* Bleu PayPal */
             color: white;
-            padding: 18px;
+            padding: 16px;
             border-radius: 50px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: 900;
-            text-transform: uppercase;
-            font-size: 14px;
-            box-shadow: 0 4px 15px rgba(0, 112, 186, 0.4);
             text-decoration: none;
-            transition: all 0.2s;
+            box-shadow: 0 4px 15px rgba(0, 112, 186, 0.3);
+            transition: 0.2s;
         }
         .paypal-btn:active { transform: scale(0.96); }
-        .paypal-logo { font-style: italic; margin-right: 8px; font-size: 18px; letter-spacing: -1px; }
+        .paypal-logo { 
+            font-style: italic; 
+            font-weight: 900; 
+            font-size: 20px; 
+            margin-right: 8px;
+            color: #fff;
+        }
+        .paypal-text {
+            font-weight: 700;
+            font-size: 14px;
+            text-transform: none; /* Pas de majuscules forcées pour coller à la photo */
+        }
     </style>
 </head>
 <body class="p-4" onload="initApp()">
 
     <div class="max-w-md mx-auto">
         <div class="text-center py-6">
-            <h1 class="text-4xl font-black text-emerald-500 italic uppercase italic tracking-tighter">Muslim App</h1>
+            <h1 class="text-4xl font-black text-emerald-500 italic uppercase">Muslim App</h1>
         </div>
 
-        <nav class="grid grid-cols-4 gap-1 mb-6 bg-slate-900/50 p-1 rounded-2xl sticky top-2 z-50 shadow-2xl">
+        <nav class="grid grid-cols-4 gap-1 mb-6 bg-slate-900/50 p-1 rounded-2xl sticky top-2 z-50">
             <button id="b-home" onclick="nav('home')" class="py-3 rounded-xl text-[8px] font-bold nav-active uppercase">Accueil</button>
             <button id="b-piliers" onclick="nav('piliers')" class="py-3 rounded-xl text-[8px] font-bold uppercase">Piliers</button>
             <button id="b-coran" onclick="nav('coran')" class="py-3 rounded-xl text-[8px] font-bold uppercase">Coran</button>
             <button id="b-vip" onclick="nav('vip')" class="py-3 rounded-xl text-[8px] font-bold uppercase text-amber-500 border border-amber-500/20">⭐ VIP</button>
         </nav>
 
-        <div id="s-home" class="space-y-4">
+        <div id="s-home">
             <div class="card border-t-4 border-emerald-600">
-                <div id="prayer-times" class="grid grid-cols-5 gap-2 text-center text-[9px] font-bold text-emerald-400 italic"></div>
+                <div id="prayer-times" class="grid grid-cols-5 gap-2 text-center text-[9px] font-bold text-emerald-400"></div>
             </div>
             <div class="card text-center">
                 <div class="text-4xl font-black text-emerald-500 mb-4" id="tasbih-count">0</div>
-                <button onclick="countTasbih()" class="w-full bg-emerald-600 py-4 rounded-2xl font-black shadow-lg shadow-emerald-900/20 uppercase text-xs">+1 Tasbih</button>
+                <button onclick="countTasbih()" class="w-full bg-emerald-600 py-4 rounded-2xl font-black uppercase text-xs">+1 Tasbih</button>
             </div>
         </div>
 
@@ -65,52 +73,48 @@
         </div>
 
         <div id="s-coran" class="hidden">
-            <select id="selSurah" class="w-full p-4 bg-slate-900 border border-emerald-900 rounded-xl text-emerald-400 font-bold text-xs uppercase"></select>
+            <select id="selSurah" class="w-full p-4 bg-slate-900 border border-emerald-900 rounded-xl text-emerald-400 font-bold text-xs"></select>
             <div id="contentCoran" class="mt-4"></div>
         </div>
 
         <div id="s-vip" class="hidden">
             <div id="vip-lock" class="card text-center p-8 border-2 border-dashed border-amber-600/30">
                 <div class="text-6xl mb-6">🔒</div>
-                <h2 class="text-xl font-black text-white mb-2 uppercase italic tracking-tighter">Accès VIP Bloqué</h2>
-                <p class="text-[9px] text-slate-400 mb-8 uppercase tracking-widest leading-loose">Payez pour débloquer les 2 grands tableaux :<br>Ablutions & Histoire du Coran</p>
+                <h2 class="text-xl font-black text-white mb-2 uppercase italic">Accès VIP</h2>
+                <p class="text-[9px] text-slate-400 mb-8 uppercase">Débloquez les 2 grands tableaux</p>
                 
                 <div class="bg-black/60 p-6 rounded-[35px] border border-white/5 mb-6">
-                    <p class="text-4xl font-black text-white mb-6">2,99€</p>
+                    <p class="text-3xl font-black text-white mb-6">2,99€</p>
                     
-                    <a href="https://www.paypal.me/YaminDjaouat881/2.99" target="_blank" onclick="localStorage.setItem('vip_paid','true')" class="paypal-btn">
-                        <span class="paypal-logo">PayPal</span> PAYER MAINTENANT
+                    <a href="https://www.paypal.me/YaminDjaouat881/2.99" target="_blank" onclick="localStorage.setItem('paid_vip','true')" class="paypal-btn">
+                        <span class="paypal-logo">PayPal</span>
+                        <span class="paypal-text">Payer avec PayPal</span>
                     </a>
                 </div>
                 
-                <button onclick="checkAccess()" class="text-amber-500 text-[10px] font-bold underline uppercase tracking-tighter">Débloquer après paiement</button>
+                <button onclick="checkAccess()" class="text-amber-500 text-[10px] font-bold underline uppercase">Vérifier mon achat</button>
             </div>
 
             <div id="vip-content" class="hidden space-y-6">
-                <div class="card border-t-4 border-amber-500 px-0 overflow-hidden">
-                    <h3 class="p-4 font-black text-amber-500 uppercase text-xs italic">Guide Complet des Ablutions</h3>
-                    <div class="p-4 space-y-3 text-[11px] border-t border-white/5">
-                        <p class="flex justify-between border-b border-white/5 pb-2"><span>1. Les mains</span> <span class="text-slate-400">3 fois</span></p>
-                        <p class="flex justify-between border-b border-white/5 pb-2"><span>2. La bouche</span> <span class="text-slate-400">3 fois</span></p>
-                        <p class="flex justify-between border-b border-white/5 pb-2"><span>3. Le nez</span> <span class="text-slate-400">3 fois</span></p>
-                        <p class="flex justify-between border-b border-white/5 pb-2"><span>4. Le visage</span> <span class="text-slate-400">3 fois</span></p>
-                        <p class="flex justify-between"><span>5. Les pieds</span> <span class="text-slate-400">3 fois</span></p>
+                <div class="card border-t-4 border-amber-500">
+                    <h3 class="font-black text-amber-500 uppercase text-xs mb-4">Tableau des Ablutions</h3>
+                    <div class="text-[11px] space-y-2 text-slate-300">
+                        <p>• Mains (3x)</p><p>• Bouche (3x)</p><p>• Nez (3x)</p><p>• Visage (3x)</p><p>• Pieds (3x)</p>
                     </div>
                 </div>
-
-                <div class="card border-t-4 border-emerald-500 px-0 overflow-hidden">
-                    <h3 class="p-4 font-black text-emerald-500 uppercase text-xs italic">Tableau Histoire du Coran</h3>
-                    <div class="p-4 space-y-3 text-[11px] border-t border-white/5">
-                        <p class="flex justify-between border-b border-white/5 pb-2"><span>An 610</span> <span class="text-slate-400">Grotte de Hira</span></p>
-                        <p class="flex justify-between border-b border-white/5 pb-2"><span>23 ans</span> <span class="text-slate-400">Durée Révélation</span></p>
-                        <p class="flex justify-between"><span>Abou Bakr</span> <span class="text-slate-400">Premier Mushaf</span></p>
+                <div class="card border-t-4 border-emerald-500">
+                    <h3 class="font-black text-emerald-500 uppercase text-xs mb-4">Histoire du Coran</h3>
+                    <div class="text-[11px] space-y-2 text-slate-300">
+                        <p>• 610 : Grotte de Hira</p>
+                        <p>• 23 ans de révélation</p>
+                        <p>• Compilation par Abou Bakr</p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="fixed bottom-0 left-0 w-full bg-white text-black py-4 text-center font-black text-[10px] border-t-4 border-emerald-600 z-50 uppercase tracking-[3px]">
+    <div class="fixed bottom-0 left-0 w-full bg-white text-black py-4 text-center font-black text-[9px] border-t-4 border-emerald-600 z-50 uppercase">
         Boutique : <span class="text-blue-600">Coran Noble Édition</span>
     </div>
 
@@ -126,7 +130,7 @@
         }
 
         function checkAccess() {
-            if(localStorage.getItem('vip_paid') === 'true') {
+            if(localStorage.getItem('paid_vip') === 'true') {
                 document.getElementById('vip-lock').classList.add('hidden');
                 document.getElementById('vip-content').classList.remove('hidden');
             }
@@ -139,17 +143,8 @@
                 const t = d.data.timings;
                 document.getElementById('prayer-times').innerHTML = `<div>FAJR<br>${t.Fajr}</div><div>DUHR<br>${t.Dhuhr}</div><div>ASR<br>${t.Asr}</div><div>MAGH<br>${t.Maghrib}</div><div>ICHA<br>${t.Isha}</div>`;
             } catch(e) {}
-            loadSurahs();
         }
-
-        async function loadSurahs() {
-            const r = await fetch('https://api.alquran.cloud/v1/surah');
-            const d = await r.json();
-            const sel = document.getElementById('selSurah');
-            sel.innerHTML = '<option>SÉLECTIONNER SOURATE</option>';
-            d.data.forEach(s => sel.innerHTML += `<option value="${s.number}">${s.number}. ${s.englishName}</option>`);
-        }
-
+        
         let count = 0;
         function countTasbih() { count++; document.getElementById('tasbih-count').innerText = count; }
     </script>
