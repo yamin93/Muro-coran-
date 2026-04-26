@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Muslim App - Version Finale</title>
+    <title>Muslim App - Pro</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Amiri&family=Inter:wght@400;700;900&display=swap');
@@ -11,7 +11,7 @@
         .hidden { display: none; }
         .nav-active { background: #059669 !important; color: white !important; border-radius: 12px; }
         .card { background: #0a1212; border-radius: 24px; padding: 20px; border: 1px solid #1e293b; margin-bottom: 15px; }
-        .arabic { font-family: 'Amiri', serif; direction: rtl; line-height: 2.5; }
+        .arabic { font-family: 'Amiri', serif; direction: rtl; line-height: 2.2; }
         
         .btn-paypal-large {
             background-color: #3b66f5;
@@ -39,12 +39,6 @@
             width: 100%;
             margin-top: 20px;
         }
-
-        .audio-controls {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
     </style>
 </head>
 <body class="p-4" onload="initApp()">
@@ -66,9 +60,14 @@
             <div class="card border-t-4 border-emerald-600">
                 <div id="prayer-times" class="grid grid-cols-5 gap-2 text-center text-[9px] font-bold text-emerald-400 italic"></div>
             </div>
-            <div class="card text-center">
-                <div class="text-4xl font-black text-emerald-500 mb-4" id="tasbih-count">0</div>
-                <button onclick="countTasbih()" class="w-full bg-emerald-600 py-4 rounded-2xl font-black uppercase text-xs">Faire mon Tasbih</button>
+            
+            <div class="card text-center bg-emerald-900/10 border-emerald-900/30">
+                <h3 class="text-emerald-500 font-black uppercase text-[10px] mb-4 italic">Invocation Aléatoire</h3>
+                <div id="doua-box" class="min-h-[100px] flex flex-col justify-center">
+                    <p id="doua-ar" class="arabic text-2xl text-white mb-2"></p>
+                    <p id="doua-fr" class="text-[11px] text-slate-400 italic"></p>
+                </div>
+                <button onclick="generateDoua()" class="w-full mt-4 bg-emerald-600 py-4 rounded-2xl font-black uppercase text-xs shadow-lg active:scale-95 transition-transform">Afficher une Doua</button>
             </div>
         </div>
 
@@ -83,14 +82,14 @@
         <div id="s-coran" class="hidden space-y-4">
             <select id="selSurah" class="w-full p-4 bg-[#0a1212] border border-emerald-900 rounded-xl text-emerald-400 font-bold text-xs uppercase" onchange="loadSurahContent()"></select>
             
-            <div class="audio-controls">
-                <button onclick="playFullSurah()" class="flex-1 bg-blue-600 py-2 rounded-lg text-[9px] font-bold">LIRE TOUTE LA SOURATE</button>
+            <div class="flex gap-2">
+                <button onclick="playFullSurah()" class="flex-1 bg-blue-600 py-2 rounded-lg text-[9px] font-bold">LECTURE AUTO</button>
                 <button onclick="stopAudio()" class="bg-red-600 px-4 py-2 rounded-lg text-[9px] font-bold">STOP</button>
             </div>
 
             <div class="flex gap-2">
-                <button onclick="changeLang('ar.alafasy')" id="btn-ar" class="flex-1 bg-emerald-600/20 py-2 rounded-lg text-[10px] font-bold border border-emerald-600">VERSION ARABE</button>
-                <button onclick="changeLang('fr.hamidullah')" id="btn-fr" class="flex-1 bg-slate-800 py-2 rounded-lg text-[10px] font-bold border border-white/5">VERSION FRANÇAIS</button>
+                <button onclick="changeLang('ar.alafasy')" id="btn-ar" class="flex-1 bg-emerald-600/20 py-2 rounded-lg text-[10px] font-bold border border-emerald-600">ARABE</button>
+                <button onclick="changeLang('fr.hamidullah')" id="btn-fr" class="flex-1 bg-slate-800 py-2 rounded-lg text-[10px] font-bold border border-white/5">FRANÇAIS</button>
             </div>
             <div id="contentCoran" class="mt-4"></div>
         </div>
@@ -98,7 +97,7 @@
         <div id="s-vip" class="hidden">
             <div id="vip-lock">
                 <h2 class="text-3xl font-black text-[#f1a944] italic text-center uppercase">Pack VIP</h2>
-                <div class="card bg-[#0a0f14] p-12 text-center mt-4">
+                <div class="card bg-[#0a0f14] p-12 text-center mt-4 border-none">
                     <p class="text-6xl font-black text-white mb-10">2,99€</p>
                     <a href="https://www.paypal.me/YaminDjaouat881/2.99" target="_blank" class="btn-paypal-large">
                         💰 PAYER VIA PAYPAL
@@ -110,28 +109,20 @@
             <div id="vip-content" class="hidden space-y-6">
                 <div class="card border-2 border-amber-500 bg-amber-500/5">
                     <h3 class="font-black text-amber-500 uppercase mb-4 italic">✓ Guide des Ablutions</h3>
-                    <div class="text-[11px] space-y-2">
-                        <p>1. L'intention & Bismillah</p>
-                        <p>2. Laver les mains (3x)</p>
-                        <p>3. Rincer la bouche & nez (3x)</p>
-                        <p>4. Laver le visage (3x)</p>
-                        <p>5. Bras jusqu'aux coudes (3x)</p>
-                        <p>6. Passer les mains sur la tête & oreilles</p>
-                        <p>7. Laver les pieds (3x)</p>
+                    <div class="text-[11px] space-y-2 text-slate-300">
+                        <p>1. Mains (3x) • 2. Bouche (3x) • 3. Nez (3x)</p>
+                        <p>4. Visage (3x) • 5. Bras (3x) • 6. Tête/Oreilles</p>
+                        <p>7. Pieds (3x)</p>
                     </div>
                 </div>
 
                 <div class="card border-2 border-emerald-500 bg-emerald-500/5">
                     <h3 class="font-black text-emerald-500 uppercase mb-4 italic">✓ Histoire du Coran</h3>
-                    <div class="text-[11px] space-y-2">
-                        <p>• Révélé pendant 23 ans au Prophète (SWS)</p>
-                        <p>• Première compilation sous Abou Bakr</p>
-                        <p>• Standardisation sous Othman</p>
-                    </div>
+                    <p class="text-[11px] text-slate-300">Révélation sur 23 ans. Compilation finale sous le Calife Othman pour préserver le texte sacré.</p>
                 </div>
 
                 <div id="quiz-area" class="card bg-blue-900/20 border border-blue-500">
-                    <p id="quiz-q" class="text-xs font-black uppercase text-blue-400 mb-4 text-center italic">Prêt pour le Quiz ?</p>
+                    <p id="quiz-q" class="text-xs font-black uppercase text-blue-400 mb-4 text-center italic">Testez vos connaissances</p>
                     <div id="quiz-opts" class="grid gap-2">
                         <button onclick="startQuiz()" class="w-full bg-blue-600 py-3 rounded-xl font-bold text-[11px] uppercase">Lancer le Quizz</button>
                     </div>
@@ -146,7 +137,6 @@
 
     <script>
         let currentLang = 'ar.alafasy';
-        let audioList = [];
         let currentAudio = null;
 
         function nav(id) {
@@ -159,11 +149,21 @@
             if(id === 'vip') checkStatus();
         }
 
-        function activateVIP() {
-            localStorage.setItem('vip_unlocked', 'true');
-            checkStatus();
+        // --- DOUAS SYSTEM ---
+        const douas = [
+            {ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ عِلْمًا نَافِعًا", fr: "Ô Allah, je Te demande un savoir utile."},
+            {ar: "سُبْحَانَ اللَّهِ وَبِحَمْدِهِ", fr: "Gloire et louange à Allah."},
+            {ar: "أَسْتَغْفِرُ اللَّهَ وَأَتُوبُ إِلَيْهِ", fr: "Je demande pardon à Allah et je me repens à Lui."},
+            {ar: "اللَّهُمَّ اهْدِنِي وَسَدِّدْنِي", fr: "Ô Allah, guide-moi et dirige-moi sur le droit chemin."}
+        ];
+        function generateDoua() {
+            const d = douas[Math.floor(Math.random() * douas.length)];
+            document.getElementById('doua-ar').innerText = d.ar;
+            document.getElementById('doua-fr').innerText = d.fr;
         }
 
+        // --- VIP & QUIZ ---
+        function activateVIP() { localStorage.setItem('vip_unlocked', 'true'); checkStatus(); }
         function checkStatus() {
             if(localStorage.getItem('vip_unlocked') === 'true') {
                 document.getElementById('vip-lock').classList.add('hidden');
@@ -171,104 +171,74 @@
             }
         }
 
-        // --- GESTION AUDIO ---
-        function playAyah(num) {
-            stopAudio();
-            currentAudio = new Audio(`https://cdn.islamic.network/quran/audio/128/ar.alafasy/${num}.mp3`);
-            currentAudio.play();
-        }
-
-        function stopAudio() {
-            if(currentAudio) { currentAudio.pause(); currentAudio = null; }
-        }
-
-        async function playFullSurah() {
-            const num = document.getElementById('selSurah').value;
-            const r = await fetch(`https://api.alquran.cloud/v1/surah/${num}/ar.alafasy`);
-            const d = await r.json();
-            let index = 0;
-            const playNext = () => {
-                if(index < d.data.ayahs.length) {
-                    currentAudio = new Audio(d.data.ayahs[index].audio);
-                    currentAudio.play();
-                    currentAudio.onended = () => { index++; playNext(); };
-                }
-            };
-            playNext();
-        }
-
-        // --- QUIZ SYSTEM ---
         const questions = [
             {q: "Combien de piliers en Islam ?", a: ["3", "5", "7"], c: 1},
-            {q: "Quelle est la première sourate ?", a: ["Al-Baqara", "Al-Fatiha", "An-Nas"], c: 1},
-            {q: "Combien de versets dans la Fatiha ?", a: ["5", "6", "7"], c: 2}
+            {q: "Le Coran a été révélé en combien d'années ?", a: ["10", "23", "40"], c: 1}
         ];
         let qIdx = 0;
-        function startQuiz() {
-            qIdx = 0;
-            showQ();
-        }
+        function startQuiz() { qIdx = 0; showQ(); }
         function showQ() {
             let q = questions[qIdx];
             document.getElementById('quiz-q').innerText = q.q;
             let h = '';
-            q.a.forEach((opt, i) => {
-                h += `<button onclick="answer(${i})" class="w-full p-4 bg-slate-800 rounded-xl text-[10px] font-bold uppercase">${opt}</button>`;
-            });
+            q.a.forEach((opt, i) => h += `<button onclick="answer(${i})" class="w-full p-4 bg-slate-800 rounded-xl text-[10px] font-bold uppercase">${opt}</button>`);
             document.getElementById('quiz-opts').innerHTML = h;
         }
         function answer(i) {
-            if(i === questions[qIdx].c) alert("CORRECT ! ✅");
-            else alert("MAUVAIS ! ❌");
+            alert(i === questions[qIdx].c ? "Correct ! ✅" : "Mauvais ! ❌");
             qIdx++;
             if(qIdx < questions.length) showQ();
-            else {
-                document.getElementById('quiz-q').innerText = "Quiz Terminé ! Bravo.";
-                document.getElementById('quiz-opts').innerHTML = `<button onclick="startQuiz()" class="w-full bg-emerald-600 py-3 rounded-xl font-bold text-[11px] uppercase">Recommencer</button>`;
-            }
+            else document.getElementById('quiz-opts').innerHTML = `<button onclick="startQuiz()" class="w-full bg-emerald-600 py-3 rounded-xl font-bold">Recommencer</button>`;
+        }
+
+        // --- CORAN & AUDIO ---
+        function stopAudio() { if(currentAudio) { currentAudio.pause(); currentAudio = null; } }
+        async function playFullSurah() {
+            const num = document.getElementById('selSurah').value;
+            const r = await fetch(`https://api.alquran.cloud/v1/surah/${num}/ar.alafasy`);
+            const d = await r.json();
+            let idx = 0;
+            const play = () => {
+                if(idx < d.data.ayahs.length) {
+                    currentAudio = new Audio(d.data.ayahs[idx].audio);
+                    currentAudio.play();
+                    currentAudio.onended = () => { idx++; play(); };
+                }
+            };
+            play();
         }
 
         async function loadSurahContent() {
             const num = document.getElementById('selSurah').value;
-            if(!num) return;
             const r = await fetch(`https://api.alquran.cloud/v1/surah/${num}/${currentLang}`);
             const d = await r.json();
             let h = '';
             d.data.ayahs.forEach(a => {
-                h += `<div class="p-5 bg-[#0a1212] mb-3 rounded-2xl border border-white/5" onclick="playAyah(${a.number})">
-                        <div class="text-[10px] text-emerald-700 font-bold mb-2">Verset ${a.numberInSurah} (Clique pour l'audio)</div>
-                        <div class="text-[13px] ${currentLang.startsWith('ar') ? 'arabic text-3xl text-emerald-400' : ''}">${a.text}</div>
-                    </div>`;
+                h += `<div class="p-5 bg-[#0a1212] mb-3 rounded-2xl border border-white/5" onclick="new Audio('https://cdn.islamic.network/quran/audio/128/ar.alafasy/${a.number}.mp3').play()">
+                    <div class="text-[10px] text-emerald-700 font-bold mb-2 uppercase italic">Verset ${a.numberInSurah}</div>
+                    <div class="text-[13px] ${currentLang.startsWith('ar') ? 'arabic text-3xl text-emerald-400' : ''}">${a.text}</div>
+                </div>`;
             });
             document.getElementById('contentCoran').innerHTML = h;
         }
 
-        function changeLang(lang) {
-            currentLang = lang;
-            loadSurahContent();
-        }
+        function changeLang(l) { currentLang = l; loadSurahContent(); }
 
         async function initApp() {
             try {
                 const r = await fetch('https://api.aladhan.com/v1/timingsByCity?city=Paris&country=France&method=3');
                 const d = await r.json();
-                const t = d.data.timings;
-                document.getElementById('prayer-times').innerHTML = `<div>FAJR<br>${t.Fajr}</div><div>DUHR<br>${t.Dhuhr}</div><div>ASR<br>${t.Asr}</div><div>MAGH<br>${t.Maghrib}</div><div>ICHA<br>${t.Isha}</div>`;
+                document.getElementById('prayer-times').innerHTML = `<div>FAJR<br>${d.data.timings.Fajr}</div><div>DUHR<br>${d.data.timings.Dhuhr}</div><div>ASR<br>${d.data.timings.Asr}</div><div>MAGH<br>${d.data.timings.Maghrib}</div><div>ICHA<br>${d.data.timings.Isha}</div>`;
                 document.getElementById('hijri-date').innerText = d.data.date.hijri.day + " " + d.data.date.hijri.month.fr + " " + d.data.date.hijri.year;
             } catch(e) {}
-            
             const rS = await fetch('https://api.alquran.cloud/v1/surah');
             const dS = await rS.json();
             const sel = document.getElementById('selSurah');
             sel.innerHTML = '<option value="">CHOISIR SOURATE</option>';
             dS.data.forEach(s => sel.innerHTML += `<option value="${s.number}">${s.number}. ${s.englishName}</option>`);
-            
+            generateDoua();
             nav('home');
-            checkStatus();
         }
-
-        let count = 0;
-        function countTasbih() { count++; document.getElementById('tasbih-count').innerText = count; }
     </script>
 </body>
 </html>
