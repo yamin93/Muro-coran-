@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Muslim App</title>
+    <title>Muslim App - Complet</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Amiri&family=Inter:wght@400;700;900&display=swap');
@@ -12,128 +12,125 @@
         .nav-active { background: #059669 !important; color: white !important; border-radius: 12px; }
         .card { background: #0a1212; border-radius: 24px; padding: 20px; border: 1px solid #1e293b; margin-bottom: 15px; }
         .arabic { font-family: 'Amiri', serif; direction: rtl; line-height: 2.2; }
-        
-        .btn-support {
-            background-color: #3b66f5;
-            color: white;
-            padding: 20px;
-            border-radius: 25px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-            font-weight: 900;
-            font-size: 14px;
-            width: 100%;
-            text-transform: uppercase;
-        }
+        .btn-pay { background: #1e293b; border: 1px solid #3b82f6; color: white; padding: 12px; border-radius: 15px; font-weight: 800; font-size: 12px; transition: all 0.2s; }
+        .btn-pay:active { background: #3b82f6; transform: scale(0.95); }
     </style>
 </head>
 <body class="p-4" onload="initApp()">
 
     <div class="max-w-md mx-auto">
-        <div class="text-center py-8">
+        <div class="text-center py-6">
             <h1 class="text-5xl font-black text-emerald-500 italic uppercase tracking-tighter">Muslim App</h1>
             <p id="hijri-date" class="text-[10px] text-emerald-800 font-bold mt-2 uppercase">Chargement...</p>
         </div>
 
-        <nav class="grid grid-cols-5 gap-1 mb-8 bg-[#111827] p-1 rounded-2xl sticky top-2 z-50">
-            <button id="b-home" onclick="nav('home')" class="py-3 text-[7px] font-bold uppercase text-slate-400">Home</button>
-            <button id="b-piliers" onclick="nav('piliers')" class="py-3 text-[7px] font-bold uppercase text-slate-400">Piliers</button>
-            <button id="b-coran" onclick="nav('coran')" class="py-3 text-[7px] font-bold uppercase text-slate-400">Coran</button>
-            <button id="b-guide" onclick="nav('guide')" class="py-3 text-[7px] font-bold uppercase text-slate-400">Guide</button>
-            <button id="b-don" onclick="nav('don')" class="py-3 text-[7px] font-bold uppercase text-amber-500 italic">Aider</button>
+        <nav class="grid grid-cols-5 gap-1 mb-6 bg-[#111827] p-1 rounded-2xl sticky top-2 z-50">
+            <button id="b-home" onclick="nav('home')" class="py-3 text-[7px] font-bold uppercase">Home</button>
+            <button id="b-piliers" onclick="nav('piliers')" class="py-3 text-[7px] font-bold uppercase">Piliers</button>
+            <button id="b-coran" onclick="nav('coran')" class="py-3 text-[7px] font-bold uppercase">Coran</button>
+            <button id="b-quiz" onclick="nav('quiz')" class="py-3 text-[7px] font-bold uppercase">Quiz</button>
+            <button id="b-don" onclick="nav('don')" class="py-3 text-[7px] font-bold uppercase text-amber-500">Soutenir</button>
         </nav>
 
-        <div id="s-home" class="space-y-4">
+        <div id="s-home">
             <div class="card border-t-4 border-emerald-600">
-                <div id="prayer-times" class="grid grid-cols-5 gap-2 text-center text-[9px] font-bold text-emerald-400 italic"></div>
+                <div id="prayer-times" class="grid grid-cols-5 gap-2 text-center text-[8px] font-black text-emerald-400 italic"></div>
             </div>
-            
-            <div class="card text-center bg-emerald-900/10 border-emerald-900/30">
-                <h3 class="text-emerald-500 font-black uppercase text-[10px] mb-4 italic">Doua du moment</h3>
-                <div id="doua-box">
-                    <p id="doua-ar" class="arabic text-2xl text-white mb-2"></p>
-                    <p id="doua-fr" class="text-[11px] text-slate-400 italic"></p>
-                </div>
-                <button onclick="generateDoua()" class="mt-4 text-emerald-500 text-[10px] font-bold underline uppercase">Changer</button>
+            <div id="doua-box" class="card text-center bg-emerald-900/5">
+                <p id="doua-ar" class="arabic text-xl text-white mb-2"></p>
+                <p id="doua-fr" class="text-[10px] text-slate-500 italic"></p>
+                <button onclick="generateDoua()" class="mt-3 text-emerald-500 text-[9px] font-bold underline uppercase">Suivante</button>
             </div>
         </div>
 
         <div id="s-piliers" class="hidden space-y-3">
-             <div class="card border-l-4 border-emerald-500">
-                <h3 class="font-black text-emerald-500 text-xs mb-1 uppercase">1. La Chahada</h3>
-                <p class="text-[11px] text-slate-400 italic">L'attestation de foi en un Dieu unique et en Son messager.</p>
-             </div>
-             <div class="card border-l-4 border-emerald-500">
-                <h3 class="font-black text-emerald-500 text-xs mb-1 uppercase">2. La Salat</h3>
-                <p class="text-[11px] text-slate-400 italic">L'accomplissement des cinq prières quotidiennes.</p>
-             </div>
-             <div class="card border-l-4 border-emerald-500">
-                <h3 class="font-black text-emerald-500 text-xs mb-1 uppercase">3. La Zakat</h3>
-                <p class="text-[11px] text-slate-400 italic">L'aumône légale obligatoire pour aider les nécessiteux.</p>
-             </div>
-             <div class="card border-l-4 border-emerald-500">
-                <h3 class="font-black text-emerald-500 text-xs mb-1 uppercase">4. Le Sawm</h3>
-                <p class="text-[11px] text-slate-400 italic">Le jeûne du mois béni de Ramadan.</p>
-             </div>
-             <div class="card border-l-4 border-emerald-500">
-                <h3 class="font-black text-emerald-500 text-xs mb-1 uppercase">5. Le Hajj</h3>
-                <p class="text-[11px] text-slate-400 italic">Le pèlerinage à la Maison Sacrée de la Mecque.</p>
-             </div>
+             <div class="card border-l-4 border-emerald-500 font-black text-[10px] uppercase">1. La Chahada</div>
+             <div class="card border-l-4 border-emerald-500 font-black text-[10px] uppercase">2. La Salat</div>
+             <div class="card border-l-4 border-emerald-500 font-black text-[10px] uppercase">3. La Zakat</div>
+             <div class="card border-l-4 border-emerald-500 font-black text-[10px] uppercase">4. Le Sawm</div>
+             <div class="card border-l-4 border-emerald-500 font-black text-[10px] uppercase">5. Le Hajj</div>
         </div>
 
         <div id="s-coran" class="hidden space-y-4">
             <select id="selSurah" class="w-full p-4 bg-[#0a1212] border border-emerald-900 rounded-xl text-emerald-400 font-bold text-xs" onchange="loadSurahContent()"></select>
+            <div id="contentCoran" class="space-y-3"></div>
+        </div>
+
+        <div id="s-quiz" class="hidden">
+            <div id="quiz-menu" class="space-y-4">
+                <h2 class="text-center font-black text-blue-500 uppercase italic mb-4">Choisissez un thème</h2>
+                <button onclick="initQuiz('coran')" class="w-full card border-blue-500 text-sm font-black uppercase italic">📖 Apprendre le Coran</button>
+                <button onclick="initQuiz('piliers')" class="w-full card border-emerald-500 text-sm font-black uppercase italic">🕌 Les Piliers</button>
+                <button onclick="initQuiz('culture')" class="w-full card border-amber-500 text-sm font-black uppercase italic">🌍 Culture Islamique</button>
+            </div>
+
+            <div id="quiz-game" class="hidden text-center">
+                <div class="mb-6">
+                    <span id="quiz-category" class="text-[9px] font-black p-1 px-3 bg-blue-600 rounded-full uppercase"></span>
+                </div>
+                <p id="quiz-q" class="text-lg font-black text-white mb-8 italic"></p>
+                <div id="quiz-opts" class="grid gap-3"></div>
+                <button onclick="showQuizMenu()" class="mt-8 text-slate-600 text-[10px] font-bold uppercase underline">Retour au menu</button>
+            </div>
+        </div>
+
+        <div id="s-don" class="hidden">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-black text-amber-500 italic uppercase">Soutenir</h2>
+                <p class="text-[10px] text-slate-500 uppercase tracking-widest mt-2">Choisissez votre contribution</p>
+            </div>
             
-            <div class="flex gap-2">
-                <button onclick="playFullSurah()" class="flex-1 bg-blue-600 py-2 rounded-lg text-[9px] font-bold uppercase">Lecture Auto</button>
-                <button onclick="stopAudio()" class="bg-red-600 px-4 py-2 rounded-lg text-[9px] font-bold uppercase">Stop</button>
+            <div class="grid gap-3 mb-6">
+                <a href="https://www.paypal.me/YaminDjaouat881/1.99" target="_blank" class="btn-pay flex justify-between items-center">
+                    <span>OFFRE DÉCOUVERTE</span> <span>1,99 €</span>
+                </a>
+                <a href="https://www.paypal.me/YaminDjaouat881/2.99" target="_blank" class="btn-pay flex justify-between items-center border-emerald-500">
+                    <span>OFFRE SOUTIEN</span> <span>2,99 €</span>
+                </a>
+                <a href="https://www.paypal.me/YaminDjaouat881/5.00" target="_blank" class="btn-pay flex justify-between items-center">
+                    <span>OFFRE GÉNÉREUSE</span> <span>5,00 €</span>
+                </a>
+                <a href="https://www.paypal.me/YaminDjaouat881" target="_blank" class="btn-pay text-center border-dashed opacity-70">
+                    MONTANT LIBRE
+                </a>
             </div>
-
-            <div class="flex gap-2">
-                <button onclick="changeLang('ar.alafasy')" id="btn-ar" class="flex-1 bg-emerald-600/20 py-2 rounded-lg text-[10px] font-bold border border-emerald-600 uppercase">Arabe</button>
-                <button onclick="changeLang('fr.hamidullah')" id="btn-fr" class="flex-1 bg-slate-800 py-2 rounded-lg text-[10px] font-bold border border-white/5 uppercase">Français</button>
-            </div>
-            <div id="contentCoran" class="mt-4"></div>
-        </div>
-
-        <div id="s-guide" class="hidden space-y-6">
-            <div class="card border-l-4 border-emerald-500">
-                <h2 class="text-xl font-black text-emerald-500 uppercase italic mb-4">L'Histoire du Coran</h2>
-                <p class="text-xs leading-relaxed text-slate-300">Révélé sur 23 ans au Prophète (SWS), mémorisé puis compilé pour protéger le message divin.</p>
-            </div>
-
-            <div class="card border-l-4 border-amber-500">
-                <h2 class="text-xl font-black text-amber-500 uppercase italic mb-4">Les Ablutions (Wudu)</h2>
-                <div class="text-[11px] space-y-2 text-slate-300">
-                    <p>1. Intention & Bismillah • 2. Mains (3x) • 3. Bouche & Nez (3x) • 4. Visage (3x) • 5. Bras (3x) • 6. Tête/Oreilles • 7. Pieds (3x)</p>
-                </div>
-            </div>
-        </div>
-
-        <div id="s-don" class="hidden text-center space-y-6">
-            <div class="card border-none bg-gradient-to-b from-amber-500/10 to-transparent p-10">
-                <h2 class="text-2xl font-black text-white uppercase italic mb-2">Soutenir le projet</h2>
-                <div class="bg-black/40 p-8 rounded-[40px] mb-8">
-                    <p class="text-5xl font-black text-white mb-8">2,99€</p>
-                    <a href="https://www.paypal.me/YaminDjaouat881/2.99" target="_blank" class="btn-support">🤝 Soutenir via PayPal</a>
-                </div>
-                <p class="text-[9px] text-slate-500 uppercase">Merci de nous aider à faire grandir l'application !</p>
+            
+            <div class="card bg-blue-900/5 text-center p-6 border-blue-500/20">
+                <p class="text-[11px] leading-relaxed italic text-slate-400">
+                    "L'aumône ne diminue en rien la richesse."<br>
+                    <span class="text-blue-400 font-bold">Barak'Allahou fikom pour votre aide.</span>
+                </p>
             </div>
         </div>
     </div>
 
-    <div class="fixed bottom-0 left-0 w-full bg-white text-black py-5 text-center font-black text-[10px] border-t-4 border-emerald-600 z-50">
+    <div class="fixed bottom-0 left-0 w-full bg-white text-black py-4 text-center font-black text-[10px] border-t-4 border-emerald-600 z-50">
         BOUTIQUE : <span class="text-blue-600 uppercase">Coran Noble Édition</span>
     </div>
 
     <script>
-        let currentLang = 'ar.alafasy';
-        let currentAudio = null;
+        const allQuiz = {
+            coran: [
+                {q: "Combien y a-t-il de sourates ?", a: ["114", "110", "120"], c: 0},
+                {q: "Quelle est la plus longue sourate ?", a: ["Al-Fatiha", "Al-Baqara", "Yasin"], c: 1},
+                {q: "Le Coran a été révélé en quelle langue ?", a: ["Hébreu", "Arabe", "Persan"], c: 1}
+            ],
+            piliers: [
+                {q: "Quel est le 1er pilier ?", a: ["La Prière", "La Chahada", "Le Jeûne"], c: 1},
+                {q: "Combien de prières par jour ?", a: ["3", "5", "7"], c: 1},
+                {q: "Quel pilier concerne l'aumône ?", a: ["Zakat", "Hajj", "Salat"], c: 0}
+            ],
+            culture: [
+                {q: "Où se trouve la Kaaba ?", a: ["Médine", "Jérusalem", "La Mecque"], c: 2},
+                {q: "Qui était le premier Calife ?", a: ["Omar", "Abou Bakr", "Ali"], c: 1}
+            ]
+        };
+
+        let currentQuizData = [];
+        let qIdx = 0;
 
         function nav(id) {
-            ['home','piliers','coran','guide','don'].forEach(s => {
+            ['home','piliers','coran','quiz','don'].forEach(s => {
                 document.getElementById('s-'+s).classList.add('hidden');
                 document.getElementById('b-'+s).classList.remove('nav-active');
             });
@@ -141,9 +138,64 @@
             document.getElementById('b-'+id).classList.add('nav-active');
         }
 
+        // --- LOGIQUE QUIZ ---
+        function initQuiz(cat) {
+            document.getElementById('quiz-menu').classList.add('hidden');
+            document.getElementById('quiz-game').classList.remove('hidden');
+            document.getElementById('quiz-category').innerText = cat;
+            currentQuizData = [...allQuiz[cat]].sort(() => Math.random() - 0.5); // Mélange l'ordre
+            qIdx = 0;
+            showQuestion();
+        }
+
+        function showQuizMenu() {
+            document.getElementById('quiz-menu').classList.remove('hidden');
+            document.getElementById('quiz-game').classList.add('hidden');
+        }
+
+        function showQuestion() {
+            const q = currentQuizData[qIdx];
+            document.getElementById('quiz-q').innerText = q.q;
+            let h = '';
+            q.a.forEach((opt, i) => {
+                h += `<button onclick="checkAns(${i})" class="w-full p-4 bg-[#111827] border border-white/5 rounded-2xl text-xs font-bold uppercase active:bg-blue-600 transition-colors">${opt}</button>`;
+            });
+            document.getElementById('quiz-opts').innerHTML = h;
+        }
+
+        function checkAns(i) {
+            if(i === currentQuizData[qIdx].c) {
+                alert("Macha'Allah ! ✅");
+            } else {
+                alert("Erreur ! ❌");
+            }
+            qIdx++;
+            if(qIdx < currentQuizData.length) showQuestion();
+            else {
+                alert("Quiz terminé !");
+                showQuizMenu();
+            }
+        }
+
+        // --- CORAN ---
+        async function loadSurahContent() {
+            const num = document.getElementById('selSurah').value;
+            const r = await fetch(`https://api.alquran.cloud/v1/surah/${num}/ar.alafasy`);
+            const d = await r.json();
+            let h = '';
+            d.data.ayahs.forEach(a => {
+                h += `<div class="p-4 bg-[#0a1212] rounded-2xl border border-white/5" onclick="new Audio('${a.audio}').play()">
+                    <div class="text-[8px] text-emerald-800 font-black mb-1">Verset ${a.numberInSurah}</div>
+                    <div class="arabic text-2xl text-emerald-400">${a.text}</div>
+                </div>`;
+            });
+            document.getElementById('contentCoran').innerHTML = h;
+        }
+
+        // --- INIT ---
         const douas = [
-            {ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ عِلْمًا نَافِعًا", fr: "Ô Allah, je Te demande un savoir utile."},
-            {ar: "سُبْحَانَ اللَّهِ وَبِحَمْدِهِ", fr: "Gloire et louange à Allah."}
+            {ar: "اللَّهُمَّ بَارِكْ لَنَا فِيمَا رَزَقْتَنَا", fr: "Ô Allah, bénis ce que Tu nous as accordé."},
+            {ar: "رَبِّ زِدْنِي عِلْمًا", fr: "Seigneur, augmente ma science."}
         ];
         function generateDoua() {
             const d = douas[Math.floor(Math.random() * douas.length)];
@@ -151,51 +203,20 @@
             document.getElementById('doua-fr').innerText = d.fr;
         }
 
-        function stopAudio() { if(currentAudio) { currentAudio.pause(); currentAudio = null; } }
-        async function playFullSurah() {
-            const num = document.getElementById('selSurah').value;
-            if(!num) return;
-            const r = await fetch(`https://api.alquran.cloud/v1/surah/${num}/ar.alafasy`);
-            const d = await r.json();
-            let idx = 0;
-            const play = () => {
-                if(idx < d.data.ayahs.length) {
-                    currentAudio = new Audio(d.data.ayahs[idx].audio);
-                    currentAudio.play();
-                    currentAudio.onended = () => { idx++; play(); };
-                }
-            };
-            play();
-        }
-
-        async function loadSurahContent() {
-            const num = document.getElementById('selSurah').value;
-            const r = await fetch(`https://api.alquran.cloud/v1/surah/${num}/${currentLang}`);
-            const d = await r.json();
-            let h = '';
-            d.data.ayahs.forEach(a => {
-                h += `<div class="p-5 bg-[#0a1212] mb-3 rounded-2xl border border-white/5" onclick="new Audio('https://cdn.islamic.network/quran/audio/128/ar.alafasy/${a.number}.mp3').play()">
-                    <div class="text-[9px] text-emerald-800 font-bold mb-2 uppercase italic">Verset ${a.numberInSurah}</div>
-                    <div class="text-[13px] ${currentLang.startsWith('ar') ? 'arabic text-3xl text-emerald-400' : ''}">${a.text}</div>
-                </div>`;
-            });
-            document.getElementById('contentCoran').innerHTML = h;
-        }
-
-        function changeLang(l) { currentLang = l; loadSurahContent(); }
-
         async function initApp() {
             try {
                 const r = await fetch('https://api.aladhan.com/v1/timingsByCity?city=Paris&country=France&method=3');
                 const d = await r.json();
-                document.getElementById('prayer-times').innerHTML = `<div>FAJR<br>${d.data.timings.Fajr}</div><div>DUHR<br>${d.data.timings.Dhuhr}</div><div>ASR<br>${d.data.timings.Asr}</div><div>MAGH<br>${d.data.timings.Maghrib}</div><div>ICHA<br>${d.data.timings.Isha}</div>`;
-                document.getElementById('hijri-date').innerText = d.data.date.hijri.day + " " + d.data.date.hijri.month.fr + " " + d.data.date.hijri.year;
+                const t = d.data.timings;
+                document.getElementById('prayer-times').innerHTML = `<div>FAJR<br>${t.Fajr}</div><div>DHUR<br>${t.Dhuhr}</div><div>ASR<br>${t.Asr}</div><div>MAGH<br>${t.Maghrib}</div><div>ICHA<br>${t.Isha}</div>`;
             } catch(e) {}
+            
             const rS = await fetch('https://api.alquran.cloud/v1/surah');
             const dS = await rS.json();
             const sel = document.getElementById('selSurah');
-            sel.innerHTML = '<option value="">SOURATE</option>';
+            sel.innerHTML = '<option value="">Choisir Sourate</option>';
             dS.data.forEach(s => sel.innerHTML += `<option value="${s.number}">${s.number}. ${s.englishName}</option>`);
+            
             generateDoua();
             nav('home');
         }
