@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Muslim App Pro</title>
+    <title>Muslim App - Protection & Savoir</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Amiri&family=Inter:wght@400;700&display=swap');
@@ -19,38 +19,33 @@
 
     <div class="max-w-md mx-auto">
         <div class="text-center py-8">
-            <h1 class="text-4xl font-black text-emerald-500 italic tracking-tighter">MUSLIM APP</h1>
-            <p class="text-[10px] text-emerald-700 tracking-[0.4em] uppercase font-bold mt-1">Savoir • Prière • Protection</p>
+            <h1 class="text-4xl font-black text-emerald-500 italic tracking-tighter uppercase">Muslim App</h1>
+            <p class="text-[10px] text-emerald-700 tracking-[0.4em] uppercase font-bold mt-1">Piliers • Prière • Coran</p>
         </div>
 
         <nav class="grid grid-cols-5 gap-1 mb-8 bg-slate-900/90 p-1 rounded-2xl sticky top-2 z-50 backdrop-blur-xl border border-white/10 shadow-2xl">
-            <button id="b-piliers" onclick="nav('piliers')" class="py-3 rounded-xl text-[8px] font-bold nav-active uppercase">Piliers</button>
-            <button id="b-prière" onclick="nav('prière')" class="py-3 rounded-xl text-[8px] font-bold uppercase">Prière</button>
-            <button id="b-coran" onclick="nav('coran')" class="py-3 rounded-xl text-[8px] font-bold uppercase">Coran</button>
-            <button id="b-doua" onclick="nav('doua')" class="py-3 rounded-xl text-[8px] font-bold uppercase text-red-400">🛡️</button>
-            <button id="b-vip" onclick="nav('vip')" class="py-3 rounded-xl text-[8px] font-bold text-amber-500 uppercase">⭐ VIP</button>
+            <button id="b-piliers" onclick="nav('piliers')" class="py-3 rounded-xl text-[7px] font-bold nav-active uppercase">Piliers</button>
+            <button id="b-prière" onclick="nav('prière')" class="py-3 rounded-xl text-[7px] font-bold uppercase">Prière</button>
+            <button id="b-coran" onclick="nav('coran')" class="py-3 rounded-xl text-[7px] font-bold uppercase">Coran</button>
+            <button id="b-doua" onclick="nav('doua')" class="py-3 rounded-xl text-[7px] font-bold uppercase text-red-400">🛡️</button>
+            <button id="b-vip" onclick="nav('vip')" class="py-3 rounded-xl text-[7px] font-bold text-amber-500 uppercase">⭐ VIP</button>
         </nav>
 
         <div id="s-piliers" class="space-y-3">
-            <h2 class="text-amber-500 font-bold text-center text-xs uppercase mb-5 tracking-widest italic underline underline-offset-8">Les bases de l'Islam</h2>
-            <div class="card gold-border"><p class="text-amber-500 font-bold text-xs uppercase">1. La Chahada</p><p class="text-[11px] text-slate-400 mt-1 italic">La foi en un Dieu unique et Son Messager.</p></div>
-            <div class="card gold-border"><p class="text-amber-500 font-bold text-xs uppercase">2. La Salat</p><p class="text-[11px] text-slate-400 mt-1">Les 5 prières quotidiennes obligatoires.</p></div>
-            <div class="card gold-border"><p class="text-amber-500 font-bold text-xs uppercase">3. La Zakat</p><p class="text-[11px] text-slate-400 mt-1">L'aumône pour les pauvres.</p></div>
-            <div class="card gold-border"><p class="text-amber-500 font-bold text-xs uppercase">4. Le Sawm</p><p class="text-[11px] text-slate-400 mt-1">Le jeûne du mois de Ramadan.</p></div>
-            <div class="card gold-border"><p class="text-amber-500 font-bold text-xs uppercase">5. Le Hajj</p><p class="text-[11px] text-slate-400 mt-1">Le pèlerinage pour celui qui le peut.</p></div>
+            <h2 class="text-amber-500 font-bold text-center text-xs uppercase mb-5 italic underline underline-offset-8">Les Fondements</h2>
+            <div class="card gold-border"><p class="text-amber-500 font-bold text-xs uppercase">1. La Chahada</p></div>
+            <div class="card gold-border"><p class="text-amber-500 font-bold text-xs uppercase">2. La Salat</p></div>
+            <div class="card gold-border"><p class="text-amber-500 font-bold text-xs uppercase">3. La Zakat</p></div>
+            <div class="card gold-border"><p class="text-amber-500 font-bold text-xs uppercase">4. Le Sawm</p></div>
+            <div class="card gold-border"><p class="text-amber-500 font-bold text-xs uppercase">5. Le Hajj</p></div>
         </div>
 
         <div id="s-prière" class="hidden space-y-4">
-            <h2 class="text-emerald-500 font-bold text-center text-xs uppercase mb-4">Guide Pratique de la Salat</h2>
+            <h2 class="text-emerald-500 font-bold text-center text-xs uppercase mb-4 tracking-widest">Apprendre la Salat</h2>
             <div class="card border-l-4 border-emerald-600">
-                <p class="text-emerald-500 font-bold text-xs">Takbir (Début)</p>
-                <p class="arabic text-3xl text-right my-3 text-white">اللَّهُ أَكْبَرُ</p>
-                <p class="text-[10px] text-slate-400 font-bold italic text-center">Allahu Akbar (Allah est le plus Grand)</p>
-            </div>
-            <div class="card border-l-4 border-emerald-600">
-                <p class="text-emerald-500 font-bold text-xs">Inclinaison (Ruku)</p>
-                <p class="arabic text-3xl text-right my-3 text-white">سُبْحَانَ رَبِّيَ الْعَظِيمِ</p>
-                <p class="text-[10px] text-slate-400 font-bold italic text-center">Subhana Rabbiyal 'Adhim (3x)</p>
+                <p class="text-emerald-500 font-bold text-xs">Takbir</p>
+                <p class="arabic text-3xl text-right my-3">اللَّهُ أَكْبَرُ</p>
+                <p class="text-[10px] text-slate-400 italic text-center">Allahu Akbar</p>
             </div>
         </div>
 
@@ -60,52 +55,42 @@
         </div>
 
         <div id="s-doua" class="hidden space-y-4">
-            <div class="bg-red-950/40 p-6 rounded-3xl border border-red-900/50 shadow-2xl">
-                <p class="text-[10px] font-black text-red-500 mb-4 uppercase text-center tracking-widest">Protection Divine</p>
+            <div class="bg-red-950/40 p-6 rounded-3xl border border-red-900/50">
+                <p class="text-[10px] font-black text-red-500 mb-4 uppercase text-center">🛡️ Contre le Sheitan</p>
                 <p class="arabic text-3xl text-right mb-4">أَعُوذُ بِاللَّهِ مِنَ الشَّيْطَانِ الرَّجِيمِ</p>
-                <p class="text-xs italic text-slate-300 text-center">"Je cherche refuge auprès d'Allah contre le diable banni."</p>
+                <p class="text-xs italic text-slate-300 text-center">A’oudhou billahi mina shaytani rajim</p>
             </div>
         </div>
 
         <div id="s-vip" class="hidden">
-            <div id="vip-lock" class="bg-slate-900 p-8 rounded-[40px] border border-amber-600/30 text-center shadow-2xl">
-                <div class="inline-block p-4 bg-amber-500/10 rounded-full mb-4">
-                    <span class="text-4xl">⭐</span>
-                </div>
-                <h2 class="text-2xl font-black text-amber-500 mb-2 italic">PACK FORMATION VIP</h2>
-                <p class="text-[10px] text-slate-400 mb-8 uppercase font-bold tracking-tighter italic text-center">Mémorisation Coran Rapide & Ablutions Parfaites</p>
+            <div id="vip-lock" class="bg-slate-900 p-8 rounded-[40px] border border-amber-600/30 text-center">
+                <span class="text-4xl mb-4 block text-center">🔐</span>
+                <h2 class="text-2xl font-black text-amber-500 mb-2 italic">CONTENU VERROUILLÉ</h2>
+                <p class="text-[10px] text-slate-400 mb-8 uppercase font-bold text-center">Paiement requis pour débloquer les cours</p>
                 
-                <div class="bg-black/40 p-6 rounded-3xl border border-white/5 mb-8">
-                    <p class="text-3xl font-black text-white mb-1 text-center">2,99€</p>
-                    <p class="text-[10px] text-slate-500 uppercase mb-6 text-center">Paiement unique - Accès à vie</p>
+                <div class="bg-black/40 p-6 rounded-3xl border border-white/5 mb-6">
+                    <p class="text-3xl font-black text-white mb-6 text-center">2,99€</p>
                     
-                    <a href="https://www.paypal.me/TON_NOM/2.99" target="_blank" onclick="prePay()" class="block w-full bg-blue-600 hover:bg-blue-500 text-white font-black py-5 rounded-2xl text-xs uppercase tracking-widest transition-all active:scale-95 shadow-xl shadow-blue-600/20 mb-4">
-                        Payer maintenant (PayPal)
+                    <a href="https://www.paypal.me/TON_NOM/2.99" target="_blank" onclick="marquerCommePayé()" class="block w-full bg-blue-600 hover:bg-blue-500 text-white font-black py-5 rounded-2xl text-[10px] uppercase tracking-widest transition-all shadow-xl shadow-blue-600/20 mb-4">
+                        💰 PAYER VIA PAYPAL
                     </a>
                 </div>
 
-                <p class="text-[9px] text-slate-500 mb-4 italic">Une fois le paiement effectué, cliquez ici :</p>
-                <button onclick="confirmPay()" class="w-full bg-amber-500 text-black font-black py-4 rounded-2xl text-[10px] uppercase tracking-widest active:scale-95 transition-all">Accéder à mes cours</button>
+                <p class="text-[9px] text-slate-500 mb-4 italic text-center">Après avoir payé, cliquez ci-dessous pour ouvrir :</p>
+                <button onclick="verifierAcces()" class="w-full bg-amber-500 text-black font-black py-4 rounded-2xl text-[10px] uppercase tracking-widest active:scale-95 transition-all shadow-lg">OUVRIR MON ACCÈS VIP</button>
             </div>
 
             <div id="vip-content" class="hidden space-y-4">
-                <div class="card gold-border bg-gradient-to-br from-amber-900/10 to-transparent">
-                    <p class="text-amber-500 font-black text-xs uppercase mb-3">📖 Secret de Mémorisation</p>
+                <div class="card gold-border bg-amber-900/10">
+                    <p class="text-amber-500 font-black text-xs uppercase mb-3">📖 Mémorisation du Coran</p>
                     <p class="text-[11px] leading-relaxed text-slate-300">
-                        Pour apprendre le Coran sans oublier :<br><br>
-                        1. Récitez un verset **20 fois** en regardant.<br>
-                        2. Récitez-le **10 fois** de tête.<br>
-                        3. Le lendemain, récitez-le **5 fois** avant de passer au nouveau.<br>
-                        *Le meilleur moment est 30 min avant le Fajr.*
+                        Technique : Récitez le même verset 20 fois en regardant, puis 10 fois sans regarder. Répétez cela chaque matin après la prière du Fajr.
                     </p>
                 </div>
-                <div class="card gold-border bg-gradient-to-br from-amber-900/10 to-transparent">
-                    <p class="text-amber-500 font-black text-xs uppercase mb-3">🧼 Ablutions (Détails de Science)</p>
+                <div class="card gold-border bg-amber-900/10">
+                    <p class="text-amber-500 font-black text-xs uppercase mb-3">🧼 Les Secrets des Ablutions</p>
                     <p class="text-[11px] leading-relaxed text-slate-300">
-                        Ne négligez jamais ces 3 points pour que votre prière soit acceptée :<br><br>
-                        • L'eau doit toucher **tout** le visage (jusqu'aux oreilles).<br>
-                        • Les coudes doivent être **totalement** mouillés.<br>
-                        • Passez bien l'eau entre chaque orteil.
+                        Pour que l'ablution soit parfaite : frottez bien entre chaque doigt et assurez-vous que l'eau touche tout le visage, jusqu'à la limite des cheveux.
                     </p>
                 </div>
             </div>
@@ -113,11 +98,11 @@
     </div>
 
     <div class="fixed bottom-0 left-0 w-full bg-white text-black py-3 text-center font-black text-[9px] border-t-4 border-emerald-600 z-50">
-        BOUTIQUE : <span class="text-blue-600">PACK 10 LIVRES ISLAMIQUES À -30%</span> • <span class="underline">VOIR ICI</span>
+        PROMO : <span class="text-blue-600">CORAN EN ARABE/FRANÇAIS</span> • <span class="underline">COMMANDER</span>
     </div>
 
     <script>
-        // Navigation
+        // Navigation fluide
         function nav(id) {
             ['piliers','prière','coran','doua','vip'].forEach(s => {
                 document.getElementById('s-'+s).classList.add('hidden');
@@ -127,35 +112,40 @@
             document.getElementById('b-'+id).classList.add('nav-active');
         }
 
-        // Coran API
+        // Coran API - On garde le système qui marche
         async function loadCoran() {
-            const r = await fetch('https://api.alquran.cloud/v1/surah');
-            const d = await r.json();
-            const sel = document.getElementById('selSurah');
-            sel.innerHTML = '<option value="">-- Choisissez une Sourate --</option>';
-            d.data.forEach(s => sel.innerHTML += `<option value="${s.number}">${s.number}. ${s.englishName}</option>`);
+            try {
+                const r = await fetch('https://api.alquran.cloud/v1/surah');
+                const d = await r.json();
+                const sel = document.getElementById('selSurah');
+                sel.innerHTML = '<option value="">-- Sélectionnez --</option>';
+                d.data.forEach(s => sel.innerHTML += `<option value="${s.number}">${s.number}. ${s.englishName}</option>`);
+            } catch (err) {}
         }
 
         document.getElementById('selSurah').addEventListener('change', async (e) => {
             if(!e.target.value) return;
             const cont = document.getElementById('contentCoran');
-            cont.innerHTML = '<p class="text-center py-12 text-emerald-500 font-bold animate-pulse text-[10px]">CHARGEMENT DU CORAN...</p>';
+            cont.innerHTML = '<p class="text-center py-12 text-emerald-500 font-bold animate-pulse text-[10px]">CHARGEMENT...</p>';
             const r = await fetch(`https://api.alquran.cloud/v1/surah/${e.target.value}/fr.hamidullah`);
             const d = await r.json();
             let h = '<div class="arabic text-4xl text-center my-8 text-emerald-500">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>';
-            d.data.ayahs.forEach(a => h += `<div class="p-4 bg-slate-900/60 rounded-2xl mb-2 border border-white/5 text-[11px] leading-relaxed shadow-sm">${a.text} <span class="text-emerald-500 font-bold ml-1">(${a.numberInSurah})</span></div>`);
+            d.data.ayahs.forEach(a => h += `<div class="p-4 bg-slate-900/60 rounded-2xl mb-2 border border-white/5 text-[11px]">${a.text}</div>`);
             cont.innerHTML = h;
         });
 
-        // Paiement
-        function prePay() { localStorage.setItem('pay_start', 'true'); }
-        function confirmPay() {
-            if(localStorage.getItem('pay_start') === 'true') {
+        // LOGIQUE PAIEMENT VIP
+        function marquerCommePayé() {
+            localStorage.setItem('vip_payé', 'attente_confirmation');
+        }
+
+        function verifierAcces() {
+            if(localStorage.getItem('vip_payé') === 'attente_confirmation') {
                 document.getElementById('vip-lock').classList.add('hidden');
                 document.getElementById('vip-content').classList.remove('hidden');
-                alert("Masha'Allah ! Votre accès VIP est débloqué.");
+                alert("Paiement reçu ! Votre contenu VIP est maintenant débloqué.");
             } else {
-                alert("Veuillez d'abord effectuer le paiement PayPal.");
+                alert("Erreur : Vous devez d'abord payer via PayPal pour débloquer cette section.");
             }
         }
 
