@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Muslim App Ultra</title>
+    <title>Muslim App - Protection VIP</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
@@ -11,7 +11,6 @@
         .hidden { display: none; }
         .nav-active { background: #059669; color: white; border-bottom: 3px solid #34d399; }
         .card { background: #0a1212; border-radius: 20px; padding: 20px; border: 1px solid #1e293b; margin-bottom: 15px; }
-        .vip-locked-bg { background: linear-gradient(rgba(10,18,18,0.9), rgba(10,18,18,0.9)), url('https://www.transparenttextures.com/patterns/carbon-fibre.png'); }
     </style>
 </head>
 <body class="p-4" onload="initApp()">
@@ -31,31 +30,131 @@
 
         <div id="s-home" class="space-y-4">
             <div class="card border-t-4 border-emerald-600">
-                <div class="flex justify-between items-center mb-4 text-[10px] font-bold uppercase text-emerald-500">
-                    <span>Mosquée Montfermeil</span>
-                    <span id="live-day" class="text-slate-500"></span>
-                </div>
-                <div class="grid grid-cols-5 gap-2 text-center" id="prayer-times"></div>
+                <div id="prayer-times" class="grid grid-cols-5 gap-2 text-center"></div>
             </div>
-            <div class="card text-center bg-slate-900/50">
-                <p class="text-[10px] font-bold uppercase text-slate-500 mb-4">Tasbih</p>
+            <div class="card text-center">
+                <p class="text-[10px] font-bold text-slate-500 mb-4">TASBIH</p>
                 <div class="text-5xl font-black text-emerald-500 mb-6" id="tasbih-count">0</div>
-                <button onclick="countTasbih()" class="w-full bg-emerald-600 py-6 rounded-3xl font-black text-lg active:scale-95 transition-transform">+1</button>
+                <button onclick="countTasbih()" class="w-full bg-emerald-600 py-6 rounded-3xl font-black text-lg">+1</button>
             </div>
         </div>
 
         <div id="s-piliers" class="hidden space-y-3">
-            <div class="card border-l-4 border-amber-500 py-4 font-bold text-xs">1. CHAHADA</div>
-            <div class="card border-l-4 border-amber-500 py-4 font-bold text-xs">2. SALAT</div>
-            <div class="card border-l-4 border-amber-500 py-4 font-bold text-xs">3. ZAKAT</div>
-            <div class="card border-l-4 border-amber-500 py-4 font-bold text-xs">4. SAWM</div>
-            <div class="card border-l-4 border-amber-500 py-4 font-bold text-xs">5. HAJJ</div>
+            <div class="card border-l-4 border-amber-500 font-bold text-xs">LES 5 PILIERS DE L'ISLAM</div>
         </div>
 
-        <div id="s-coran" class="hidden space-y-4 text-center">
+        <div id="s-coran" class="hidden space-y-4">
             <select id="selSurah" class="w-full p-4 bg-slate-900 border border-emerald-900 rounded-xl text-emerald-400 font-bold text-xs"></select>
-            <div id="contentCoran" class="mt-4 text-left"></div>
+            <div id="contentCoran" class="mt-4"></div>
         </div>
 
         <div id="s-outils" class="hidden space-y-4">
-            <button onclick="nav('vip')" class="
+            <button onclick="nav('vip')" class="w-full card border-l-4 border-amber-500 flex justify-between items-center py-6 bg-amber-500/5">
+                <span class="font-bold uppercase text-[10px] text-amber-500">⭐ Accès Pack VIP</span>
+                <span>🔒</span>
+            </button>
+        </div>
+
+        <div id="s-vip" class="hidden">
+            <div id="vip-lock-screen" class="card text-center p-8 border-2 border-dashed border-amber-900/50">
+                <div class="text-6xl mb-4">🔒</div>
+                <h2 class="text-xl font-black text-amber-500 mb-2 uppercase">Zone VIP</h2>
+                <p class="text-[10px] text-slate-400 mb-6 uppercase">Contenu réservé aux membres</p>
+                <div class="bg-black p-6 rounded-3xl mb-4 border border-white/5">
+                    <p class="text-3xl font-black mb-6">2,99€</p>
+                    <button onclick="payNow()" class="w-full bg-blue-600 text-white font-black py-4 rounded-2xl text-[10px] uppercase">Payer via PayPal</button>
+                </div>
+                <button onclick="checkAccess()" class="text-amber-500 font-bold text-[10px] underline uppercase">Vérifier mon achat</button>
+            </div>
+
+            <div id="vip-unlocked-content" class="hidden space-y-6"></div>
+        </div>
+    </div>
+
+    <div class="fixed bottom-0 left-0 w-full bg-white text-black py-3 text-center font-black text-[9px] border-t-4 border-emerald-600 z-50">
+        BOUTIQUE : <span class="text-blue-600 uppercase">Coran Noble Édition</span>
+    </div>
+
+    <script>
+        // LE CONTENU EST CACHÉ ICI EN JAVASCRIPT (Plus difficile à voir sans payer)
+        const VIP_DATA = `
+            <div class="card border-t-2 border-amber-500 px-0 overflow-hidden">
+                <h3 class="px-4 text-amber-500 font-black text-[10px] uppercase mb-4 italic italic">Tableau : Les Ablutions</h3>
+                <div class="grid grid-cols-2 text-[10px] bg-white/5 font-bold uppercase p-3 border-b border-white/10">
+                    <div>Étape</div><div>Action</div>
+                </div>
+                <div class="grid grid-cols-2 text-[10px] p-3 border-b border-white/5">
+                    <div class="text-slate-500">01. Mains</div><div class="italic">Laver 3 fois les mains</div>
+                </div>
+                <div class="grid grid-cols-2 text-[10px] p-3 border-b border-white/5 bg-white/5">
+                    <div class="text-slate-500">02. Bouche</div><div class="italic">Rincer 3 fois la bouche</div>
+                </div>
+            </div>
+            <div class="card border-t-2 border-emerald-500 px-0 overflow-hidden">
+                <h3 class="px-4 text-emerald-500 font-black text-[10px] uppercase mb-4 italic">Tableau : Histoire du Coran</h3>
+                <div class="grid grid-cols-2 text-[10px] bg-white/5 font-bold uppercase p-3 border-b border-white/10">
+                    <div>Période</div><div>Fait Marquant</div>
+                </div>
+                <div class="grid grid-cols-2 text-[10px] p-3 border-b border-white/5">
+                    <div class="text-slate-500">Révélation</div><div class="italic">Grotte de Hira (610 ap. J-C)</div>
+                </div>
+            </div>
+        `;
+
+        function nav(id) {
+            ['home','piliers','coran','outils','vip'].forEach(s => {
+                document.getElementById('s-'+s)?.classList.add('hidden');
+                document.getElementById('b-'+s)?.classList.remove('nav-active');
+            });
+            document.getElementById('s-'+id).classList.remove('hidden');
+            document.getElementById('b-'+id)?.classList.add('nav-active');
+            if(id === 'vip') checkAccess();
+        }
+
+        function payNow() {
+            window.open('https://www.paypal.me/YaminDjaouat881/2.99','_blank');
+            localStorage.setItem('paid', 'true'); // Simule le succès
+            alert("Une fois le paiement fini, cliquez sur 'Vérifier mon achat'");
+        }
+
+        function checkAccess() {
+            if(localStorage.getItem('paid') === 'true') {
+                document.getElementById('vip-lock-screen').classList.add('hidden');
+                const content = document.getElementById('vip-unlocked-content');
+                content.innerHTML = VIP_DATA;
+                content.classList.remove('hidden');
+            }
+        }
+
+        async function initApp() {
+            try {
+                const r = await fetch('https://api.aladhan.com/v1/timingsByCity?city=Montfermeil&country=France&method=3');
+                const d = await r.json();
+                const t = d.data.timings;
+                document.getElementById('prayer-times').innerHTML = `<div class="p-2">FAJR: ${t.Fajr}</div><div class="p-2">DUHR: ${t.Dhuhr}</div><div class="p-2">ASR: ${t.Asr}</div><div class="p-2">MAGH: ${t.Maghrib}</div><div class="p-2">ICHA: ${t.Isha}</div>`;
+                document.getElementById('hijri-date').innerText = d.data.date.hijri.day + " " + d.data.date.hijri.month.fr;
+            } catch(e) {}
+            loadCoran();
+        }
+
+        async function loadCoran() {
+            const r = await fetch('https://api.alquran.cloud/v1/surah');
+            const d = await r.json();
+            const sel = document.getElementById('selSurah');
+            sel.innerHTML = '<option value="">SOURATES</option>';
+            d.data.forEach(s => sel.innerHTML += `<option value="${s.number}">${s.number}. ${s.englishName}</option>`);
+        }
+
+        document.getElementById('selSurah').addEventListener('change', async (e) => {
+            const r = await fetch(`https://api.alquran.cloud/v1/surah/${e.target.value}/fr.hamidullah`);
+            const d = await r.json();
+            let h = '';
+            d.data.ayahs.forEach(a => h += `<div class="p-2 text-[11px] border-b border-white/5">${a.text}</div>`);
+            document.getElementById('contentCoran').innerHTML = h;
+        });
+
+        let count = 0;
+        function countTasbih() { count++; document.getElementById('tasbih-count').innerText = count; }
+    </script>
+</body>
+</html>
