@@ -7,14 +7,14 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
-        body { font-family: 'Inter', sans-serif; background-color: #010606; color: #e6edf3; }
+        body { font-family: 'Inter', sans-serif; background-color: #010606; color: #e6edf3; padding-bottom: 90px; }
         .hidden { display: none; }
         .nav-active { background: #059669; color: white; border-bottom: 3px solid #34d399; }
         .card { background: #0a1212; border-radius: 20px; padding: 20px; border: 1px solid #1e293b; margin-bottom: 15px; }
         
-        /* DESIGN DU BOUTON COMME SUR TA PHOTO */
+        /* BOUTON PAYPAL COMME TA PHOTO */
         .paypal-btn {
-            background-color: #0070ba;
+            background: #0070ba;
             color: white;
             padding: 18px;
             border-radius: 50px;
@@ -23,103 +23,112 @@
             justify-content: center;
             font-weight: 900;
             text-transform: uppercase;
-            letter-spacing: 1px;
             font-size: 14px;
             box-shadow: 0 4px 15px rgba(0, 112, 186, 0.4);
-            transition: transform 0.2s;
+            text-decoration: none;
+            transition: all 0.2s;
         }
-        .paypal-btn:active { transform: scale(0.95); }
-        .paypal-logo { font-style: italic; font-weight: 900; margin-right: 8px; }
+        .paypal-btn:active { transform: scale(0.96); }
+        .paypal-logo { font-style: italic; margin-right: 8px; font-size: 18px; letter-spacing: -1px; }
     </style>
 </head>
 <body class="p-4" onload="initApp()">
 
     <div class="max-w-md mx-auto">
         <div class="text-center py-6">
-            <h1 class="text-4xl font-black text-emerald-500 italic uppercase italic">Muslim App</h1>
-            <p id="hijri-date" class="text-[10px] text-emerald-700 font-bold uppercase mt-1">Chargement...</p>
+            <h1 class="text-4xl font-black text-emerald-500 italic uppercase italic tracking-tighter">Muslim App</h1>
         </div>
 
-        <nav class="grid grid-cols-4 gap-1 mb-6 bg-slate-900/50 p-1 rounded-2xl sticky top-2 z-50">
-            <button onclick="nav('home')" class="py-3 rounded-xl text-[8px] font-bold uppercase">Accueil</button>
-            <button onclick="nav('piliers')" class="py-3 rounded-xl text-[8px] font-bold uppercase">Piliers</button>
-            <button onclick="nav('coran')" class="py-3 rounded-xl text-[8px] font-bold uppercase">Coran</button>
-            <button onclick="nav('outils')" class="py-3 rounded-xl text-[8px] font-bold nav-active uppercase">Outils</button>
+        <nav class="grid grid-cols-4 gap-1 mb-6 bg-slate-900/50 p-1 rounded-2xl sticky top-2 z-50 shadow-2xl">
+            <button id="b-home" onclick="nav('home')" class="py-3 rounded-xl text-[8px] font-bold nav-active uppercase">Accueil</button>
+            <button id="b-piliers" onclick="nav('piliers')" class="py-3 rounded-xl text-[8px] font-bold uppercase">Piliers</button>
+            <button id="b-coran" onclick="nav('coran')" class="py-3 rounded-xl text-[8px] font-bold uppercase">Coran</button>
+            <button id="b-vip" onclick="nav('vip')" class="py-3 rounded-xl text-[8px] font-bold uppercase text-amber-500 border border-amber-500/20">⭐ VIP</button>
         </nav>
 
-        <div id="s-home" class="hidden">
+        <div id="s-home" class="space-y-4">
             <div class="card border-t-4 border-emerald-600">
-                <div id="prayer-times" class="grid grid-cols-5 gap-2 text-center text-[9px] font-bold"></div>
+                <div id="prayer-times" class="grid grid-cols-5 gap-2 text-center text-[9px] font-bold text-emerald-400 italic"></div>
             </div>
             <div class="card text-center">
                 <div class="text-4xl font-black text-emerald-500 mb-4" id="tasbih-count">0</div>
-                <button onclick="countTasbih()" class="w-full bg-emerald-600 py-4 rounded-2xl font-bold">+1 TASBIH</button>
+                <button onclick="countTasbih()" class="w-full bg-emerald-600 py-4 rounded-2xl font-black shadow-lg shadow-emerald-900/20 uppercase text-xs">+1 Tasbih</button>
             </div>
         </div>
 
-        <div id="s-outils" class="space-y-4">
-            <button onclick="nav('quiz')" class="w-full card border-l-4 border-blue-500 flex justify-between py-6">
-                <span class="font-bold text-[10px] uppercase">📝 Quizz Islamique</span>
-            </button>
-            <button onclick="nav('vip')" class="w-full card border-l-4 border-amber-500 flex justify-between py-6 bg-amber-500/5">
-                <span class="font-bold text-[10px] text-amber-500 uppercase">⭐ Accès VIP (Tableaux)</span>
-                <span>🔒</span>
-            </button>
+        <div id="s-piliers" class="hidden space-y-2">
+            <div class="card border-l-4 border-amber-500 py-3 font-bold text-[10px] uppercase">1. La Chahada</div>
+            <div class="card border-l-4 border-amber-500 py-3 font-bold text-[10px] uppercase">2. La Salat</div>
+            <div class="card border-l-4 border-amber-500 py-3 font-bold text-[10px] uppercase">3. La Zakat</div>
+            <div class="card border-l-4 border-amber-500 py-3 font-bold text-[10px] uppercase">4. Le Sawm</div>
+            <div class="card border-l-4 border-amber-500 py-3 font-bold text-[10px] uppercase">5. Le Hajj</div>
+        </div>
+
+        <div id="s-coran" class="hidden">
+            <select id="selSurah" class="w-full p-4 bg-slate-900 border border-emerald-900 rounded-xl text-emerald-400 font-bold text-xs uppercase"></select>
+            <div id="contentCoran" class="mt-4"></div>
         </div>
 
         <div id="s-vip" class="hidden">
-            <div id="vip-lock-screen" class="card text-center p-8 border-2 border-dashed border-amber-600/20">
-                <div class="text-5xl mb-6">🔒</div>
-                <h2 class="text-xl font-black text-white mb-2">CONTENU BLOQUÉ</h2>
-                <p class="text-[10px] text-slate-400 mb-8 uppercase">Payez pour débloquer les grands tableaux</p>
+            <div id="vip-lock" class="card text-center p-8 border-2 border-dashed border-amber-600/30">
+                <div class="text-6xl mb-6">🔒</div>
+                <h2 class="text-xl font-black text-white mb-2 uppercase italic tracking-tighter">Accès VIP Bloqué</h2>
+                <p class="text-[9px] text-slate-400 mb-8 uppercase tracking-widest leading-loose">Payez pour débloquer les 2 grands tableaux :<br>Ablutions & Histoire du Coran</p>
                 
-                <div class="bg-black/40 p-6 rounded-3xl mb-6 border border-white/5">
+                <div class="bg-black/60 p-6 rounded-[35px] border border-white/5 mb-6">
                     <p class="text-4xl font-black text-white mb-6">2,99€</p>
                     
-                    <a href="https://www.paypal.me/YaminDjaouat881/2.99" target="_blank" onclick="localStorage.setItem('paid','true')" class="paypal-btn">
+                    <a href="https://www.paypal.me/YaminDjaouat881/2.99" target="_blank" onclick="localStorage.setItem('vip_paid','true')" class="paypal-btn">
                         <span class="paypal-logo">PayPal</span> PAYER MAINTENANT
                     </a>
                 </div>
                 
-                <button onclick="checkAccess()" class="text-amber-500 text-[10px] font-bold underline uppercase">Vérifier mon achat</button>
+                <button onclick="checkAccess()" class="text-amber-500 text-[10px] font-bold underline uppercase tracking-tighter">Débloquer après paiement</button>
             </div>
 
-            <div id="vip-unlocked-content" class="hidden space-y-6">
+            <div id="vip-content" class="hidden space-y-6">
                 <div class="card border-t-4 border-amber-500 px-0 overflow-hidden">
-                    <h3 class="p-4 font-black text-amber-500 uppercase text-xs">Tableau des Ablutions</h3>
-                    <div class="grid grid-cols-2 bg-white/5 p-3 text-[9px] font-bold uppercase"><div>Étape</div><div>Action</div></div>
-                    <div class="p-3 border-b border-white/5 text-[10px] flex justify-between"><span>Intention</span><span class="italic text-slate-400">Dire Bismillah</span></div>
-                    <div class="p-3 border-b border-white/5 text-[10px] flex justify-between"><span>Mains</span><span class="italic text-slate-400">3 fois</span></div>
-                    <div class="p-3 border-b border-white/5 text-[10px] flex justify-between"><span>Visage</span><span class="italic text-slate-400">3 fois</span></div>
-                    <div class="p-3 border-b border-white/5 text-[10px] flex justify-between"><span>Bras</span><span class="italic text-slate-400">Jusqu'aux coudes</span></div>
-                    <div class="p-3 text-[10px] flex justify-between"><span>Pieds</span><span class="italic text-slate-400">3 fois</span></div>
+                    <h3 class="p-4 font-black text-amber-500 uppercase text-xs italic">Guide Complet des Ablutions</h3>
+                    <div class="p-4 space-y-3 text-[11px] border-t border-white/5">
+                        <p class="flex justify-between border-b border-white/5 pb-2"><span>1. Les mains</span> <span class="text-slate-400">3 fois</span></p>
+                        <p class="flex justify-between border-b border-white/5 pb-2"><span>2. La bouche</span> <span class="text-slate-400">3 fois</span></p>
+                        <p class="flex justify-between border-b border-white/5 pb-2"><span>3. Le nez</span> <span class="text-slate-400">3 fois</span></p>
+                        <p class="flex justify-between border-b border-white/5 pb-2"><span>4. Le visage</span> <span class="text-slate-400">3 fois</span></p>
+                        <p class="flex justify-between"><span>5. Les pieds</span> <span class="text-slate-400">3 fois</span></p>
+                    </div>
                 </div>
 
                 <div class="card border-t-4 border-emerald-500 px-0 overflow-hidden">
-                    <h3 class="p-4 font-black text-emerald-500 uppercase text-xs">Histoire du Coran</h3>
-                    <div class="grid grid-cols-2 bg-white/5 p-3 text-[9px] font-bold uppercase"><div>Année</div><div>Fait Marquant</div></div>
-                    <div class="p-3 border-b border-white/5 text-[10px] flex justify-between"><span>610</span><span class="italic text-slate-400">Grotte de Hira</span></div>
-                    <div class="p-3 border-b border-white/5 text-[10px] flex justify-between"><span>23 ans</span><span class="italic text-slate-400">Durée Révélation</span></div>
-                    <div class="p-3 border-b border-white/5 text-[10px] flex justify-between"><span>Abou Bakr</span><span class="italic text-slate-400">Compilation</span></div>
-                    <div class="p-3 text-[10px] flex justify-between"><span>Othman</span><span class="italic text-slate-400">Unification</span></div>
+                    <h3 class="p-4 font-black text-emerald-500 uppercase text-xs italic">Tableau Histoire du Coran</h3>
+                    <div class="p-4 space-y-3 text-[11px] border-t border-white/5">
+                        <p class="flex justify-between border-b border-white/5 pb-2"><span>An 610</span> <span class="text-slate-400">Grotte de Hira</span></p>
+                        <p class="flex justify-between border-b border-white/5 pb-2"><span>23 ans</span> <span class="text-slate-400">Durée Révélation</span></p>
+                        <p class="flex justify-between"><span>Abou Bakr</span> <span class="text-slate-400">Premier Mushaf</span></p>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
+    <div class="fixed bottom-0 left-0 w-full bg-white text-black py-4 text-center font-black text-[10px] border-t-4 border-emerald-600 z-50 uppercase tracking-[3px]">
+        Boutique : <span class="text-blue-600">Coran Noble Édition</span>
+    </div>
+
     <script>
         function nav(id) {
-            ['home','piliers','coran','outils','quiz','vip'].forEach(s => {
-                document.getElementById('s-'+s)?.classList.add('hidden');
+            ['home','piliers','coran','vip'].forEach(s => {
+                document.getElementById('s-'+s).classList.add('hidden');
+                document.getElementById('b-'+s).classList.remove('nav-active');
             });
             document.getElementById('s-'+id).classList.remove('hidden');
+            document.getElementById('b-'+id).classList.add('nav-active');
             if(id === 'vip') checkAccess();
         }
 
         function checkAccess() {
-            if(localStorage.getItem('paid') === 'true') {
-                document.getElementById('vip-lock-screen').classList.add('hidden');
-                document.getElementById('vip-unlocked-content').classList.remove('hidden');
+            if(localStorage.getItem('vip_paid') === 'true') {
+                document.getElementById('vip-lock').classList.add('hidden');
+                document.getElementById('vip-content').classList.remove('hidden');
             }
         }
 
@@ -129,9 +138,20 @@
                 const d = await r.json();
                 const t = d.data.timings;
                 document.getElementById('prayer-times').innerHTML = `<div>FAJR<br>${t.Fajr}</div><div>DUHR<br>${t.Dhuhr}</div><div>ASR<br>${t.Asr}</div><div>MAGH<br>${t.Maghrib}</div><div>ICHA<br>${t.Isha}</div>`;
-                document.getElementById('hijri-date').innerText = d.data.date.hijri.day + " " + d.data.date.hijri.month.fr;
             } catch(e) {}
+            loadSurahs();
         }
+
+        async function loadSurahs() {
+            const r = await fetch('https://api.alquran.cloud/v1/surah');
+            const d = await r.json();
+            const sel = document.getElementById('selSurah');
+            sel.innerHTML = '<option>SÉLECTIONNER SOURATE</option>';
+            d.data.forEach(s => sel.innerHTML += `<option value="${s.number}">${s.number}. ${s.englishName}</option>`);
+        }
+
+        let count = 0;
+        function countTasbih() { count++; document.getElementById('tasbih-count').innerText = count; }
     </script>
 </body>
 </html>
