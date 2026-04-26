@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Muslim App - Montfermeil</title>
+    <title>Muslim App Ultra - Montfermeil</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Amiri&family=Inter:wght@400;700;900&display=swap');
@@ -53,11 +53,11 @@
 
         <div id="s-piliers" class="hidden space-y-3">
             <h2 class="text-amber-500 font-black text-center text-xs uppercase mb-6 tracking-widest">Les 5 Piliers de l'Islam</h2>
-            <div class="card gold-border"><p class="text-amber-500 font-bold text-xs uppercase">1. La Chahada (Attestation de foi)</p></div>
-            <div class="card gold-border"><p class="text-amber-500 font-bold text-xs uppercase">2. La Salat (Les 5 prières)</p></div>
-            <div class="card gold-border"><p class="text-amber-500 font-bold text-xs uppercase">3. La Zakat (Aumône légale)</p></div>
-            <div class="card gold-border"><p class="text-amber-500 font-bold text-xs uppercase">4. Le Sawm (Jeûne du Ramadan)</p></div>
-            <div class="card gold-border"><p class="text-amber-500 font-bold text-xs uppercase">5. Le Hajj (Pèlerinage à la Mecque)</p></div>
+            <div class="card gold-border py-4"><p class="text-amber-500 font-bold text-xs uppercase">1. La Chahada (Foi)</p></div>
+            <div class="card gold-border py-4"><p class="text-amber-500 font-bold text-xs uppercase">2. La Salat (Prière)</p></div>
+            <div class="card gold-border py-4"><p class="text-amber-500 font-bold text-xs uppercase">3. La Zakat (Aumône)</p></div>
+            <div class="card gold-border py-4"><p class="text-amber-500 font-bold text-xs uppercase">4. Le Sawm (Jeûne)</p></div>
+            <div class="card gold-border py-4"><p class="text-amber-500 font-bold text-xs uppercase">5. Le Hajj (Pèlerinage)</p></div>
         </div>
 
         <div id="s-coran" class="hidden space-y-4">
@@ -66,7 +66,7 @@
                 <option>Chargement des sourates...</option>
             </select>
             <div id="contentCoran" class="mt-4 space-y-2">
-                <p class="text-center text-slate-500 text-[10px] mt-10">Choisissez une sourate pour commencer la lecture.</p>
+                <p class="text-center text-slate-500 text-[10px] mt-10 italic uppercase">Choisissez une sourate pour lire</p>
             </div>
         </div>
 
@@ -76,7 +76,7 @@
                 <span>➜</span>
             </button>
             <button onclick="nav('doua')" class="w-full card border-l-4 border-red-500 flex justify-between items-center py-6">
-                <span class="font-bold uppercase text-[10px]">🛡️ Protection (Doua)</span>
+                <span class="font-bold uppercase text-[10px]">🛡️ Protection Divine</span>
                 <span>➜</span>
             </button>
             <button onclick="nav('vip')" class="w-full card border-l-4 border-amber-500 flex justify-between items-center py-6 bg-amber-500/5">
@@ -103,7 +103,7 @@
 
         <div id="s-doua" class="hidden card border-l-4 border-red-600">
             <p class="arabic text-3xl text-right mb-4 text-red-500">أَعُوذُ بِاللَّهِ مِنَ الشَّيْطَانِ الرَّجِيمِ</p>
-            <p class="text-[10px] text-center italic text-slate-400 uppercase font-bold tracking-widest">A’oudhou billahi mina shaytani rajim</p>
+            <p class="text-[10px] text-center italic text-slate-400 uppercase font-bold">A’oudhou billahi mina shaytani rajim</p>
         </div>
 
         <div id="s-vip" class="hidden">
@@ -111,25 +111,24 @@
                 <h2 class="text-2xl font-black text-amber-500 mb-6 italic uppercase">Pack VIP</h2>
                 <div class="bg-black/40 p-6 rounded-3xl mb-6">
                     <p class="text-3xl font-black text-white mb-6">2,99€</p>
-                    <button onclick="window.open('https://www.paypal.me/TON_NOM/2.99','_blank');localStorage.setItem('paid','true')" class="w-full bg-blue-600 text-white font-black py-5 rounded-2xl text-[10px] uppercase">💰 PAYER VIA PAYPAL</button>
+                    <button onclick="window.open('https://www.paypal.me/YaminDjaouat881/2.99','_blank');localStorage.setItem('paid','true')" class="w-full bg-blue-600 text-white font-black py-5 rounded-2xl text-[10px] uppercase tracking-widest">💰 PAYER VIA PAYPAL</button>
                 </div>
                 <button onclick="checkVIP()" class="w-full bg-amber-500 text-black font-black py-4 rounded-2xl text-[10px] uppercase">ACTIVER MON ACCÈS</button>
             </div>
             <div id="vip-content" class="hidden card gold-border">
-                <p class="text-amber-500 font-black text-xs uppercase mb-4 underline">Guide des Ablutions</p>
-                <div class="text-[11px] leading-relaxed space-y-3 text-slate-300">
+                <p class="text-amber-500 font-bold text-xs uppercase mb-4 underline">Guide des Ablutions</p>
+                <div class="text-[11px] leading-relaxed space-y-2 text-slate-300">
                     <p>1. Intention & Bismillah.</p>
-                    <p>2. Mains (3x), Bouche (3x), Nez (3x).</p>
-                    <p>3. Visage (3x), Bras (3x).</p>
-                    <p>4. Tête (1x), Oreilles (1x).</p>
-                    <p>5. Pieds (3x).</p>
+                    <p>2. Mains 3x, Bouche 3x, Nez 3x.</p>
+                    <p>3. Visage 3x, Bras 3x.</p>
+                    <p>4. Tête/Oreilles 1x, Pieds 3x.</p>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="fixed bottom-0 left-0 w-full bg-white text-black py-3 text-center font-black text-[9px] border-t-4 border-emerald-600 z-50">
-        BOUTIQUE : <span class="text-blue-600">CORAN NOBLE ÉDITION</span>
+    <div class="fixed bottom-0 left-0 w-full bg-white text-black py-3 text-center font-black text-[9px] border-t-4 border-emerald-600 z-50 uppercase">
+        Boutique : <span class="text-blue-600">Coran Noble Édition</span>
     </div>
 
     <script>
@@ -148,16 +147,15 @@
 
         async function initApp() {
             try {
-                // Horaires auto Montfermeil
                 const r = await fetch(`https://api.aladhan.com/v1/timingsByCity?city=Montfermeil&country=France&method=3`);
                 const d = await r.json();
                 const t = d.data.timings;
                 document.getElementById('prayer-times').innerHTML = `
-                    <div class="bg-slate-900 p-2 rounded-lg border border-white/5"><p class="text-[7px] text-slate-500 uppercase">Fajr</p><p class="text-[10px] font-bold text-emerald-400">${t.Fajr}</p></div>
-                    <div class="bg-slate-900 p-2 rounded-lg border border-white/5"><p class="text-[7px] text-slate-500 uppercase">Duhr</p><p class="text-[10px] font-bold">${t.Dhuhr}</p></div>
-                    <div class="bg-slate-900 p-2 rounded-lg border border-white/5"><p class="text-[7px] text-slate-500 uppercase">Asr</p><p class="text-[10px] font-bold">${t.Asr}</p></div>
-                    <div class="bg-slate-900 p-2 rounded-lg border border-white/5"><p class="text-[7px] text-slate-500 uppercase">Magh.</p><p class="text-[10px] font-bold text-emerald-400">${t.Maghrib}</p></div>
-                    <div class="bg-slate-900 p-2 rounded-lg border border-white/5"><p class="text-[7px] text-slate-500 uppercase">Icha</p><p class="text-[10px] font-bold">${t.Isha}</p></div>
+                    <div class="bg-slate-900 p-2 rounded-lg"><p class="text-[7px] text-slate-500 uppercase">Fajr</p><p class="text-[10px] font-bold text-emerald-400">${t.Fajr}</p></div>
+                    <div class="bg-slate-900 p-2 rounded-lg"><p class="text-[7px] text-slate-500 uppercase">Duhr</p><p class="text-[10px] font-bold">${t.Dhuhr}</p></div>
+                    <div class="bg-slate-900 p-2 rounded-lg"><p class="text-[7px] text-slate-500 uppercase">Asr</p><p class="text-[10px] font-bold">${t.Asr}</p></div>
+                    <div class="bg-slate-900 p-2 rounded-lg"><p class="text-[7px] text-slate-500 uppercase">Magh.</p><p class="text-[10px] font-bold text-emerald-400">${t.Maghrib}</p></div>
+                    <div class="bg-slate-900 p-2 rounded-lg"><p class="text-[7px] text-slate-500 uppercase">Icha</p><p class="text-[10px] font-bold">${t.Isha}</p></div>
                 `;
                 document.getElementById('live-day').textContent = d.data.date.readable;
                 document.getElementById('hijri-date').textContent = d.data.date.hijri.day + " " + d.data.date.hijri.month.fr + " " + d.data.date.hijri.year;
@@ -169,7 +167,7 @@
             const r = await fetch('https://api.alquran.cloud/v1/surah');
             const d = await r.json();
             const sel = document.getElementById('selSurah');
-            sel.innerHTML = '<option value="">-- Choisissez une Sourate --</option>';
+            sel.innerHTML = '<option value="">-- Sélectionnez une Sourate --</option>';
             d.data.forEach(s => sel.innerHTML += `<option value="${s.number}">${s.number}. ${s.englishName}</option>`);
         }
 
@@ -189,9 +187,9 @@
         function resetTasbih() { count = 0; document.getElementById('tasbih-count').textContent = 0; }
 
         const qList = [
-            {q: "Combien y a-t-il de piliers de l'Islam ?", a: ["3","5","7"], c: 1},
-            {q: "Quelle est la direction de la prière ?", a: ["Est","Qibla","Nord"], c: 1},
-            {q: "Quel est le mois sacré du jeûne ?", a: ["Ramadan","Safar","Rajab"], c: 0}
+            {q: "Nombre de piliers ?", a: ["3","5","7"], c: 1},
+            {q: "Direction de prière ?", a: ["Est","Qibla","Nord"], c: 1},
+            {q: "Mois du jeûne ?", a: ["Ramadan","Safar","Rajab"], c: 0}
         ];
         let quizPool = [], qScore = 0, qIdx = 0, qHist = [];
         function startQuiz() {
@@ -210,7 +208,7 @@
             cont.innerHTML = '';
             q.a.forEach((opt, i) => {
                 const btn = document.createElement('button');
-                btn.className = "w-full p-4 bg-slate-800 rounded-2xl text-[11px] font-bold active:bg-emerald-600";
+                btn.className = "w-full p-4 bg-slate-800 rounded-2xl text-[11px] font-bold";
                 btn.textContent = opt;
                 btn.onclick = () => {
                     const win = (i === q.c); if(win) qScore++;
@@ -233,10 +231,8 @@
             if(localStorage.getItem('paid') === 'true') {
                 document.getElementById('vip-lock').classList.add('hidden');
                 document.getElementById('vip-content').classList.remove('hidden');
-            } else { alert("Veuillez d'abord payer via PayPal."); }
+            } else { alert("Paiement non détecté."); }
         }
     </script>
 </body>
 </html>
-
-        
