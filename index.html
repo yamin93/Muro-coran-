@@ -7,36 +7,39 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Amiri&family=Inter:wght@400;700;900&display=swap');
-        body { font-family: 'Inter', sans-serif; background-color: #010606; color: #e6edf3; padding-bottom: 100px; }
+        body { font-family: 'Inter', sans-serif; background-color: #010606; color: #e6edf3; padding-bottom: 110px; }
         .hidden { display: none; }
         .nav-active { background: #059669; color: white; border-radius: 12px; }
         .card { background: #0a1212; border-radius: 24px; padding: 20px; border: 1px solid #1e293b; margin-bottom: 15px; }
         .arabic { font-family: 'Amiri', serif; direction: rtl; line-height: 2.5; }
         
-        /* BOUTON PAYPAL COMME TA PHOTO */
-        .btn-paypal {
-            background-color: #3b66f5; /* Le bleu exact de ta photo */
+        /* DESIGN DU GROS BOUTON PAYPAL COMME TA PHOTO */
+        .btn-paypal-large {
+            background-color: #3b66f5; /* Bleu PayPal vif */
             color: white;
-            padding: 18px;
-            border-radius: 20px;
+            padding: 22px;
+            border-radius: 25px;
             display: flex;
             align-items: center;
             justify-content: center;
             text-decoration: none;
-            font-weight: 800;
-            font-size: 14px;
+            font-weight: 900;
+            font-size: 16px;
             width: 100%;
+            box-shadow: 0 4px 20px rgba(59, 102, 245, 0.4);
+            text-transform: uppercase;
         }
+        
         /* BOUTON ACTIVER ORANGE */
         .btn-activate {
-            background-color: #f1a944; /* Orange de ta photo */
+            background-color: #f1a944;
             color: #000;
             padding: 18px;
-            border-radius: 20px;
+            border-radius: 25px;
             font-weight: 900;
             text-transform: uppercase;
             width: 100%;
-            margin-top: 15px;
+            margin-top: 20px;
         }
     </style>
 </head>
@@ -57,7 +60,7 @@
 
         <div id="s-home" class="space-y-4">
             <div class="card border-t-4 border-emerald-600">
-                <div id="prayer-times" class="grid grid-cols-5 gap-2 text-center text-[9px] font-bold text-emerald-400"></div>
+                <div id="prayer-times" class="grid grid-cols-5 gap-2 text-center text-[9px] font-bold text-emerald-400 italic"></div>
             </div>
             <div class="card text-center">
                 <div class="text-4xl font-black text-emerald-500 mb-4" id="tasbih-count">0</div>
@@ -66,56 +69,57 @@
         </div>
 
         <div id="s-piliers" class="hidden space-y-3">
-            <div class="card border-l-4 border-amber-500 font-bold text-[11px] uppercase">1. La Chahada</div>
-            <div class="card border-l-4 border-amber-500 font-bold text-[11px] uppercase">2. La Salat</div>
-            <div class="card border-l-4 border-amber-500 font-bold text-[11px] uppercase">3. La Zakat</div>
-            <div class="card border-l-4 border-amber-500 font-bold text-[11px] uppercase">4. Le Sawm</div>
-            <div class="card border-l-4 border-amber-500 font-bold text-[11px] uppercase">5. Le Hajj</div>
+             <div class="card border-l-4 border-amber-500 font-bold text-[11px] uppercase">1. La Chahada</div>
+             <div class="card border-l-4 border-amber-500 font-bold text-[11px] uppercase">2. La Salat</div>
+             <div class="card border-l-4 border-amber-500 font-bold text-[11px] uppercase">3. La Zakat</div>
+             <div class="card border-l-4 border-amber-500 font-bold text-[11px] uppercase">4. Le Sawm</div>
+             <div class="card border-l-4 border-amber-500 font-bold text-[11px] uppercase">5. Le Hajj</div>
         </div>
 
         <div id="s-coran" class="hidden space-y-4">
-            <select id="selSurah" class="w-full p-4 bg-[#0a1212] border border-emerald-900 rounded-xl text-emerald-400 font-bold text-xs" onchange="loadSurahContent()"></select>
+            <select id="selSurah" class="w-full p-4 bg-[#0a1212] border border-emerald-900 rounded-xl text-emerald-400 font-bold text-xs uppercase" onchange="loadSurahContent()"></select>
             <div class="flex gap-2">
-                <button onclick="changeLang('ar.alafasy')" id="btn-ar" class="flex-1 bg-emerald-600/20 py-2 rounded-lg text-[10px] font-bold border border-emerald-600">VERSION ARABE</button>
-                <button onclick="changeLang('fr.hamidullah')" id="btn-fr" class="flex-1 bg-slate-800 py-2 rounded-lg text-[10px] font-bold border border-white/5">VERSION FRANÇAIS</button>
+                <button onclick="changeLang('ar.alafasy')" id="btn-ar" class="flex-1 bg-emerald-600/20 py-2 rounded-lg text-[10px] font-bold border border-emerald-600">ARABE</button>
+                <button onclick="changeLang('fr.hamidullah')" id="btn-fr" class="flex-1 bg-slate-800 py-2 rounded-lg text-[10px] font-bold border border-white/5">FRANÇAIS</button>
             </div>
             <div id="contentCoran" class="mt-4"></div>
         </div>
 
         <div id="s-vip" class="hidden">
             <div id="vip-lock" class="space-y-6">
-                <h2 class="text-2xl font-black text-[#f1a944] italic text-center uppercase">Pack VIP</h2>
+                <h2 class="text-3xl font-black text-[#f1a944] italic text-center uppercase tracking-tighter">Pack VIP</h2>
                 
-                <div class="card bg-[#0a0f14] p-10 text-center border-none shadow-2xl">
-                    <p class="text-5xl font-black text-white mb-10">2,99€</p>
+                <div class="card bg-[#0a0f14] p-12 text-center border-none shadow-2xl">
+                    <p class="text-6xl font-black text-white mb-10">2,99€</p>
                     
-                    <a href="https://www.paypal.me/YaminDjaouat881/2.99" target="_blank" class="btn-paypal">
+                    <a href="https://www.paypal.me/YaminDjaouat881/2.99" target="_blank" class="btn-paypal-large">
                         💰 PAYER VIA PAYPAL
                     </a>
                 </div>
 
-                <button onclick="checkAccess(true)" class="btn-activate">
+                <button onclick="activateVIP()" class="btn-activate">
                     Activer mon accès
                 </button>
+                <p class="text-[8px] text-center text-slate-500 uppercase tracking-widest mt-4 italic">Une fois le paiement effectué, cliquez sur Activer pour débloquer.</p>
             </div>
 
             <div id="vip-content" class="hidden space-y-4">
-                <div class="card border-2 border-amber-500 p-6 flex justify-between items-center">
-                    <span class="font-bold text-sm uppercase">✓ Tableau Ablutions Débloqué</span>
+                <div class="card border-2 border-amber-500 p-8 flex justify-between items-center bg-amber-500/5">
+                    <span class="font-black text-sm uppercase italic">✓ Tableau Ablutions Débloqué</span>
                 </div>
-                <div class="card border-2 border-emerald-500 p-6 flex justify-between items-center">
-                    <span class="font-bold text-sm uppercase">✓ Tableau Histoire Débloqué</span>
+                <div class="card border-2 border-emerald-500 p-8 flex justify-between items-center bg-emerald-500/5">
+                    <span class="font-black text-sm uppercase italic">✓ Tableau Histoire Débloqué</span>
                 </div>
-                <div class="card bg-blue-900/20 border border-blue-500 p-6 text-center">
-                    <p class="text-xs font-bold uppercase mb-4 text-blue-400 italic">Entraînement Quizz</p>
-                    <button onclick="alert('Lancement du Quiz...')" class="w-full bg-blue-600 py-3 rounded-xl font-bold text-[10px] uppercase">Lancer le Quizz</button>
+                <div class="card bg-blue-900/20 border border-blue-500 p-8 text-center">
+                    <p class="text-xs font-black uppercase mb-4 text-blue-400 italic">Mode Challenge</p>
+                    <button onclick="alert('Lancement du Quiz...')" class="w-full bg-blue-600 py-4 rounded-2xl font-black text-[11px] uppercase shadow-lg">Lancer le Quizz</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="fixed bottom-0 left-0 w-full bg-white text-black py-4 text-center font-black text-[9px] border-t-4 border-emerald-600 z-50">
-        BOUTIQUE : <span class="text-blue-600 uppercase">Coran Noble Édition</span>
+    <div class="fixed bottom-0 left-0 w-full bg-white text-black py-5 text-center font-black text-[10px] border-t-4 border-emerald-600 z-50">
+        BOUTIQUE : <span class="text-blue-600 uppercase tracking-widest">Coran Noble Édition</span>
     </div>
 
     <script>
@@ -128,18 +132,19 @@
             });
             document.getElementById('s-'+id).classList.remove('hidden');
             document.getElementById('b-'+id).classList.add('nav-active');
-            if(id === 'vip') checkAccess(false);
+            if(id === 'vip') checkStatus();
         }
 
-        function checkAccess(triedToActivate) {
-            const isPaid = localStorage.getItem('vip_paid') === 'true';
-            if(isPaid) {
+        function activateVIP() {
+            // Cette fonction enregistre le fait que le bouton a été cliqué
+            localStorage.setItem('vip_unlocked', 'true');
+            checkStatus();
+        }
+
+        function checkStatus() {
+            if(localStorage.getItem('vip_unlocked') === 'true') {
                 document.getElementById('vip-lock').classList.add('hidden');
                 document.getElementById('vip-content').classList.remove('hidden');
-            } else if(triedToActivate) {
-                // Simule une vérification. Dans la vraie vie, tu devrais vérifier ton PayPal.
-                localStorage.setItem('vip_paid', 'true');
-                location.reload();
             }
         }
 
@@ -156,7 +161,7 @@
             const r = await fetch(`https://api.alquran.cloud/v1/surah/${num}/${currentLang}`);
             const d = await r.json();
             let h = '';
-            d.data.ayahs.forEach(a => h += `<div class="p-4 bg-slate-900 mb-2 rounded-xl text-[12px] ${currentLang.startsWith('ar') ? 'arabic text-2xl text-emerald-400' : ''}">${a.text}</div>`);
+            d.data.ayahs.forEach(a => h += `<div class="p-5 bg-[#0a1212] mb-3 rounded-2xl text-[13px] border border-white/5 ${currentLang.startsWith('ar') ? 'arabic text-3xl text-emerald-400' : ''}">${a.text}</div>`);
             document.getElementById('contentCoran').innerHTML = h;
         }
 
@@ -174,7 +179,7 @@
             sel.innerHTML = '<option value="">SÉLECTIONNER SOURATE</option>';
             dS.data.forEach(s => sel.innerHTML += `<option value="${s.number}">${s.number}. ${s.englishName}</option>`);
             
-            nav('home');
+            checkStatus();
         }
 
         let count = 0;
