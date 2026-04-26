@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Muslim App - Soutien</title>
+    <title>Muslim App</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Amiri&family=Inter:wght@400;700;900&display=swap');
@@ -39,10 +39,10 @@
 
         <nav class="grid grid-cols-5 gap-1 mb-8 bg-[#111827] p-1 rounded-2xl sticky top-2 z-50">
             <button id="b-home" onclick="nav('home')" class="py-3 text-[7px] font-bold uppercase text-slate-400">Home</button>
+            <button id="b-piliers" onclick="nav('piliers')" class="py-3 text-[7px] font-bold uppercase text-slate-400">Piliers</button>
             <button id="b-coran" onclick="nav('coran')" class="py-3 text-[7px] font-bold uppercase text-slate-400">Coran</button>
             <button id="b-guide" onclick="nav('guide')" class="py-3 text-[7px] font-bold uppercase text-slate-400">Guide</button>
-            <button id="b-quiz" onclick="nav('quiz')" class="py-3 text-[7px] font-bold uppercase text-slate-400">Quiz</button>
-            <button id="b-don" onclick="nav('don')" class="py-3 text-[7px] font-bold uppercase text-amber-500">Aider</button>
+            <button id="b-don" onclick="nav('don')" class="py-3 text-[7px] font-bold uppercase text-amber-500 italic">Aider</button>
         </nav>
 
         <div id="s-home" class="space-y-4">
@@ -58,6 +58,29 @@
                 </div>
                 <button onclick="generateDoua()" class="mt-4 text-emerald-500 text-[10px] font-bold underline uppercase">Changer</button>
             </div>
+        </div>
+
+        <div id="s-piliers" class="hidden space-y-3">
+             <div class="card border-l-4 border-emerald-500">
+                <h3 class="font-black text-emerald-500 text-xs mb-1 uppercase">1. La Chahada</h3>
+                <p class="text-[11px] text-slate-400 italic">L'attestation de foi en un Dieu unique et en Son messager.</p>
+             </div>
+             <div class="card border-l-4 border-emerald-500">
+                <h3 class="font-black text-emerald-500 text-xs mb-1 uppercase">2. La Salat</h3>
+                <p class="text-[11px] text-slate-400 italic">L'accomplissement des cinq prières quotidiennes.</p>
+             </div>
+             <div class="card border-l-4 border-emerald-500">
+                <h3 class="font-black text-emerald-500 text-xs mb-1 uppercase">3. La Zakat</h3>
+                <p class="text-[11px] text-slate-400 italic">L'aumône légale obligatoire pour aider les nécessiteux.</p>
+             </div>
+             <div class="card border-l-4 border-emerald-500">
+                <h3 class="font-black text-emerald-500 text-xs mb-1 uppercase">4. Le Sawm</h3>
+                <p class="text-[11px] text-slate-400 italic">Le jeûne du mois béni de Ramadan.</p>
+             </div>
+             <div class="card border-l-4 border-emerald-500">
+                <h3 class="font-black text-emerald-500 text-xs mb-1 uppercase">5. Le Hajj</h3>
+                <p class="text-[11px] text-slate-400 italic">Le pèlerinage à la Maison Sacrée de la Mecque.</p>
+             </div>
         </div>
 
         <div id="s-coran" class="hidden space-y-4">
@@ -78,48 +101,25 @@
         <div id="s-guide" class="hidden space-y-6">
             <div class="card border-l-4 border-emerald-500">
                 <h2 class="text-xl font-black text-emerald-500 uppercase italic mb-4">L'Histoire du Coran</h2>
-                <p class="text-xs leading-relaxed text-slate-300">
-                    Le Coran a été révélé au Prophète Muhammad (SWS) par l'intermédiaire de l'ange Jibril sur une période de 23 ans. 
-                    Il a d'abord été mémorisé par les compagnons avant d'être compilé par écrit sous le califat d'Abou Bakr, puis standardisé sous Othman pour éviter toute divergence.
-                </p>
+                <p class="text-xs leading-relaxed text-slate-300">Révélé sur 23 ans au Prophète (SWS), mémorisé puis compilé pour protéger le message divin.</p>
             </div>
 
             <div class="card border-l-4 border-amber-500">
                 <h2 class="text-xl font-black text-amber-500 uppercase italic mb-4">Les Ablutions (Wudu)</h2>
-                <div class="text-xs space-y-3 text-slate-300">
-                    <p><strong>1.</strong> Faire l'intention dans son cœur et dire "Bismillah".</p>
-                    <p><strong>2.</strong> Laver les mains jusqu'aux poignets (3 fois).</p>
-                    <p><strong>3.</strong> Se rincer la bouche (3 fois) et aspirer l'eau par le nez (3 fois).</p>
-                    <p><strong>4.</strong> Laver le visage entier (3 fois).</p>
-                    <p><strong>5.</strong> Laver les bras jusqu'aux coudes, en commençant par le droit (3 fois).</p>
-                    <p><strong>6.</strong> Passer les mains mouillées sur la tête et les oreilles (1 fois).</p>
-                    <p><strong>7.</strong> Laver les pieds jusqu'aux chevilles, en commençant par le droit (3 fois).</p>
-                </div>
-            </div>
-        </div>
-
-        <div id="s-quiz" class="hidden">
-            <div class="card bg-blue-900/10 border-blue-500/30">
-                <p id="quiz-q" class="text-sm font-black uppercase text-blue-400 mb-6 text-center italic">Prêt pour le Quiz ?</p>
-                <div id="quiz-opts" class="grid gap-3">
-                    <button onclick="startQuiz()" class="w-full bg-blue-600 py-4 rounded-2xl font-bold text-[11px] uppercase">Démarrer</button>
+                <div class="text-[11px] space-y-2 text-slate-300">
+                    <p>1. Intention & Bismillah • 2. Mains (3x) • 3. Bouche & Nez (3x) • 4. Visage (3x) • 5. Bras (3x) • 6. Tête/Oreilles • 7. Pieds (3x)</p>
                 </div>
             </div>
         </div>
 
         <div id="s-don" class="hidden text-center space-y-6">
             <div class="card border-none bg-gradient-to-b from-amber-500/10 to-transparent p-10">
-                <h2 class="text-2xl font-black text-white uppercase italic mb-2">Aider le projet</h2>
-                <p class="text-[10px] text-slate-400 uppercase tracking-widest mb-8">Votre soutien nous permet d'améliorer l'application</p>
-                
+                <h2 class="text-2xl font-black text-white uppercase italic mb-2">Soutenir le projet</h2>
                 <div class="bg-black/40 p-8 rounded-[40px] mb-8">
                     <p class="text-5xl font-black text-white mb-8">2,99€</p>
-                    <a href="https://www.paypal.me/YaminDjaouat881/2.99" target="_blank" class="btn-support">
-                        🤝 Faire un don via PayPal
-                    </a>
+                    <a href="https://www.paypal.me/YaminDjaouat881/2.99" target="_blank" class="btn-support">🤝 Soutenir via PayPal</a>
                 </div>
-                
-                <p class="text-[9px] text-slate-500 uppercase">Merci pour votre générosité !</p>
+                <p class="text-[9px] text-slate-500 uppercase">Merci de nous aider à faire grandir l'application !</p>
             </div>
         </div>
     </div>
@@ -133,7 +133,7 @@
         let currentAudio = null;
 
         function nav(id) {
-            ['home','coran','guide','quiz','don'].forEach(s => {
+            ['home','piliers','coran','guide','don'].forEach(s => {
                 document.getElementById('s-'+s).classList.add('hidden');
                 document.getElementById('b-'+s).classList.remove('nav-active');
             });
@@ -143,8 +143,7 @@
 
         const douas = [
             {ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ عِلْمًا نَافِعًا", fr: "Ô Allah, je Te demande un savoir utile."},
-            {ar: "سُبْحَانَ اللَّهِ وَبِحَمْدِهِ", fr: "Gloire et louange à Allah."},
-            {ar: "أَسْتَغْفِرُ اللَّهَ وَأَتُوبُ إِلَيْهِ", fr: "Je demande pardon à Allah et je me repens à Lui."}
+            {ar: "سُبْحَانَ اللَّهِ وَبِحَمْدِهِ", fr: "Gloire et louange à Allah."}
         ];
         function generateDoua() {
             const d = douas[Math.floor(Math.random() * douas.length)];
@@ -184,29 +183,6 @@
         }
 
         function changeLang(l) { currentLang = l; loadSurahContent(); }
-
-        const questions = [
-            {q: "Combien de piliers en Islam ?", a: ["3", "5", "7"], c: 1},
-            {q: "Quelle sourate est appelée 'Le Coeur du Coran' ?", a: ["Al-Fatiha", "Yasin", "Al-Ikhlas"], c: 1}
-        ];
-        let qIdx = 0;
-        function startQuiz() { qIdx = 0; showQ(); }
-        function showQ() {
-            let q = questions[qIdx];
-            document.getElementById('quiz-q').innerText = q.q;
-            let h = '';
-            q.a.forEach((opt, i) => h += `<button onclick="answer(${i})" class="w-full p-4 bg-slate-800 rounded-2xl text-[10px] font-bold uppercase">${opt}</button>`);
-            document.getElementById('quiz-opts').innerHTML = h;
-        }
-        function answer(i) {
-            alert(i === questions[qIdx].c ? "Correct ! ✅" : "Mauvais ! ❌");
-            qIdx++;
-            if(qIdx < questions.length) showQ();
-            else {
-                document.getElementById('quiz-q').innerText = "Terminé !";
-                document.getElementById('quiz-opts').innerHTML = `<button onclick="startQuiz()" class="w-full bg-emerald-600 py-4 rounded-2xl font-bold uppercase">Recommencer</button>`;
-            }
-        }
 
         async function initApp() {
             try {
