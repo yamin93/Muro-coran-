@@ -12,7 +12,7 @@
         .nav-active { background: #059669 !important; color: white !important; border-radius: 12px; }
         .card { background: #0a1212; border-radius: 24px; padding: 20px; border: 1px solid #1e293b; margin-bottom: 15px; }
         .arabic { font-family: 'Amiri', serif; direction: rtl; line-height: 2.2; }
-        .btn-pay { background: #111827; border: 1px solid #3b82f6; color: white; padding: 15px; border-radius: 18px; font-weight: 800; width: 100%; display: flex; justify-content: space-between; }
+        .btn-pay { background: #111827; border: 1px solid #3b82f6; color: white; padding: 18px; border-radius: 20px; font-weight: 800; width: 100%; display: flex; justify-content: space-between; align-items: center; }
     </style>
 </head>
 <body class="p-4" onload="initApp()">
@@ -20,7 +20,7 @@
     <div class="max-w-md mx-auto">
         <div class="text-center py-6">
             <h1 class="text-5xl font-black text-emerald-500 italic uppercase tracking-tighter">Muslim App</h1>
-            <p id="hijri-date" class="text-[10px] text-emerald-800 font-bold mt-2 uppercase tracking-widest">Chargement...</p>
+            <p id="hijri-date" class="text-[10px] text-emerald-800 font-bold mt-2 uppercase tracking-widest">Chargement du calendrier...</p>
         </div>
 
         <nav class="grid grid-cols-5 gap-1 mb-6 bg-[#111827] p-1 rounded-2xl sticky top-2 z-50">
@@ -61,20 +61,36 @@
 
         <div id="s-quiz" class="hidden">
             <div id="quiz-menu" class="space-y-4">
-                <button onclick="initQuiz('coran')" class="w-full card border-blue-500 font-black uppercase">📖 Quiz Coran</button>
-                <button onclick="initQuiz('piliers')" class="w-full card border-emerald-500 font-black uppercase">🕌 Quiz Piliers</button>
+                <button onclick="initQuiz('coran')" class="w-full card border-blue-500 font-black uppercase italic">📖 Quiz Coran</button>
+                <button onclick="initQuiz('piliers')" class="w-full card border-emerald-500 font-black uppercase italic">🕌 Quiz Piliers</button>
             </div>
             <div id="quiz-game" class="hidden text-center">
-                <p id="quiz-q" class="text-lg font-black text-white mb-8"></p>
+                <p id="quiz-q" class="text-lg font-black text-white mb-8 italic"></p>
                 <div id="quiz-opts" class="grid gap-3"></div>
             </div>
         </div>
 
-        <div id="s-don" class="hidden space-y-4">
-            <h2 class="text-center font-black text-amber-500 uppercase italic">Faire un don</h2>
-            <a href="https://www.paypal.me/YaminDjaouat881/1.99" target="_blank" class="btn-pay"><span>Soutien Bronze</span> <span>1,99 €</span></a>
-            <a href="https://www.paypal.me/YaminDjaouat881/2.99" target="_blank" class="btn-pay border-emerald-500"><span>Soutien Argent</span> <span>2,99 €</span></a>
-            <a href="https://www.paypal.me/YaminDjaouat881/5.00" target="_blank" class="btn-pay border-amber-500"><span>Soutien Or</span> <span>5,00 €</span></a>
+        <div id="s-don" class="hidden space-y-6">
+            <div class="text-center px-4">
+                <h2 class="text-2xl font-black text-amber-500 uppercase italic mb-2">Soutenir le projet</h2>
+                <p class="text-xs text-slate-400 leading-relaxed">
+                    Aidez-nous à rendre l'application encore meilleure avec de nouvelles fonctionnalités et plus de contenus gratuits.
+                </p>
+            </div>
+
+            <div class="space-y-3">
+                <a href="https://www.paypal.me/YaminDjaouat881/2.99" target="_blank" class="btn-pay">
+                    <span>Faire un don de soutien</span> <span>2,99 €</span>
+                </a>
+                <a href="https://www.paypal.me/YaminDjaouat881/5.00" target="_blank" class="btn-pay">
+                    <span>Faire un don de soutien</span> <span>5,00 €</span>
+                </a>
+                <a href="https://www.paypal.me/YaminDjaouat881/10.00" target="_blank" class="btn-pay border-emerald-500">
+                    <span>Faire un don de soutien</span> <span>10,00 €</span>
+                </a>
+            </div>
+
+            <p class="text-[9px] text-center text-slate-600 uppercase font-bold">Barak'Allahou fikom pour votre aide</p>
         </div>
     </div>
 
@@ -173,8 +189,16 @@
                 const d = await r.json();
                 const t = d.data.timings;
                 document.getElementById('prayer-times').innerHTML = `<div>FAJR<br>${t.Fajr}</div><div>DHUR<br>${t.Dhuhr}</div><div>ASR<br>${t.Asr}</div><div>MAGH<br>${t.Maghrib}</div><div>ICHA<br>${t.Isha}</div>`;
-                document.getElementById('hijri-date').innerText = d.data.date.hijri.day + " " + d.data.date.hijri.month.fr + " " + d.data.date.hijri.year;
-            } catch(e) {}
+                
+                // Correction du bug d'affichage de la date Hijri
+                if (d.data.date.hijri) {
+                    const h = d.data.date.hijri;
+                    document.getElementById('hijri-date').innerText = `${h.day} ${h.month.fr || h.month.en} ${h.year}`;
+                }
+            } catch(e) {
+                document.getElementById('hijri-date').innerText = "CALENDRIER INDISPONIBLE";
+            }
+            
             const rS = await fetch('https://api.alquran.cloud/v1/surah');
             const dS = await rS.json();
             const sel = document.getElementById('selSurah');
