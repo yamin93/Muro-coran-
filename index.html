@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Muslim App - Pro</title>
+    <title>Muslim App - Soutien</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Amiri&family=Inter:wght@400;700;900&display=swap');
@@ -13,31 +13,19 @@
         .card { background: #0a1212; border-radius: 24px; padding: 20px; border: 1px solid #1e293b; margin-bottom: 15px; }
         .arabic { font-family: 'Amiri', serif; direction: rtl; line-height: 2.2; }
         
-        .btn-paypal-large {
+        .btn-support {
             background-color: #3b66f5;
             color: white;
-            padding: 22px;
+            padding: 20px;
             border-radius: 25px;
             display: flex;
             align-items: center;
             justify-content: center;
             text-decoration: none;
             font-weight: 900;
-            font-size: 16px;
+            font-size: 14px;
             width: 100%;
-            box-shadow: 0 4px 20px rgba(59, 102, 245, 0.4);
             text-transform: uppercase;
-        }
-        
-        .btn-activate {
-            background-color: #f1a944;
-            color: #000;
-            padding: 18px;
-            border-radius: 25px;
-            font-weight: 900;
-            text-transform: uppercase;
-            width: 100%;
-            margin-top: 20px;
         }
     </style>
 </head>
@@ -49,11 +37,12 @@
             <p id="hijri-date" class="text-[10px] text-emerald-800 font-bold mt-2 uppercase">Chargement...</p>
         </div>
 
-        <nav class="grid grid-cols-4 gap-2 mb-8 bg-[#111827] p-2 rounded-2xl sticky top-2 z-50">
-            <button id="b-home" onclick="nav('home')" class="py-3 text-[9px] font-bold uppercase text-slate-400">Accueil</button>
-            <button id="b-piliers" onclick="nav('piliers')" class="py-3 text-[9px] font-bold uppercase text-slate-400">Piliers</button>
-            <button id="b-coran" onclick="nav('coran')" class="py-3 text-[9px] font-bold uppercase text-slate-400">Coran</button>
-            <button id="b-vip" onclick="nav('vip')" class="py-3 text-[9px] font-bold uppercase text-slate-400">Outils</button>
+        <nav class="grid grid-cols-5 gap-1 mb-8 bg-[#111827] p-1 rounded-2xl sticky top-2 z-50">
+            <button id="b-home" onclick="nav('home')" class="py-3 text-[7px] font-bold uppercase text-slate-400">Home</button>
+            <button id="b-coran" onclick="nav('coran')" class="py-3 text-[7px] font-bold uppercase text-slate-400">Coran</button>
+            <button id="b-guide" onclick="nav('guide')" class="py-3 text-[7px] font-bold uppercase text-slate-400">Guide</button>
+            <button id="b-quiz" onclick="nav('quiz')" class="py-3 text-[7px] font-bold uppercase text-slate-400">Quiz</button>
+            <button id="b-don" onclick="nav('don')" class="py-3 text-[7px] font-bold uppercase text-amber-500">Aider</button>
         </nav>
 
         <div id="s-home" class="space-y-4">
@@ -62,71 +51,75 @@
             </div>
             
             <div class="card text-center bg-emerald-900/10 border-emerald-900/30">
-                <h3 class="text-emerald-500 font-black uppercase text-[10px] mb-4 italic">Invocation Aléatoire</h3>
-                <div id="doua-box" class="min-h-[100px] flex flex-col justify-center">
+                <h3 class="text-emerald-500 font-black uppercase text-[10px] mb-4 italic">Doua du moment</h3>
+                <div id="doua-box">
                     <p id="doua-ar" class="arabic text-2xl text-white mb-2"></p>
                     <p id="doua-fr" class="text-[11px] text-slate-400 italic"></p>
                 </div>
-                <button onclick="generateDoua()" class="w-full mt-4 bg-emerald-600 py-4 rounded-2xl font-black uppercase text-xs shadow-lg active:scale-95 transition-transform">Afficher une Doua</button>
+                <button onclick="generateDoua()" class="mt-4 text-emerald-500 text-[10px] font-bold underline uppercase">Changer</button>
             </div>
-        </div>
-
-        <div id="s-piliers" class="hidden space-y-3">
-             <div class="card border-l-4 border-amber-500 font-bold text-[11px] uppercase">1. La Chahada</div>
-             <div class="card border-l-4 border-amber-500 font-bold text-[11px] uppercase">2. La Salat</div>
-             <div class="card border-l-4 border-amber-500 font-bold text-[11px] uppercase">3. La Zakat</div>
-             <div class="card border-l-4 border-amber-500 font-bold text-[11px] uppercase">4. Le Sawm</div>
-             <div class="card border-l-4 border-amber-500 font-bold text-[11px] uppercase">5. Le Hajj</div>
         </div>
 
         <div id="s-coran" class="hidden space-y-4">
-            <select id="selSurah" class="w-full p-4 bg-[#0a1212] border border-emerald-900 rounded-xl text-emerald-400 font-bold text-xs uppercase" onchange="loadSurahContent()"></select>
+            <select id="selSurah" class="w-full p-4 bg-[#0a1212] border border-emerald-900 rounded-xl text-emerald-400 font-bold text-xs" onchange="loadSurahContent()"></select>
             
             <div class="flex gap-2">
-                <button onclick="playFullSurah()" class="flex-1 bg-blue-600 py-2 rounded-lg text-[9px] font-bold">LECTURE AUTO</button>
-                <button onclick="stopAudio()" class="bg-red-600 px-4 py-2 rounded-lg text-[9px] font-bold">STOP</button>
+                <button onclick="playFullSurah()" class="flex-1 bg-blue-600 py-2 rounded-lg text-[9px] font-bold uppercase">Lecture Auto</button>
+                <button onclick="stopAudio()" class="bg-red-600 px-4 py-2 rounded-lg text-[9px] font-bold uppercase">Stop</button>
             </div>
 
             <div class="flex gap-2">
-                <button onclick="changeLang('ar.alafasy')" id="btn-ar" class="flex-1 bg-emerald-600/20 py-2 rounded-lg text-[10px] font-bold border border-emerald-600">ARABE</button>
-                <button onclick="changeLang('fr.hamidullah')" id="btn-fr" class="flex-1 bg-slate-800 py-2 rounded-lg text-[10px] font-bold border border-white/5">FRANÇAIS</button>
+                <button onclick="changeLang('ar.alafasy')" id="btn-ar" class="flex-1 bg-emerald-600/20 py-2 rounded-lg text-[10px] font-bold border border-emerald-600 uppercase">Arabe</button>
+                <button onclick="changeLang('fr.hamidullah')" id="btn-fr" class="flex-1 bg-slate-800 py-2 rounded-lg text-[10px] font-bold border border-white/5 uppercase">Français</button>
             </div>
             <div id="contentCoran" class="mt-4"></div>
         </div>
 
-        <div id="s-vip" class="hidden">
-            <div id="vip-lock">
-                <h2 class="text-3xl font-black text-[#f1a944] italic text-center uppercase">Pack VIP</h2>
-                <div class="card bg-[#0a0f14] p-12 text-center mt-4 border-none">
-                    <p class="text-6xl font-black text-white mb-10">2,99€</p>
-                    <a href="https://www.paypal.me/YaminDjaouat881/2.99" target="_blank" class="btn-paypal-large">
-                        💰 PAYER VIA PAYPAL
-                    </a>
-                </div>
-                <button onclick="activateVIP()" class="btn-activate">Activer mon accès</button>
+        <div id="s-guide" class="hidden space-y-6">
+            <div class="card border-l-4 border-emerald-500">
+                <h2 class="text-xl font-black text-emerald-500 uppercase italic mb-4">L'Histoire du Coran</h2>
+                <p class="text-xs leading-relaxed text-slate-300">
+                    Le Coran a été révélé au Prophète Muhammad (SWS) par l'intermédiaire de l'ange Jibril sur une période de 23 ans. 
+                    Il a d'abord été mémorisé par les compagnons avant d'être compilé par écrit sous le califat d'Abou Bakr, puis standardisé sous Othman pour éviter toute divergence.
+                </p>
             </div>
 
-            <div id="vip-content" class="hidden space-y-6">
-                <div class="card border-2 border-amber-500 bg-amber-500/5">
-                    <h3 class="font-black text-amber-500 uppercase mb-4 italic">✓ Guide des Ablutions</h3>
-                    <div class="text-[11px] space-y-2 text-slate-300">
-                        <p>1. Mains (3x) • 2. Bouche (3x) • 3. Nez (3x)</p>
-                        <p>4. Visage (3x) • 5. Bras (3x) • 6. Tête/Oreilles</p>
-                        <p>7. Pieds (3x)</p>
-                    </div>
+            <div class="card border-l-4 border-amber-500">
+                <h2 class="text-xl font-black text-amber-500 uppercase italic mb-4">Les Ablutions (Wudu)</h2>
+                <div class="text-xs space-y-3 text-slate-300">
+                    <p><strong>1.</strong> Faire l'intention dans son cœur et dire "Bismillah".</p>
+                    <p><strong>2.</strong> Laver les mains jusqu'aux poignets (3 fois).</p>
+                    <p><strong>3.</strong> Se rincer la bouche (3 fois) et aspirer l'eau par le nez (3 fois).</p>
+                    <p><strong>4.</strong> Laver le visage entier (3 fois).</p>
+                    <p><strong>5.</strong> Laver les bras jusqu'aux coudes, en commençant par le droit (3 fois).</p>
+                    <p><strong>6.</strong> Passer les mains mouillées sur la tête et les oreilles (1 fois).</p>
+                    <p><strong>7.</strong> Laver les pieds jusqu'aux chevilles, en commençant par le droit (3 fois).</p>
                 </div>
+            </div>
+        </div>
 
-                <div class="card border-2 border-emerald-500 bg-emerald-500/5">
-                    <h3 class="font-black text-emerald-500 uppercase mb-4 italic">✓ Histoire du Coran</h3>
-                    <p class="text-[11px] text-slate-300">Révélation sur 23 ans. Compilation finale sous le Calife Othman pour préserver le texte sacré.</p>
+        <div id="s-quiz" class="hidden">
+            <div class="card bg-blue-900/10 border-blue-500/30">
+                <p id="quiz-q" class="text-sm font-black uppercase text-blue-400 mb-6 text-center italic">Prêt pour le Quiz ?</p>
+                <div id="quiz-opts" class="grid gap-3">
+                    <button onclick="startQuiz()" class="w-full bg-blue-600 py-4 rounded-2xl font-bold text-[11px] uppercase">Démarrer</button>
                 </div>
+            </div>
+        </div>
 
-                <div id="quiz-area" class="card bg-blue-900/20 border border-blue-500">
-                    <p id="quiz-q" class="text-xs font-black uppercase text-blue-400 mb-4 text-center italic">Testez vos connaissances</p>
-                    <div id="quiz-opts" class="grid gap-2">
-                        <button onclick="startQuiz()" class="w-full bg-blue-600 py-3 rounded-xl font-bold text-[11px] uppercase">Lancer le Quizz</button>
-                    </div>
+        <div id="s-don" class="hidden text-center space-y-6">
+            <div class="card border-none bg-gradient-to-b from-amber-500/10 to-transparent p-10">
+                <h2 class="text-2xl font-black text-white uppercase italic mb-2">Aider le projet</h2>
+                <p class="text-[10px] text-slate-400 uppercase tracking-widest mb-8">Votre soutien nous permet d'améliorer l'application</p>
+                
+                <div class="bg-black/40 p-8 rounded-[40px] mb-8">
+                    <p class="text-5xl font-black text-white mb-8">2,99€</p>
+                    <a href="https://www.paypal.me/YaminDjaouat881/2.99" target="_blank" class="btn-support">
+                        🤝 Faire un don via PayPal
+                    </a>
                 </div>
+                
+                <p class="text-[9px] text-slate-500 uppercase">Merci pour votre générosité !</p>
             </div>
         </div>
     </div>
@@ -140,21 +133,18 @@
         let currentAudio = null;
 
         function nav(id) {
-            ['home','piliers','coran','vip'].forEach(s => {
+            ['home','coran','guide','quiz','don'].forEach(s => {
                 document.getElementById('s-'+s).classList.add('hidden');
                 document.getElementById('b-'+s).classList.remove('nav-active');
             });
             document.getElementById('s-'+id).classList.remove('hidden');
             document.getElementById('b-'+id).classList.add('nav-active');
-            if(id === 'vip') checkStatus();
         }
 
-        // --- DOUAS SYSTEM ---
         const douas = [
             {ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ عِلْمًا نَافِعًا", fr: "Ô Allah, je Te demande un savoir utile."},
             {ar: "سُبْحَانَ اللَّهِ وَبِحَمْدِهِ", fr: "Gloire et louange à Allah."},
-            {ar: "أَسْتَغْفِرُ اللَّهَ وَأَتُوبُ إِلَيْهِ", fr: "Je demande pardon à Allah et je me repens à Lui."},
-            {ar: "اللَّهُمَّ اهْدِنِي وَسَدِّدْنِي", fr: "Ô Allah, guide-moi et dirige-moi sur le droit chemin."}
+            {ar: "أَسْتَغْفِرُ اللَّهَ وَأَتُوبُ إِلَيْهِ", fr: "Je demande pardon à Allah et je me repens à Lui."}
         ];
         function generateDoua() {
             const d = douas[Math.floor(Math.random() * douas.length)];
@@ -162,39 +152,10 @@
             document.getElementById('doua-fr').innerText = d.fr;
         }
 
-        // --- VIP & QUIZ ---
-        function activateVIP() { localStorage.setItem('vip_unlocked', 'true'); checkStatus(); }
-        function checkStatus() {
-            if(localStorage.getItem('vip_unlocked') === 'true') {
-                document.getElementById('vip-lock').classList.add('hidden');
-                document.getElementById('vip-content').classList.remove('hidden');
-            }
-        }
-
-        const questions = [
-            {q: "Combien de piliers en Islam ?", a: ["3", "5", "7"], c: 1},
-            {q: "Le Coran a été révélé en combien d'années ?", a: ["10", "23", "40"], c: 1}
-        ];
-        let qIdx = 0;
-        function startQuiz() { qIdx = 0; showQ(); }
-        function showQ() {
-            let q = questions[qIdx];
-            document.getElementById('quiz-q').innerText = q.q;
-            let h = '';
-            q.a.forEach((opt, i) => h += `<button onclick="answer(${i})" class="w-full p-4 bg-slate-800 rounded-xl text-[10px] font-bold uppercase">${opt}</button>`);
-            document.getElementById('quiz-opts').innerHTML = h;
-        }
-        function answer(i) {
-            alert(i === questions[qIdx].c ? "Correct ! ✅" : "Mauvais ! ❌");
-            qIdx++;
-            if(qIdx < questions.length) showQ();
-            else document.getElementById('quiz-opts').innerHTML = `<button onclick="startQuiz()" class="w-full bg-emerald-600 py-3 rounded-xl font-bold">Recommencer</button>`;
-        }
-
-        // --- CORAN & AUDIO ---
         function stopAudio() { if(currentAudio) { currentAudio.pause(); currentAudio = null; } }
         async function playFullSurah() {
             const num = document.getElementById('selSurah').value;
+            if(!num) return;
             const r = await fetch(`https://api.alquran.cloud/v1/surah/${num}/ar.alafasy`);
             const d = await r.json();
             let idx = 0;
@@ -215,7 +176,7 @@
             let h = '';
             d.data.ayahs.forEach(a => {
                 h += `<div class="p-5 bg-[#0a1212] mb-3 rounded-2xl border border-white/5" onclick="new Audio('https://cdn.islamic.network/quran/audio/128/ar.alafasy/${a.number}.mp3').play()">
-                    <div class="text-[10px] text-emerald-700 font-bold mb-2 uppercase italic">Verset ${a.numberInSurah}</div>
+                    <div class="text-[9px] text-emerald-800 font-bold mb-2 uppercase italic">Verset ${a.numberInSurah}</div>
                     <div class="text-[13px] ${currentLang.startsWith('ar') ? 'arabic text-3xl text-emerald-400' : ''}">${a.text}</div>
                 </div>`;
             });
@@ -223,6 +184,29 @@
         }
 
         function changeLang(l) { currentLang = l; loadSurahContent(); }
+
+        const questions = [
+            {q: "Combien de piliers en Islam ?", a: ["3", "5", "7"], c: 1},
+            {q: "Quelle sourate est appelée 'Le Coeur du Coran' ?", a: ["Al-Fatiha", "Yasin", "Al-Ikhlas"], c: 1}
+        ];
+        let qIdx = 0;
+        function startQuiz() { qIdx = 0; showQ(); }
+        function showQ() {
+            let q = questions[qIdx];
+            document.getElementById('quiz-q').innerText = q.q;
+            let h = '';
+            q.a.forEach((opt, i) => h += `<button onclick="answer(${i})" class="w-full p-4 bg-slate-800 rounded-2xl text-[10px] font-bold uppercase">${opt}</button>`);
+            document.getElementById('quiz-opts').innerHTML = h;
+        }
+        function answer(i) {
+            alert(i === questions[qIdx].c ? "Correct ! ✅" : "Mauvais ! ❌");
+            qIdx++;
+            if(qIdx < questions.length) showQ();
+            else {
+                document.getElementById('quiz-q').innerText = "Terminé !";
+                document.getElementById('quiz-opts').innerHTML = `<button onclick="startQuiz()" class="w-full bg-emerald-600 py-4 rounded-2xl font-bold uppercase">Recommencer</button>`;
+            }
+        }
 
         async function initApp() {
             try {
@@ -234,7 +218,7 @@
             const rS = await fetch('https://api.alquran.cloud/v1/surah');
             const dS = await rS.json();
             const sel = document.getElementById('selSurah');
-            sel.innerHTML = '<option value="">CHOISIR SOURATE</option>';
+            sel.innerHTML = '<option value="">SOURATE</option>';
             dS.data.forEach(s => sel.innerHTML += `<option value="${s.number}">${s.number}. ${s.englishName}</option>`);
             generateDoua();
             nav('home');
