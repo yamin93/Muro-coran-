@@ -15,7 +15,7 @@
         .bismillah { font-size: 2.2rem; color: #10b981; text-align: center; margin: 20px 0; }
         .phonetic { color: #3b82f6; font-size: 0.8rem; font-weight: 600; margin-top: 8px; }
         nav button { font-size: 7px !important; font-weight: 900; text-transform: uppercase; }
-        .btn-pay { background: #111827; border: 1px solid #3b82f6; color: white; padding: 18px; border-radius: 20px; font-weight: 800; width: 100%; display: flex; justify-content: space-between; align-items: center; }
+        .btn-audio { font-size: 9px; font-weight: 900; text-transform: uppercase; padding: 12px 5px; border-radius: 12px; flex: 1; transition: all 0.2s; }
     </style>
 </head>
 <body class="p-4" onload="initApp()">
@@ -35,40 +35,47 @@
             <button id="b-don" onclick="nav('don')" class="py-3 text-amber-500">Aider</button>
         </nav>
 
+        <div id="s-coran" class="hidden space-y-4">
+            <select id="selSurah" class="w-full p-5 bg-[#0a1212] border-2 border-emerald-900 rounded-2xl text-emerald-400 font-black text-sm" onchange="loadSurahContent()"></select>
+            
+            <div class="flex gap-2">
+                <button onclick="playAuto()" class="btn-audio bg-emerald-600 text-white">Lancer l'audio</button>
+                <button onclick="pauseAudio()" class="btn-audio bg-amber-600 text-white">Mettre en pause</button>
+                <button onclick="stopAudio()" class="btn-audio bg-red-600 text-white">Éteindre l'audio</button>
+            </div>
+
+            <div id="contentCoran" class="space-y-4"></div>
+        </div>
+
         <div id="s-home" class="space-y-4">
-            <div class="card border-t-4 border-emerald-600 shadow-lg">
-                <div id="prayer-times" class="grid grid-cols-5 gap-2 text-center text-[8px] font-black text-emerald-400 italic font-bold"></div>
+            <div class="card border-t-4 border-emerald-600">
+                <div id="prayer-times" class="grid grid-cols-5 gap-2 text-center text-[8px] font-black text-emerald-400 italic"></div>
             </div>
             <div id="doua-box" class="card text-center bg-emerald-900/5">
                 <p id="doua-ar" class="arabic text-3xl text-white mb-2"></p>
                 <p id="doua-fr" class="text-[12px] text-slate-400 italic font-bold"></p>
-                <button onclick="generateDoua()" class="mt-4 text-emerald-500 text-[10px] font-bold underline uppercase">Invocation Suivante</button>
+                <button onclick="generateDoua()" class="mt-4 text-emerald-500 text-[10px] font-bold underline uppercase">Suivant</button>
             </div>
-        </div>
-
-        <div id="s-coran" class="hidden space-y-4">
-            <select id="selSurah" class="w-full p-5 bg-[#0a1212] border-2 border-emerald-900 rounded-2xl text-emerald-400 font-black text-sm" onchange="loadSurahContent()"></select>
-            <div class="text-center text-[10px] font-bold text-slate-500 uppercase">Appuyez sur un verset pour l'écouter (Al-Afasy)</div>
-            <div id="contentCoran" class="space-y-4"></div>
         </div>
 
         <div id="s-guide" class="hidden space-y-6">
-            <div class="card border-l-8 border-red-600 shadow-lg">
+            <div class="card border-l-8 border-red-600">
                 <h2 class="text-3xl font-black text-red-500 uppercase italic mb-4">Fin du Monde</h2>
-                <div class="space-y-4 text-sm text-slate-200 leading-relaxed font-bold">
-                    <p><span class="text-red-400">LES SIGNES :</span> Musique, hauts bâtiments, temps rapide, Dajjal, retour de Issa (SWS), Soleil à l'Ouest.</p>
-                </div>
+                <p class="text-sm text-slate-200 font-bold">Signes mineurs et majeurs (Dajjal, Issa SWS, Soleil à l'Ouest).</p>
             </div>
-            <div class="card border-l-8 border-amber-500 shadow-lg">
+            <div class="card border-l-8 border-amber-500">
                 <h2 class="text-3xl font-black text-amber-500 uppercase italic mb-4">Ablutions</h2>
-                <p class="text-lg text-slate-300 font-bold leading-loose">Mains (3x) → Bouche (3x) → Nez (3x) → Visage (3x) → Bras (3x) → Tête (1x) → Pieds (3x).</p>
+                <p class="text-lg text-slate-300 font-bold leading-loose">Mains, Bouche, Nez, Visage, Bras, Tête, Pieds.</p>
             </div>
         </div>
 
+        <div id="s-piliers" class="hidden space-y-3">
+             <div class="card border-l-4 border-emerald-500 font-black uppercase text-sm">Les 5 Piliers de l'Islam</div>
+        </div>
+
         <div id="s-quiz" class="hidden">
-            <div id="quiz-menu" class="space-y-4">
-                <button onclick="initQuiz('coran')" class="w-full card border-blue-500 font-black uppercase py-6">📖 Quiz Coran</button>
-                <button onclick="initQuiz('piliers')" class="w-full card border-emerald-500 font-black uppercase py-6">🕌 Quiz Piliers</button>
+            <div id="quiz-menu" class="space-y-4 text-center">
+                <button onclick="initQuiz('coran')" class="w-full card border-blue-500 font-black uppercase py-6 italic">📖 Quiz Coran</button>
             </div>
             <div id="quiz-game" class="hidden text-center">
                 <p id="quiz-q" class="text-xl font-black text-white mb-10 italic"></p>
@@ -78,21 +85,10 @@
 
         <div id="s-don" class="hidden space-y-6">
             <div class="text-center px-4">
-                <h2 class="text-3xl font-black text-amber-500 uppercase italic mb-2">Soutenir</h2>
-                <p class="text-sm text-slate-400 italic font-bold">Pour aider à améliorer l'application.</p>
+                <h2 class="text-3xl font-black text-amber-500 uppercase italic mb-2 text-center">Soutenir</h2>
+                <p class="text-sm text-slate-400 italic font-bold text-center">Aidez-nous à améliorer l'application.</p>
+                <a href="https://www.paypal.me/YaminDjaouat881/5.00" target="_blank" class="block mt-6 bg-[#111827] border border-blue-500 p-5 rounded-2xl font-black">Soutenir le projet - 5,00 €</a>
             </div>
-            <div class="space-y-3">
-                <a href="https://www.paypal.me/YaminDjaouat881/2.99" target="_blank" class="btn-pay"><span>Soutien Projet</span> <span>2,99 €</span></a>
-                <a href="https://www.paypal.me/YaminDjaouat881/5.00" target="_blank" class="btn-pay border-emerald-500"><span>Soutien Projet</span> <span>5,00 €</span></a>
-            </div>
-        </div>
-
-        <div id="s-piliers" class="hidden space-y-3">
-             <div class="card border-l-4 border-emerald-500 font-black uppercase text-sm">1. La Chahada</div>
-             <div class="card border-l-4 border-emerald-500 font-black uppercase text-sm">2. La Salat</div>
-             <div class="card border-l-4 border-emerald-500 font-black uppercase text-sm">3. La Zakat</div>
-             <div class="card border-l-4 border-emerald-500 font-black uppercase text-sm">4. Le Sawm</div>
-             <div class="card border-l-4 border-emerald-500 font-black uppercase text-sm">5. Le Hajj</div>
         </div>
     </div>
 
@@ -101,8 +97,10 @@
     </div>
 
     <script>
-        let qIdx = 0;
-        let currentQuizData = [];
+        let currentAudio = null;
+        let audioList = [];
+        let currentVerseIdx = 0;
+        let isPlaying = false;
 
         function nav(id) {
             ['home','piliers','coran','guide','quiz','don'].forEach(s => {
@@ -111,16 +109,21 @@
             });
             document.getElementById('s-'+id).classList.remove('hidden');
             document.getElementById('b-'+id).classList.add('nav-active');
+            stopAudio();
         }
 
         async function loadSurahContent() {
             const num = document.getElementById('selSurah').value;
             if(!num) return;
+            stopAudio();
             
             const rAr = await fetch(`https://api.alquran.cloud/v1/surah/${num}/ar.alafasy`);
             const dAr = await rAr.json();
             const rPh = await fetch(`https://api.alquran.cloud/v1/surah/${num}/en.transliteration`);
             const dPh = await rPh.json();
+
+            audioList = dAr.data.ayahs.map(a => a.audio);
+            currentVerseIdx = 0;
 
             let h = '';
             if (num != 9) h += `<div class="bismillah arabic">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</div>`;
@@ -128,8 +131,7 @@
             dAr.data.ayahs.forEach((a, i) => {
                 let text = a.text;
                 if (i === 0 && num != 1 && num != 9) text = text.replace("بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ", "");
-                
-                h += `<div class="p-6 bg-[#0a1212] rounded-3xl border border-white/5 mb-4 shadow-md active:bg-emerald-900/20" onclick="new Audio('${a.audio}').play()">
+                h += `<div id="v-${i}" class="p-6 bg-[#0a1212] rounded-3xl border border-white/5 mb-4 shadow-md transition-all" onclick="playSingle(${i})">
                     <div class="arabic text-3xl text-emerald-400 mb-2">${text}</div>
                     <div class="phonetic italic">${dPh.data.ayahs[i].text}</div>
                 </div>`;
@@ -137,33 +139,59 @@
             document.getElementById('contentCoran').innerHTML = h;
         }
 
-        const douas = [{ar: "رَبِّ زِدْنِي عِلْمًا", fr: "Seigneur, augmente ma science."}, {ar: "بِسْمِ اللَّهِ", fr: "Au nom d'Allah."}];
+        function playSingle(idx) {
+            stopAudio();
+            currentVerseIdx = idx;
+            playVerse();
+        }
+
+        function playAuto() {
+            if (isPlaying) return;
+            isPlaying = true;
+            playVerse();
+        }
+
+        function playVerse() {
+            if (currentVerseIdx >= audioList.length) { isPlaying = false; return; }
+            
+            // Highlight du verset
+            document.querySelectorAll('[id^="v-"]').forEach(el => el.style.borderColor = "rgba(255,255,255,0.05)");
+            const currentEl = document.getElementById(`v-${currentVerseIdx}`);
+            if(currentEl) {
+                currentEl.style.borderColor = "#10b981";
+                currentEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+
+            currentAudio = new Audio(audioList[currentVerseIdx]);
+            currentAudio.play();
+            currentAudio.onended = () => {
+                if (isPlaying) {
+                    currentVerseIdx++;
+                    playVerse();
+                }
+            };
+        }
+
+        function pauseAudio() {
+            isPlaying = false;
+            if(currentAudio) currentAudio.pause();
+        }
+
+        function stopAudio() {
+            isPlaying = false;
+            if(currentAudio) {
+                currentAudio.pause();
+                currentAudio.currentTime = 0;
+            }
+            currentVerseIdx = 0;
+            document.querySelectorAll('[id^="v-"]').forEach(el => el.style.borderColor = "rgba(255,255,255,0.05)");
+        }
+
+        const douas = [{ar: "رَبِّ زِدْنِي عِلْمًا", fr: "Seigneur, augmente ma science."}];
         function generateDoua() {
             const d = douas[Math.floor(Math.random() * douas.length)];
             document.getElementById('doua-ar').innerText = d.ar;
             document.getElementById('doua-fr').innerText = d.fr;
-        }
-
-        function initQuiz(cat) {
-            document.getElementById('quiz-menu').classList.add('hidden');
-            document.getElementById('quiz-game').classList.remove('hidden');
-            currentQuizData = cat === 'coran' ? [{q: "Combien de sourates ?", a: ["114", "110"], c: 0}] : [{q: "Combien de piliers ?", a: ["5", "3"], c: 0}];
-            qIdx = 0; showQ();
-        }
-
-        function showQ() {
-            const q = currentQuizData[qIdx];
-            document.getElementById('quiz-q').innerText = q.q;
-            let h = '';
-            q.a.forEach((opt, i) => h += `<button onclick="checkAns(${i})" class="w-full p-5 bg-slate-900 rounded-2xl font-black uppercase text-sm mb-2">${opt}</button>`);
-            document.getElementById('quiz-opts').innerHTML = h;
-        }
-
-        function checkAns(i) {
-            alert(i === currentQuizData[qIdx].c ? "Macha'Allah ! ✅" : "Faux ! ❌");
-            qIdx++;
-            if(qIdx < currentQuizData.length) showQ();
-            else { document.getElementById('quiz-menu').classList.remove('hidden'); document.getElementById('quiz-game').classList.add('hidden'); }
         }
 
         async function initApp() {
