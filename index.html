@@ -9,10 +9,12 @@
         @import url('https://fonts.googleapis.com/css2?family=Amiri&family=Inter:wght@400;700;900&display=swap');
         body { font-family: 'Inter', sans-serif; background-color: #010606; color: #e6edf3; padding-bottom: 120px; }
         .hidden { display: none; }
-        .nav-active { background: #059669 !important; color: white !important; border-radius: 12px; }
+        .nav-active { background: #059669 !important; color: white !important; border-radius: 10px; }
         .card { background: #0a1212; border-radius: 24px; padding: 20px; border: 1px solid #1e293b; margin-bottom: 15px; }
         .arabic { font-family: 'Amiri', serif; direction: rtl; line-height: 2.2; }
         .btn-pay { background: #111827; border: 1px solid #3b82f6; color: white; padding: 18px; border-radius: 20px; font-weight: 800; width: 100%; display: flex; justify-content: space-between; align-items: center; }
+        /* Style pour la barre de navigation à 6 boutons */
+        nav button { font-size: 6px !important; font-weight: 900; text-transform: uppercase; letter-spacing: -0.2px; }
     </style>
 </head>
 <body class="p-4" onload="initApp()">
@@ -23,12 +25,13 @@
             <p id="hijri-date" class="text-[10px] text-emerald-800 font-bold mt-2 uppercase tracking-widest">Chargement...</p>
         </div>
 
-        <nav class="grid grid-cols-5 gap-1 mb-6 bg-[#111827] p-1 rounded-2xl sticky top-2 z-50">
-            <button id="b-home" onclick="nav('home')" class="py-3 text-[7px] font-bold uppercase">Home</button>
-            <button id="b-piliers" onclick="nav('piliers')" class="py-3 text-[7px] font-bold uppercase">Piliers</button>
-            <button id="b-coran" onclick="nav('coran')" class="py-3 text-[7px] font-bold uppercase">Coran</button>
-            <button id="b-guide" onclick="nav('guide')" class="py-3 text-[7px] font-bold uppercase">Guide</button>
-            <button id="b-don" onclick="nav('don')" class="py-3 text-[7px] font-bold uppercase text-amber-500">Soutenir</button>
+        <nav class="grid grid-cols-6 gap-1 mb-6 bg-[#111827] p-1 rounded-2xl sticky top-2 z-50">
+            <button id="b-home" onclick="nav('home')" class="py-3">Home</button>
+            <button id="b-piliers" onclick="nav('piliers')" class="py-3">Piliers</button>
+            <button id="b-coran" onclick="nav('coran')" class="py-3">Coran</button>
+            <button id="b-guide" onclick="nav('guide')" class="py-3">Guide</button>
+            <button id="b-quiz" onclick="nav('quiz')" class="py-3">Quiz</button>
+            <button id="b-don" onclick="nav('don')" class="py-3 text-amber-500">Aider</button>
         </nav>
 
         <div id="s-home">
@@ -43,11 +46,11 @@
         </div>
 
         <div id="s-piliers" class="hidden space-y-3">
-             <div class="card border-l-4 border-emerald-500"><h3 class="font-black text-xs uppercase">1. La Chahada</h3></div>
-             <div class="card border-l-4 border-emerald-500"><h3 class="font-black text-xs uppercase">2. La Salat</h3></div>
-             <div class="card border-l-4 border-emerald-500"><h3 class="font-black text-xs uppercase">3. La Zakat</h3></div>
-             <div class="card border-l-4 border-emerald-500"><h3 class="font-black text-xs uppercase">4. Le Sawm</h3></div>
-             <div class="card border-l-4 border-emerald-500"><h3 class="font-black text-xs uppercase">5. Le Hajj</h3></div>
+             <div class="card border-l-4 border-emerald-500"><h3 class="font-black text-xs uppercase">1. La Chahada (Foi)</h3></div>
+             <div class="card border-l-4 border-emerald-500"><h3 class="font-black text-xs uppercase">2. La Salat (Prière)</h3></div>
+             <div class="card border-l-4 border-emerald-500"><h3 class="font-black text-xs uppercase">3. La Zakat (Aumône)</h3></div>
+             <div class="card border-l-4 border-emerald-500"><h3 class="font-black text-xs uppercase">4. Le Sawm (Jeûne)</h3></div>
+             <div class="card border-l-4 border-emerald-500"><h3 class="font-black text-xs uppercase">5. Le Hajj (Pèlerinage)</h3></div>
         </div>
 
         <div id="s-coran" class="hidden space-y-4">
@@ -57,41 +60,34 @@
 
         <div id="s-guide" class="hidden space-y-4">
             <div class="card border-l-4 border-red-600">
-                <h2 class="text-xl font-black text-red-500 uppercase italic mb-3">Signes de la fin du monde</h2>
-                <div class="text-[10px] space-y-2 text-slate-300">
-                    <p class="text-white font-bold underline">Signes Mineurs :</p>
-                    <p>• La perte de la confiance et de l'honnêteté.</p>
-                    <p>• Les constructions de plus en plus hautes.</p>
-                    <p>• Le temps qui passe de plus en plus vite.</p>
-                    <p>• La généralisation de la musique et de la distraction.</p>
-                    <p class="text-white font-bold underline mt-2">Signes Majeurs :</p>
-                    <p>• L'apparition du Dajjal (l'antéchrist).</p>
-                    <p>• La descente de 'Issa (Jésus) fils de Maryam.</p>
-                    <p>• L'ouverture de Yajuj et Majuj (Gog et Magog).</p>
-                    <p>• Le soleil qui se lèvera à l'Occident (Ouest).</p>
-                </div>
+                <h2 class="text-xl font-black text-red-500 uppercase italic mb-3">Fin du monde</h2>
+                <p class="text-[10px] text-slate-300">Signes mineurs (hauteur des bâtiments, temps rapide) et majeurs (Dajjal, Issa SWS, Soleil à l'Occident).</p>
             </div>
-
             <div class="card border-l-4 border-amber-500">
-                <h2 class="text-xl font-black text-amber-500 uppercase italic mb-3">Les Ablutions</h2>
-                <p class="text-[10px] text-slate-300">Mains (3x), Bouche (3x), Nez (3x), Visage (3x), Bras (3x), Tête (1x), Pieds (3x).</p>
+                <h2 class="text-xl font-black text-amber-500 uppercase italic mb-3">Ablutions</h2>
+                <p class="text-[10px] text-slate-300">Nettoyage rituel avant la prière (mains, bouche, nez, visage, bras, tête, pieds).</p>
             </div>
-            
-            <div class="card border-l-4 border-emerald-500">
-                <h2 class="text-xl font-black text-emerald-500 uppercase italic mb-3">Histoire du Coran</h2>
-                <p class="text-[10px] text-slate-300">Révélé en 23 ans par l'ange Jibril au Prophète (SWS) pour guider l'humanité.</p>
+        </div>
+
+        <div id="s-quiz" class="hidden">
+            <div id="quiz-menu" class="space-y-4">
+                <button onclick="initQuiz('coran')" class="w-full card border-blue-500 font-black uppercase italic">📖 Quiz Coran</button>
+                <button onclick="initQuiz('piliers')" class="w-full card border-emerald-500 font-black uppercase italic">🕌 Quiz Piliers</button>
+            </div>
+            <div id="quiz-game" class="hidden text-center">
+                <p id="quiz-q" class="text-lg font-black text-white mb-8 italic"></p>
+                <div id="quiz-opts" class="grid gap-3"></div>
             </div>
         </div>
 
         <div id="s-don" class="hidden space-y-6">
             <div class="text-center px-4">
                 <h2 class="text-2xl font-black text-amber-500 uppercase italic mb-2">Soutenir le projet</h2>
-                <p class="text-xs text-slate-400 leading-relaxed italic">Aidez-nous à rendre l'application meilleure.</p>
+                <p class="text-xs text-slate-400 leading-relaxed italic">Votre don aide à améliorer l'application pour tous.</p>
             </div>
             <div class="space-y-3">
                 <a href="https://www.paypal.me/YaminDjaouat881/2.99" target="_blank" class="btn-pay"><span>Don de soutien</span> <span>2,99 €</span></a>
                 <a href="https://www.paypal.me/YaminDjaouat881/5.00" target="_blank" class="btn-pay"><span>Don de soutien</span> <span>5,00 €</span></a>
-                <a href="https://www.paypal.me/YaminDjaouat881/10.00" target="_blank" class="btn-pay border-emerald-500"><span>Don de soutien</span> <span>10,00 €</span></a>
             </div>
         </div>
     </div>
@@ -101,8 +97,15 @@
     </div>
 
     <script>
+        let qIdx = 0;
+        let currentQuizData = [];
+        const allQuiz = {
+            coran: [{q: "Combien de sourates ?", a: ["114", "110"], c: 0}, {q: "La plus longue ?", a: ["Baqara", "Fatiha"], c: 0}],
+            piliers: [{q: "Combien de piliers ?", a: ["5", "3"], c: 0}]
+        };
+
         function nav(id) {
-            ['home','piliers','coran','guide','don'].forEach(s => {
+            ['home','piliers','coran','guide','quiz','don'].forEach(s => {
                 document.getElementById('s-'+s).classList.add('hidden');
                 document.getElementById('b-'+s).classList.remove('nav-active');
             });
@@ -110,14 +113,34 @@
             document.getElementById('b-'+id).classList.add('nav-active');
         }
 
-        const douas = [
-            {ar: "رَبِّ زِدْنِي عِلْمًا", fr: "Seigneur, augmente ma science."},
-            {ar: "اللَّهُمَّ بَارِكْ لَنَا فِيمَا رَزَقْتَنَا", fr: "Ô Allah, bénis ce que Tu nous as accordé."}
-        ];
+        const douas = [{ar: "رَبِّ زِدْنِي عِلْمًا", fr: "Seigneur, augmente ma science."}, {ar: "سُبْحَانَ اللَّهِ", fr: "Gloire à Allah."}];
         function generateDoua() {
             const d = douas[Math.floor(Math.random() * douas.length)];
             document.getElementById('doua-ar').innerText = d.ar;
             document.getElementById('doua-fr').innerText = d.fr;
+        }
+
+        function initQuiz(cat) {
+            document.getElementById('quiz-menu').classList.add('hidden');
+            document.getElementById('quiz-game').classList.remove('hidden');
+            currentQuizData = allQuiz[cat];
+            qIdx = 0;
+            showQ();
+        }
+
+        function showQ() {
+            const q = currentQuizData[qIdx];
+            document.getElementById('quiz-q').innerText = q.q;
+            let h = '';
+            q.a.forEach((opt, i) => h += `<button onclick="checkAns(${i})" class="w-full p-4 bg-slate-900 rounded-2xl font-bold uppercase">${opt}</button>`);
+            document.getElementById('quiz-opts').innerHTML = h;
+        }
+
+        function checkAns(i) {
+            alert(i === currentQuizData[qIdx].c ? "Correct ! ✅" : "Faux ! ❌");
+            qIdx++;
+            if(qIdx < currentQuizData.length) showQ();
+            else { alert("Quiz fini !"); document.getElementById('quiz-menu').classList.remove('hidden'); document.getElementById('quiz-game').classList.add('hidden'); }
         }
 
         async function loadSurahContent() {
@@ -126,10 +149,7 @@
             const d = await r.json();
             let h = '';
             d.data.ayahs.forEach(a => {
-                h += `<div class="p-4 bg-[#0a1212] rounded-2xl border border-white/5" onclick="new Audio('${a.audio}').play()">
-                    <div class="text-[8px] text-emerald-800 font-black mb-1 uppercase">Verset ${a.numberInSurah}</div>
-                    <div class="arabic text-2xl text-emerald-400">${a.text}</div>
-                </div>`;
+                h += `<div class="p-4 bg-[#0a1212] rounded-2xl border border-white/5" onclick="new Audio('${a.audio}').play()"><div class="arabic text-2xl text-emerald-400">${a.text}</div></div>`;
             });
             document.getElementById('contentCoran').innerHTML = h;
         }
