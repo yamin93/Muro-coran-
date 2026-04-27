@@ -7,15 +7,18 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Amiri&family=Inter:wght@400;700;900&display=swap');
-        body { font-family: 'Inter', sans-serif; background-color: #010606; color: #e6edf3; padding-bottom: 120px; }
+        body { font-family: 'Inter', sans-serif; background-color: #010606; color: #e6edf3; padding-bottom: 120px; overflow-x: hidden; }
         .hidden { display: none; }
-        .nav-active { background: #059669 !important; color: white !important; border-radius: 10px; }
+        .nav-active { background: #059669 !important; color: white !important; border-radius: 12px; }
         .card { background: #0a1212; border-radius: 24px; padding: 20px; border: 1px solid #1e293b; margin-bottom: 15px; }
         .arabic { font-family: 'Amiri', serif; direction: rtl; line-height: 2.2; }
         .bismillah { font-size: 2.2rem; color: #10b981; text-align: center; margin: 20px 0; }
         .phonetic { color: #3b82f6; font-size: 0.85rem; font-weight: 600; margin-top: 8px; }
         nav button { font-size: 7px !important; font-weight: 900; text-transform: uppercase; }
         .btn-audio { font-size: 8px; font-weight: 900; text-transform: uppercase; padding: 12px 5px; border-radius: 12px; flex: 1; }
+        .quiz-opt { width: 100%; padding: 16px; background: #111827; border: 1px solid #1e293b; border-radius: 15px; text-align: left; font-weight: 700; margin-bottom: 10px; transition: 0.3s; }
+        .correct { background: #059669 !important; border-color: #10b981 !important; color: white; }
+        .wrong { background: #991b1b !important; border-color: #ef4444 !important; color: white; }
         .btn-pay { background: #111827; border: 1px solid #3b82f6; color: white; padding: 18px; border-radius: 20px; font-weight: 800; width: 100%; display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
     </style>
 </head>
@@ -36,14 +39,14 @@
             <button id="b-don" onclick="nav('don')" class="py-3 text-amber-500">Aider</button>
         </nav>
 
-        <div id="s-home">
+        <div id="s-home" class="space-y-4">
             <div class="card border-t-4 border-emerald-600">
                 <div id="prayer-times" class="grid grid-cols-5 gap-2 text-center text-[8px] font-black text-emerald-400 italic"></div>
             </div>
             <div class="card text-center bg-emerald-900/10 border-emerald-900/30">
                 <p id="doua-ar" class="arabic text-3xl text-white mb-4"></p>
                 <p id="doua-fr" class="text-[13px] text-slate-300 italic font-medium px-2"></p>
-                <button onclick="generateDoua()" class="mt-6 bg-emerald-600/20 text-emerald-400 px-6 py-2 rounded-full text-[10px] font-black uppercase tracking-widest border border-emerald-600/30">Changer d'invocation</button>
+                <button onclick="generateDoua()" class="mt-6 bg-emerald-600/20 text-emerald-400 px-6 py-2 rounded-full text-[10px] font-black uppercase tracking-widest border border-emerald-600/30">Suivant</button>
             </div>
         </div>
 
@@ -57,7 +60,7 @@
 
         <div id="s-coran" class="hidden space-y-4">
             <select id="selSurah" class="w-full p-5 bg-[#0a1212] border-2 border-emerald-900 rounded-2xl text-emerald-400 font-black text-sm" onchange="loadSurahContent()"></select>
-            <div class="flex gap-2">
+            <div class="flex gap-2 sticky top-20 bg-[#010606] py-2 z-40">
                 <button onclick="playAuto()" class="btn-audio bg-emerald-600 text-white">Lancer</button>
                 <button onclick="pauseAudio()" class="btn-audio bg-amber-600 text-white">Pause</button>
                 <button onclick="stopAudio()" class="btn-audio bg-red-600 text-white">Éteindre</button>
@@ -68,58 +71,75 @@
         <div id="s-guide" class="hidden space-y-6">
             <div class="card border-l-8 border-red-600">
                 <h2 class="text-3xl font-black text-red-500 uppercase italic mb-4">Fin du Monde</h2>
-                <p class="text-sm font-bold text-slate-200">Signes : Temps accéléré, hauts bâtiments, Dajjal, Issa (SWS), Soleil à l'Ouest.</p>
+                <p class="text-sm font-bold text-slate-200">Signes : Temps accéléré, Dajjal, Issa (SWS), Soleil à l'Ouest.</p>
             </div>
             <div class="card border-l-8 border-amber-500">
                 <h2 class="text-3xl font-black text-amber-500 uppercase italic mb-4">Ablutions</h2>
-                <p class="text-lg font-black text-slate-200 leading-relaxed italic">Mains, Bouche, Nez, Visage, Bras, Tête, Pieds.</p>
+                <p class="text-lg font-black text-slate-200 leading-relaxed italic text-center">Mains, Bouche, Nez, Visage, Bras, Tête, Pieds.</p>
             </div>
         </div>
 
         <div id="s-quiz" class="hidden">
             <div id="quiz-menu" class="space-y-4">
-                <button onclick="startQuiz('coran')" class="w-full card border-blue-500 font-black uppercase py-6 text-blue-400">📖 Quiz Coran</button>
-                <button onclick="startQuiz('piliers')" class="w-full card border-emerald-500 font-black uppercase py-6 text-emerald-400">🕌 Quiz Piliers</button>
+                <button onclick="startQuiz('coran')" class="w-full card border-blue-500 font-black uppercase py-8 text-blue-400 text-xl italic">📖 Quiz Coran</button>
+                <button onclick="startQuiz('piliers')" class="w-full card border-emerald-500 font-black uppercase py-8 text-emerald-400 text-xl italic">🕌 Quiz Piliers</button>
             </div>
-            <div id="quiz-game" class="hidden text-center">
-                <div id="quiz-q" class="text-xl font-black mb-10 italic"></div>
-                <div id="quiz-opts" class="grid gap-4"></div>
+            <div id="quiz-game" class="hidden">
+                <div class="flex justify-between items-center mb-6">
+                    <span id="quiz-progress" class="text-[10px] font-black text-slate-500 uppercase">Question 1/5</span>
+                    <span id="quiz-score-live" class="text-emerald-500 text-[10px] font-black uppercase">Score: 0</span>
+                </div>
+                <div id="quiz-q" class="text-2xl font-black text-white mb-8 italic leading-tight"></div>
+                <div id="quiz-opts" class="space-y-3"></div>
+                <button id="btn-next-q" onclick="showQ()" class="hidden w-full mt-6 bg-white text-black py-4 rounded-2xl font-black uppercase tracking-tighter">Question Suivante →</button>
             </div>
         </div>
 
         <div id="s-don" class="hidden space-y-4">
             <h2 class="text-3xl font-black text-amber-500 text-center uppercase italic">Soutenir</h2>
-            <p class="text-xs text-center text-slate-400 italic mb-4">Aidez-nous à maintenir l'application sans pub.</p>
             <a href="https://www.paypal.me/YaminDjaouat881/2.99" target="_blank" class="btn-pay"><span>Soutien</span> <span>2,99 €</span></a>
             <a href="https://www.paypal.me/YaminDjaouat881/5.00" target="_blank" class="btn-pay"><span>Soutien</span> <span>5,00 €</span></a>
-            <a href="https://www.paypal.me/YaminDjaouat881/10.00" target="_blank" class="btn-pay border-emerald-500 shadow-lg shadow-emerald-900/20"><span>Soutien</span> <span>10,00 €</span></a>
+            <a href="https://www.paypal.me/YaminDjaouat881/10.00" target="_blank" class="btn-pay border-emerald-500"><span>Soutien</span> <span>10,00 €</span></a>
         </div>
     </div>
 
     <div class="fixed bottom-0 left-0 w-full bg-white text-black py-5 text-center font-black text-[10px] border-t-4 border-emerald-600 z-50">
-        BOUTIQUE : <span class="text-blue-700 underline">CORAN NOBLE ÉDITION</span>
+        BOUTIQUE : <span class="text-blue-700 underline uppercase">Coran Noble Édition</span>
     </div>
 
     <script>
         let currentAudio = new Audio();
-        let audioList = [];
-        let currentIdx = 0;
-        let isPlaying = false;
+        let audioList = [], currentIdx = 0, isPlaying = false;
+        let qIdx = 0, activeQuiz = [], score = 0, canAnswer = true;
 
-        // --- LISTE DES INVOCATIONS ---
+        const quizDB = {
+            coran: [
+                {q:"Combien y a-t-il de sourates dans le Coran ?", a:["110","114","124","104"], c:1},
+                {q:"Quelle est la plus longue sourate ?", a:["Al-Fatiha","Al-Baqara","Yasin","An-Nas"], c:1},
+                {q:"Quelle sourate est appelée 'Le Cœur du Coran' ?", a:["Al-Mulk","Yasin","Al-Ikhlas","Al-Kahf"], c:1},
+                {q:"Quelle est la première sourate révélée ?", a:["Al-Fatiha","Al-Alaq","Al-Baqara","Al-Qadr"], c:1},
+                {q:"Quel prophète est le plus cité ?", a:["Adam","Jésus","Moïse","Abraham"], c:2}
+            ],
+            piliers: [
+                {q:"Quel est le 1er pilier de l'Islam ?", a:["La Prière","Le Jeûne","La Chahada","Le Hajj"], c:2},
+                {q:"Combien de prières par jour ?", a:["3","5","7","2"], c:1},
+                {q:"Comment appelle-t-on l'aumône obligatoire ?", a:["Sadaqa","Zakat","Salat","Dhikr"], c:1},
+                {q:"Durant quel mois jeûne-t-on ?", a:["Shawwal","Ramadan","Rajab","Muharram"], c:1},
+                {q:"Où fait-on le Hajj ?", a:["Médine","Jérusalem","La Mecque","Le Caire"], c:2}
+            ]
+        };
+
         const douasList = [
             {ar: "رَبِّ زِدْنِي عِلْمًا", fr: "Seigneur, augmente mes connaissances."},
             {ar: "سُبْحَانَ اللَّهِ وَبِحَمْدِهِ", fr: "Gloire et louange à Allah."},
-            {ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ الْجَنَّةَ", fr: "Ô Allah, je Te demande le Paradis."},
             {ar: "أَسْتَغْفِرُ اللَّهَ وَأَتُوبُ إِلَيْهِ", fr: "Je demande pardon à Allah et je me repens à Lui."},
-            {ar: "رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً", fr: "Notre Seigneur, accorde-nous le bien ici-bas."},
-            {ar: "حَسْبُنَا اللَّهُ وَنِعْمَ الْوَكِيلُ", fr: "Allah nous suffit, quel excellent protecteur !"}
+            {ar: "رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً", fr: "Notre Seigneur, accorde-nous le bien ici-bas."}
         ];
 
         function generateDoua() {
-            const randomDoua = douasList[Math.floor(Math.random() * douasList.length)];
-            document.getElementById('doua-ar').innerText = randomDoua.ar;
-            document.getElementById('doua-fr').innerText = randomDoua.fr;
+            const r = douasList[Math.floor(Math.random() * douasList.length)];
+            document.getElementById('doua-ar').innerText = r.ar;
+            document.getElementById('doua-fr').innerText = r.fr;
         }
 
         function nav(id) {
@@ -130,25 +150,24 @@
             document.getElementById('s-'+id).classList.remove('hidden');
             document.getElementById('b-'+id).classList.add('nav-active');
             if (id !== 'coran') stopAudio();
+            document.getElementById('quiz-menu').classList.remove('hidden');
+            document.getElementById('quiz-game').classList.add('hidden');
         }
 
         async function loadSurahContent() {
             const num = document.getElementById('selSurah').value;
-            if(!num) return;
-            stopAudio();
+            if(!num) return; stopAudio();
             const rAr = await fetch(`https://api.alquran.cloud/v1/surah/${num}/ar.alafasy`);
             const dAr = await rAr.json();
             const rPh = await fetch(`https://api.alquran.cloud/v1/surah/${num}/en.transliteration`);
             const dPh = await rPh.json();
-            
             audioList = dAr.data.ayahs.map(a => a.audio);
             currentIdx = 0;
-
             let h = (num != 9) ? `<div class="bismillah arabic">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</div>` : '';
             dAr.data.ayahs.forEach((a, i) => {
                 let txt = a.text;
                 if (i === 0 && num != 1 && num != 9) txt = txt.replace("بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ", "");
-                h += `<div id="v-${i}" class="p-6 bg-[#0a1212] rounded-3xl border border-white/5 mb-4 shadow-md transition-all duration-300" onclick="jumpToVerse(${i})">
+                h += `<div id="v-${i}" class="p-6 bg-[#0a1212] rounded-3xl border border-white/5 mb-4" onclick="jumpToVerse(${i})">
                     <div class="arabic text-3xl text-emerald-400 mb-2">${txt}</div>
                     <div class="phonetic italic">${dPh.data.ayahs[i].text}</div>
                 </div>`;
@@ -158,10 +177,7 @@
 
         function playAuto() { if (!audioList.length) return; isPlaying = true; playCurrent(); }
         function pauseAudio() { isPlaying = false; currentAudio.pause(); }
-        function stopAudio() { 
-            isPlaying = false; currentAudio.pause(); currentAudio.currentTime = 0; currentIdx = 0;
-            document.querySelectorAll('[id^="v-"]').forEach(el => el.style.borderColor = "rgba(255,255,255,0.05)");
-        }
+        function stopAudio() { isPlaying = false; currentAudio.pause(); currentIdx = 0; document.querySelectorAll('[id^="v-"]').forEach(el => el.style.borderColor = "rgba(255,255,255,0.05)"); }
         function playCurrent() {
             if (currentIdx >= audioList.length) { stopAudio(); return; }
             document.querySelectorAll('[id^="v-"]').forEach(el => el.style.borderColor = "rgba(255,255,255,0.05)");
@@ -173,28 +189,49 @@
         }
         function jumpToVerse(i) { currentIdx = i; isPlaying = true; playCurrent(); }
 
-        let qIdx = 0; let activeQuiz = [];
-        const quizDB = {
-            coran: [{q:"Combien de sourates ?", a:["114","110"], c:0}, {q:"La plus longue ?", a:["Baqara","Fatiha"], c:0}],
-            piliers: [{q:"Combien de piliers ?", a:["5","3"], c:0}]
-        };
+        // --- QUIZ AVEC CORRECTION VISUELLE ---
         function startQuiz(cat) {
-            activeQuiz = quizDB[cat]; qIdx = 0;
+            activeQuiz = [...quizDB[cat]].sort(() => Math.random() - 0.5);
+            qIdx = -1; score = 0;
             document.getElementById('quiz-menu').classList.add('hidden');
             document.getElementById('quiz-game').classList.remove('hidden');
+            document.getElementById('quiz-score-live').innerText = "Score: 0";
             showQ();
         }
+
         function showQ() {
+            qIdx++;
+            if(qIdx >= activeQuiz.length) {
+                alert(`Quiz terminé ! Score : ${score}/${activeQuiz.length}`);
+                nav('quiz');
+                return;
+            }
+            canAnswer = true;
+            document.getElementById('btn-next-q').classList.add('hidden');
             const q = activeQuiz[qIdx];
+            document.getElementById('quiz-progress').innerText = `Question ${qIdx + 1}/${activeQuiz.length}`;
             document.getElementById('quiz-q').innerText = q.q;
             let h = '';
-            q.a.forEach((opt, i) => h += `<button onclick="checkAns(${i})" class="w-full p-5 bg-slate-900 rounded-2xl font-black mb-2">${opt}</button>`);
+            q.a.forEach((opt, i) => h += `<button id="opt-${i}" onclick="checkAns(${i})" class="quiz-opt">${opt}</button>`);
             document.getElementById('quiz-opts').innerHTML = h;
         }
+
         function checkAns(i) {
-            alert(i === activeQuiz[qIdx].c ? "Correct ! ✅" : "Faux ! ❌");
-            qIdx++;
-            if(qIdx < activeQuiz.length) showQ(); else nav('quiz');
+            if(!canAnswer) return;
+            canAnswer = false;
+            const correctIdx = activeQuiz[qIdx].c;
+            const btnClicked = document.getElementById(`opt-${i}`);
+            const btnCorrect = document.getElementById(`opt-${correctIdx}`);
+
+            if(i === correctIdx) {
+                score++;
+                btnClicked.classList.add('correct');
+                document.getElementById('quiz-score-live').innerText = `Score: ${score}`;
+            } else {
+                btnClicked.classList.add('wrong');
+                btnCorrect.classList.add('correct');
+            }
+            document.getElementById('btn-next-q').classList.remove('hidden');
         }
 
         async function initApp() {
