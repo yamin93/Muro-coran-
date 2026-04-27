@@ -15,8 +15,7 @@
         .bismillah { font-size: 2.2rem; color: #10b981; text-align: center; margin: 20px 0; }
         .phonetic { color: #3b82f6; font-size: 0.85rem; font-weight: 600; margin-top: 8px; }
         nav button { font-size: 7px !important; font-weight: 900; text-transform: uppercase; }
-        .btn-audio { font-size: 8px; font-weight: 900; text-transform: uppercase; padding: 12px 5px; border-radius: 12px; flex: 1; transition: opacity 0.2s; }
-        .btn-audio:active { opacity: 0.7; }
+        .btn-audio { font-size: 8px; font-weight: 900; text-transform: uppercase; padding: 12px 5px; border-radius: 12px; flex: 1; }
         .btn-pay { background: #111827; border: 1px solid #3b82f6; color: white; padding: 18px; border-radius: 20px; font-weight: 800; width: 100%; display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
     </style>
 </head>
@@ -41,10 +40,10 @@
             <div class="card border-t-4 border-emerald-600">
                 <div id="prayer-times" class="grid grid-cols-5 gap-2 text-center text-[8px] font-black text-emerald-400 italic"></div>
             </div>
-            <div class="card text-center bg-emerald-900/5">
-                <p id="doua-ar" class="arabic text-3xl text-white mb-2"></p>
-                <p id="doua-fr" class="text-[12px] text-slate-400 italic font-bold text-center"></p>
-                <button onclick="generateDoua()" class="mt-4 text-emerald-500 text-[10px] font-bold underline uppercase">Suivant</button>
+            <div class="card text-center bg-emerald-900/10 border-emerald-900/30">
+                <p id="doua-ar" class="arabic text-3xl text-white mb-4"></p>
+                <p id="doua-fr" class="text-[13px] text-slate-300 italic font-medium px-2"></p>
+                <button onclick="generateDoua()" class="mt-6 bg-emerald-600/20 text-emerald-400 px-6 py-2 rounded-full text-[10px] font-black uppercase tracking-widest border border-emerald-600/30">Changer d'invocation</button>
             </div>
         </div>
 
@@ -58,13 +57,11 @@
 
         <div id="s-coran" class="hidden space-y-4">
             <select id="selSurah" class="w-full p-5 bg-[#0a1212] border-2 border-emerald-900 rounded-2xl text-emerald-400 font-black text-sm" onchange="loadSurahContent()"></select>
-            
-            <div class="flex gap-2 sticky top-20 z-40 bg-[#010606] py-2">
-                <button id="btn-play" onclick="playAuto()" class="btn-audio bg-emerald-600 text-white shadow-lg shadow-emerald-900/40">Lancer l'audio</button>
-                <button id="btn-pause" onclick="pauseAudio()" class="btn-audio bg-amber-600 text-white shadow-lg shadow-amber-900/40">Pause</button>
-                <button id="btn-stop" onclick="stopAudio()" class="btn-audio bg-red-600 text-white shadow-lg shadow-red-900/40">Éteindre</button>
+            <div class="flex gap-2">
+                <button onclick="playAuto()" class="btn-audio bg-emerald-600 text-white">Lancer</button>
+                <button onclick="pauseAudio()" class="btn-audio bg-amber-600 text-white">Pause</button>
+                <button onclick="stopAudio()" class="btn-audio bg-red-600 text-white">Éteindre</button>
             </div>
-
             <div id="contentCoran" class="space-y-4"></div>
         </div>
 
@@ -75,7 +72,7 @@
             </div>
             <div class="card border-l-8 border-amber-500">
                 <h2 class="text-3xl font-black text-amber-500 uppercase italic mb-4">Ablutions</h2>
-                <p class="text-lg font-black text-slate-200 leading-relaxed">1. Mains (3x) | 2. Bouche (3x) | 3. Nez (3x) | 4. Visage (3x) | 5. Bras (3x) | 6. Tête & Oreilles | 7. Pieds (3x)</p>
+                <p class="text-lg font-black text-slate-200 leading-relaxed italic">Mains, Bouche, Nez, Visage, Bras, Tête, Pieds.</p>
             </div>
         </div>
 
@@ -108,6 +105,22 @@
         let audioList = [];
         let currentIdx = 0;
         let isPlaying = false;
+
+        // --- LISTE DES INVOCATIONS ---
+        const douasList = [
+            {ar: "رَبِّ زِدْنِي عِلْمًا", fr: "Seigneur, augmente mes connaissances."},
+            {ar: "سُبْحَانَ اللَّهِ وَبِحَمْدِهِ", fr: "Gloire et louange à Allah."},
+            {ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ الْجَنَّةَ", fr: "Ô Allah, je Te demande le Paradis."},
+            {ar: "أَسْتَغْفِرُ اللَّهَ وَأَتُوبُ إِلَيْهِ", fr: "Je demande pardon à Allah et je me repens à Lui."},
+            {ar: "رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً", fr: "Notre Seigneur, accorde-nous le bien ici-bas."},
+            {ar: "حَسْبُنَا اللَّهُ وَنِعْمَ الْوَكِيلُ", fr: "Allah nous suffit, quel excellent protecteur !"}
+        ];
+
+        function generateDoua() {
+            const randomDoua = douasList[Math.floor(Math.random() * douasList.length)];
+            document.getElementById('doua-ar').innerText = randomDoua.ar;
+            document.getElementById('doua-fr').innerText = randomDoua.fr;
+        }
 
         function nav(id) {
             ['home','piliers','coran','guide','quiz','don'].forEach(s => {
@@ -143,53 +156,23 @@
             document.getElementById('contentCoran').innerHTML = h;
         }
 
-        function playAuto() {
-            if (!audioList.length) return;
-            isPlaying = true;
-            playCurrent();
+        function playAuto() { if (!audioList.length) return; isPlaying = true; playCurrent(); }
+        function pauseAudio() { isPlaying = false; currentAudio.pause(); }
+        function stopAudio() { 
+            isPlaying = false; currentAudio.pause(); currentAudio.currentTime = 0; currentIdx = 0;
+            document.querySelectorAll('[id^="v-"]').forEach(el => el.style.borderColor = "rgba(255,255,255,0.05)");
         }
-
         function playCurrent() {
             if (currentIdx >= audioList.length) { stopAudio(); return; }
-            
-            // Highlight
             document.querySelectorAll('[id^="v-"]').forEach(el => el.style.borderColor = "rgba(255,255,255,0.05)");
             const el = document.getElementById(`v-${currentIdx}`);
-            if(el) {
-                el.style.borderColor = "#10b981";
-                el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }
-
+            if(el) { el.style.borderColor = "#10b981"; el.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
             currentAudio.src = audioList[currentIdx];
             currentAudio.play();
-            currentAudio.onended = () => {
-                if (isPlaying) {
-                    currentIdx++;
-                    playCurrent();
-                }
-            };
+            currentAudio.onended = () => { if (isPlaying) { currentIdx++; playCurrent(); } };
         }
+        function jumpToVerse(i) { currentIdx = i; isPlaying = true; playCurrent(); }
 
-        function pauseAudio() {
-            isPlaying = false;
-            currentAudio.pause();
-        }
-
-        function stopAudio() {
-            isPlaying = false;
-            currentAudio.pause();
-            currentAudio.currentTime = 0;
-            currentIdx = 0;
-            document.querySelectorAll('[id^="v-"]').forEach(el => el.style.borderColor = "rgba(255,255,255,0.05)");
-        }
-
-        function jumpToVerse(i) {
-            currentIdx = i;
-            isPlaying = true;
-            playCurrent();
-        }
-
-        // QUIZ SYSTEM
         let qIdx = 0; let activeQuiz = [];
         const quizDB = {
             coran: [{q:"Combien de sourates ?", a:["114","110"], c:0}, {q:"La plus longue ?", a:["Baqara","Fatiha"], c:0}],
@@ -212,12 +195,6 @@
             alert(i === activeQuiz[qIdx].c ? "Correct ! ✅" : "Faux ! ❌");
             qIdx++;
             if(qIdx < activeQuiz.length) showQ(); else nav('quiz');
-        }
-
-        function generateDoua() {
-            const d = [{ar:"رَبِّ زِدْنِي عِلْمًا", fr:"Seigneur, augmente ma science."}];
-            document.getElementById('doua-ar').innerText = d.ar;
-            document.getElementById('doua-fr').innerText = d.fr;
         }
 
         async function initApp() {
