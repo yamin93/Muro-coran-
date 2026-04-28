@@ -7,7 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Amiri&family=Inter:wght@400;700;900&display=swap');
-        body { font-family: 'Inter', sans-serif; background-color: #010606; color: #e6edf3; padding-bottom: 120px; overflow-x: hidden; }
+        body { font-family: 'Inter', sans-serif; background-color: #010606; color: #e6edf3; padding-bottom: 140px; overflow-x: hidden; }
         .hidden { display: none; }
         .nav-active { background: #059669 !important; color: white !important; border-radius: 12px; }
         .card { background: #0a1212; border-radius: 24px; padding: 20px; border: 1px solid #1e293b; margin-bottom: 15px; }
@@ -20,9 +20,19 @@
         .correct { background: #059669 !important; border-color: #10b981 !important; color: white; }
         .wrong { background: #991b1b !important; border-color: #ef4444 !important; color: white; }
         .btn-pay { background: #111827; border: 1px solid #3b82f6; color: white; padding: 18px; border-radius: 20px; font-weight: 800; width: 100%; display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+        
+        /* STYLE DU COMPTEUR */
+        #user-counter { position: fixed; bottom: 20px; left: 15px; background: rgba(0,0,0,0.7); padding: 5px 10px; border-radius: 8px; font-size: 10px; font-weight: 900; color: #10b981; border: 1px solid #10b981; z-index: 100; display: flex; align-items: center; gap: 5px; }
+        .dot { width: 6px; height: 6px; background: #10b981; border-radius: 50%; animation: blink 1.5s infinite; }
+        @keyframes blink { 0% { opacity: 0.2; } 50% { opacity: 1; } 100% { opacity: 0.2; } }
     </style>
 </head>
 <body class="p-4" onload="initApp()">
+
+    <div id="user-counter">
+        <div class="dot"></div>
+        <span id="count-number">...</span> UTILISATEURS EN LIGNE
+    </div>
 
     <div class="max-w-md mx-auto">
         <div class="text-center py-6">
@@ -91,7 +101,7 @@
                 </div>
                 <div id="quiz-q" class="text-2xl font-black text-white mb-8 italic leading-tight"></div>
                 <div id="quiz-opts" class="space-y-3"></div>
-                <button id="btn-next-q" onclick="showQ()" class="hidden w-full mt-6 bg-white text-black py-4 rounded-2xl font-black uppercase tracking-tighter">Question Suivante →</button>
+                <button id="btn-next-q" onclick="showQ()" class="hidden w-full mt-6 bg-white text-black py-4 rounded-2xl font-black uppercase tracking-tighter">Suivante →</button>
             </div>
         </div>
 
@@ -111,6 +121,15 @@
         let currentAudio = new Audio();
         let audioList = [], currentIdx = 0, isPlaying = false;
         let qIdx = 0, activeQuiz = [], score = 0, canAnswer = true;
+
+        // FONCTION COMPTEUR (Simule un nombre d'utilisateurs réaliste)
+        function updateCounter() {
+            // Génère un chiffre entre 120 et 150 pour faire "vivant"
+            const baseCount = 124; 
+            const variation = Math.floor(Math.random() * 10);
+            document.getElementById('count-number').innerText = baseCount + variation;
+        }
+        setInterval(updateCounter, 5000); // Change toutes les 5 secondes
 
         const quizDB = {
             coran: [
@@ -189,7 +208,6 @@
         }
         function jumpToVerse(i) { currentIdx = i; isPlaying = true; playCurrent(); }
 
-        // --- QUIZ AVEC CORRECTION VISUELLE ---
         function startQuiz(cat) {
             activeQuiz = [...quizDB[cat]].sort(() => Math.random() - 0.5);
             qIdx = -1; score = 0;
@@ -222,19 +240,13 @@
             const correctIdx = activeQuiz[qIdx].c;
             const btnClicked = document.getElementById(`opt-${i}`);
             const btnCorrect = document.getElementById(`opt-${correctIdx}`);
-
-            if(i === correctIdx) {
-                score++;
-                btnClicked.classList.add('correct');
-                document.getElementById('quiz-score-live').innerText = `Score: ${score}`;
-            } else {
-                btnClicked.classList.add('wrong');
-                btnCorrect.classList.add('correct');
-            }
+            if(i === correctIdx) { score++; btnClicked.classList.add('correct'); document.getElementById('quiz-score-live').innerText = `Score: ${score}`; }
+            else { btnClicked.classList.add('wrong'); btnCorrect.classList.add('correct'); }
             document.getElementById('btn-next-q').classList.remove('hidden');
         }
 
         async function initApp() {
+            updateCounter();
             try {
                 const r = await fetch('https://api.aladhan.com/v1/timingsByCity?city=Paris&country=France&method=3');
                 const d = await r.json();
