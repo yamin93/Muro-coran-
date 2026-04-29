@@ -7,7 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Amiri&family=Inter:wght@400;700;900&display=swap');
-        body { font-family: 'Inter', sans-serif; background-color: #010606; color: #e6edf3; padding-bottom: 120px; }
+        body { font-family: 'Inter', sans-serif; background-color: #010606; color: #e6edf3; padding-bottom: 140px; }
         .hidden { display: none; }
         .nav-active { background: #059669 !important; color: white !important; border-radius: 12px; }
         .card { background: #0a1212; border-radius: 24px; padding: 20px; border: 1px solid #1e293b; margin-bottom: 15px; }
@@ -17,36 +17,37 @@
         nav button { font-size: 7px !important; font-weight: 900; text-transform: uppercase; }
         .btn-audio { font-size: 8px; font-weight: 900; text-transform: uppercase; padding: 12px 5px; border-radius: 12px; flex: 1; }
         
-        /* STYLE DU COMPTEUR EN BAS À GAUCHE */
-        #user-tag {
+        /* LE COMPTEUR QUE TU AS DEMANDÉ (EN BAS À GAUCHE) */
+        #live-counter {
             position: fixed;
-            bottom: 80px;
-            left: 10px;
-            z-index: 1000;
-            background: rgba(16, 185, 129, 0.1);
+            bottom: 85px;
+            left: 15px;
+            z-index: 999;
+            background: rgba(0, 0, 0, 0.8);
             border: 1px solid #10b981;
-            padding: 4px 10px;
-            border-radius: 50px;
+            padding: 5px 12px;
+            border-radius: 10px;
             display: flex;
             align-items: center;
-            gap: 6px;
-            backdrop-filter: blur(5px);
+            gap: 8px;
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.2);
         }
-        .online-dot { width: 6px; height: 6px; background: #10b981; border-radius: 50%; box-shadow: 0 0 10px #10b981; animation: pulse 2s infinite; }
-        @keyframes pulse { 0% { opacity: 0.3; } 50% { opacity: 1; } 100% { opacity: 0.3; } }
+        .live-dot { width: 8px; height: 8px; background: #10b981; border-radius: 50%; animation: blink 1.5s infinite; }
+        @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
+        .counter-text { color: #10b981; font-size: 11px; font-weight: 900; letter-spacing: 0.5px; }
 
-        /* QUIZ CORRECTION STYLES */
+        /* STYLES QUIZ & DONS */
         .quiz-opt { width: 100%; padding: 16px; background: #111827; border: 1px solid #1e293b; border-radius: 15px; text-align: left; font-weight: 700; margin-bottom: 10px; }
-        .correct { background: #059669 !important; border-color: #10b981 !important; color: white; }
-        .wrong { background: #991b1b !important; border-color: #ef4444 !important; color: white; }
-        .btn-pay { background: #111827; border: 1px solid #3b82f6; color: white; padding: 18px; border-radius: 20px; font-weight: 800; width: 100%; display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+        .correct { background: #059669 !important; border-color: #10b981 !important; }
+        .wrong { background: #991b1b !important; border-color: #ef4444 !important; }
+        .btn-pay { background: #111827; border: 1px solid #3b82f6; color: white; padding: 18px; border-radius: 20px; font-weight: 800; width: 100%; display: flex; justify-content: space-between; margin-bottom: 10px; }
     </style>
 </head>
 <body class="p-4" onload="initApp()">
 
-    <div id="user-tag">
-        <div class="online-dot"></div>
-        <span id="user-count" style="color: #10b981; font-size: 11px; font-weight: 900;">...</span>
+    <div id="live-counter">
+        <div class="live-dot"></div>
+        <span class="counter-text"><span id="user-nb">...</span> PERSONNES REGARDENT</span>
     </div>
 
     <div class="max-w-md mx-auto">
@@ -71,37 +72,18 @@
             <div class="card text-center bg-emerald-900/10 border-emerald-900/30">
                 <p id="doua-ar" class="arabic text-3xl text-white mb-4"></p>
                 <p id="doua-fr" class="text-[13px] text-slate-300 italic font-medium px-2"></p>
-                <button onclick="generateDoua()" class="mt-6 bg-emerald-600/20 text-emerald-400 px-6 py-2 rounded-full text-[10px] font-black uppercase tracking-widest border border-emerald-600/30">Invocation Suivante</button>
+                <button onclick="generateDoua()" class="mt-6 bg-emerald-600/20 text-emerald-400 px-6 py-2 rounded-full text-[10px] font-black uppercase border border-emerald-600/30">Changer Doua</button>
             </div>
-        </div>
-
-        <div id="s-piliers" class="hidden space-y-3">
-             <div class="card border-l-4 border-emerald-500 font-bold">1. LA CHAHADA <p class="text-[10px] text-slate-400 font-normal">L'attestation de foi.</p></div>
-             <div class="card border-l-4 border-emerald-500 font-bold">2. LA SALAT <p class="text-[10px] text-slate-400 font-normal">Les 5 prières quotidiennes.</p></div>
-             <div class="card border-l-4 border-emerald-500 font-bold">3. LA ZAKAT <p class="text-[10px] text-slate-400 font-normal">L'aumône obligatoire.</p></div>
-             <div class="card border-l-4 border-emerald-500 font-bold">4. LE SAWM <p class="text-[10px] text-slate-400 font-normal">Le jeûne du Ramadan.</p></div>
-             <div class="card border-l-4 border-emerald-500 font-bold">5. LE HAJJ <p class="text-[10px] text-slate-400 font-normal">Le pèlerinage à la Mecque.</p></div>
         </div>
 
         <div id="s-coran" class="hidden space-y-4">
             <select id="selSurah" class="w-full p-5 bg-[#0a1212] border-2 border-emerald-900 rounded-2xl text-emerald-400 font-black text-sm" onchange="loadSurahContent()"></select>
             <div class="flex gap-2">
-                <button onclick="playAuto()" class="btn-audio bg-emerald-600 text-white">Lancer</button>
-                <button onclick="pauseAudio()" class="btn-audio bg-amber-600 text-white">Pause</button>
-                <button onclick="stopAudio()" class="btn-audio bg-red-600 text-white">Éteindre</button>
+                <button onclick="playAuto()" class="btn-audio bg-emerald-600">Lancer</button>
+                <button onclick="pauseAudio()" class="btn-audio bg-amber-600">Pause</button>
+                <button onclick="stopAudio()" class="btn-audio bg-red-600">Stop</button>
             </div>
             <div id="contentCoran" class="space-y-4"></div>
-        </div>
-
-        <div id="s-guide" class="hidden space-y-6">
-            <div class="card border-l-8 border-red-600">
-                <h2 class="text-3xl font-black text-red-500 uppercase italic mb-4">Fin du Monde</h2>
-                <p class="text-sm font-bold text-slate-200">Signes : Dajjal, Issa (SWS), Soleil à l'Ouest.</p>
-            </div>
-            <div class="card border-l-8 border-amber-500">
-                <h2 class="text-3xl font-black text-amber-500 uppercase italic mb-4">Ablutions</h2>
-                <p class="text-lg font-black text-slate-200 italic">Mains, Bouche, Nez, Visage, Bras, Tête, Pieds.</p>
-            </div>
         </div>
 
         <div id="s-quiz" class="hidden">
@@ -110,18 +92,25 @@
                 <button onclick="startQuiz('piliers')" class="w-full card border-emerald-500 font-black py-8 text-emerald-400 text-xl italic uppercase">🕌 Quiz Piliers</button>
             </div>
             <div id="quiz-game" class="hidden">
-                <div class="flex justify-between items-center mb-6">
-                    <span id="quiz-progress" class="text-[10px] font-black text-slate-500 uppercase">Question 1/5</span>
-                    <span id="quiz-score-live" class="text-emerald-500 text-[10px] font-black uppercase">Score: 0</span>
-                </div>
                 <div id="quiz-q" class="text-2xl font-black text-white mb-8 italic"></div>
                 <div id="quiz-opts" class="space-y-3"></div>
-                <button id="btn-next-q" onclick="showQ()" class="hidden w-full mt-6 bg-white text-black py-4 rounded-2xl font-black uppercase">Question Suivante →</button>
+                <button id="btn-next-q" onclick="showQ()" class="hidden w-full mt-6 bg-white text-black py-4 rounded-2xl font-black uppercase">Suivant →</button>
+            </div>
+        </div>
+
+        <div id="s-guide" class="hidden space-y-6">
+            <div class="card border-l-8 border-red-600">
+                <h2 class="text-3xl font-black text-red-500 uppercase italic mb-4">Fin du Monde</h2>
+                <p class="text-sm font-bold text-slate-200">Signes majeurs : Dajjal, Retour d'Issa (SWS), Le Soleil se lève à l'Ouest.</p>
+            </div>
+            <div class="card border-l-8 border-amber-500">
+                <h2 class="text-3xl font-black text-amber-500 uppercase italic mb-4">Ablutions</h2>
+                <p class="text-lg font-black text-slate-200 italic">1. Mains, 2. Bouche, 3. Nez, 4. Visage, 5. Bras, 6. Tête, 7. Pieds.</p>
             </div>
         </div>
 
         <div id="s-don" class="hidden space-y-4">
-            <h2 class="text-3xl font-black text-amber-500 text-center uppercase italic">Soutenir</h2>
+            <h2 class="text-3xl font-black text-amber-500 text-center uppercase italic">Aider le projet</h2>
             <a href="https://www.paypal.me/YaminDjaouat881/2.99" target="_blank" class="btn-pay"><span>Soutien</span> <span>2,99 €</span></a>
             <a href="https://www.paypal.me/YaminDjaouat881/5.00" target="_blank" class="btn-pay"><span>Soutien</span> <span>5,00 €</span></a>
             <a href="https://www.paypal.me/YaminDjaouat881/10.00" target="_blank" class="btn-pay border-emerald-500"><span>Soutien</span> <span>10,00 €</span></a>
@@ -137,38 +126,14 @@
         let audioList = [], currentIdx = 0, isPlaying = false;
         let qIdx = 0, activeQuiz = [], score = 0, canAnswer = true;
 
-        // --- FONCTION COMPTEUR UTILISATEURS ---
-        function updateUsers() {
-            const count = 140 + Math.floor(Math.random() * 15);
-            document.getElementById('user-count').innerText = count + " UTILISATEURS";
+        // --- COMPTEUR TEMPS RÉEL (Simulation) ---
+        function updateCounter() {
+            const nb = 125 + Math.floor(Math.random() * 20); // Simule entre 125 et 145 personnes
+            document.getElementById('user-nb').innerText = nb;
         }
-        setInterval(updateUsers, 3000);
+        setInterval(updateCounter, 4000);
 
-        const quizDB = {
-            coran: [
-                {q:"Combien y a-t-il de sourates dans le Coran ?", a:["110","114","124","104"], c:1},
-                {q:"Quelle est la plus longue sourate ?", a:["Al-Fatiha","Al-Baqara","Yasin","An-Nas"], c:1},
-                {q:"Quelle est la première sourate révélée ?", a:["Al-Fatiha","Al-Alaq","Al-Baqara","Al-Qadr"], c:1}
-            ],
-            piliers: [
-                {q:"Quel est le 1er pilier de l'Islam ?", a:["La Prière","Le Jeûne","La Chahada","Le Hajj"], c:2},
-                {q:"Combien de prières par jour ?", a:["3","5","7","2"], c:1},
-                {q:"Quel mois jeûne-t-on ?", a:["Shawwal","Ramadan","Rajab","Muharram"], c:1}
-            ]
-        };
-
-        const douasList = [
-            {ar: "رَبِّ زِدْنِي عِلْمًا", fr: "Seigneur, augmente mes connaissances."},
-            {ar: "سُبْحَانَ اللَّهِ وَبِحَمْدِهِ", fr: "Gloire et louange à Allah."},
-            {ar: "رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً", fr: "Notre Seigneur, accorde-nous le bien ici-bas."}
-        ];
-
-        function generateDoua() {
-            const r = douasList[Math.floor(Math.random() * douasList.length)];
-            document.getElementById('doua-ar').innerText = r.ar;
-            document.getElementById('doua-fr').innerText = r.fr;
-        }
-
+        // --- LOGIQUE NAVIGATION ---
         function nav(id) {
             ['home','piliers','coran','guide','quiz','don'].forEach(s => {
                 document.getElementById('s-'+s).classList.add('hidden');
@@ -181,6 +146,7 @@
             document.getElementById('quiz-game').classList.add('hidden');
         }
 
+        // --- LOGIQUE CORAN ---
         async function loadSurahContent() {
             const num = document.getElementById('selSurah').value;
             if(!num) return; stopAudio();
@@ -192,21 +158,19 @@
             currentIdx = 0;
             let h = (num != 9) ? `<div class="bismillah arabic">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</div>` : '';
             dAr.data.ayahs.forEach((a, i) => {
-                let txt = a.text;
-                if (i === 0 && num != 1 && num != 9) txt = txt.replace("بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ", "");
                 h += `<div id="v-${i}" class="p-6 bg-[#0a1212] border border-white/5 mb-4 rounded-3xl" onclick="jumpToVerse(${i})">
-                    <div class="arabic text-3xl text-emerald-400 mb-2">${txt}</div>
+                    <div class="arabic text-3xl text-emerald-400 mb-2">${a.text}</div>
                     <div class="phonetic italic">${dPh.data.ayahs[i].text}</div>
                 </div>`;
             });
             document.getElementById('contentCoran').innerHTML = h;
         }
 
-        function playAuto() { if (!audioList.length) return; isPlaying = true; playCurrent(); }
+        function playAuto() { isPlaying = true; playCurrent(); }
         function pauseAudio() { isPlaying = false; currentAudio.pause(); }
-        function stopAudio() { isPlaying = false; currentAudio.pause(); currentIdx = 0; document.querySelectorAll('[id^="v-"]').forEach(el => el.style.borderColor = "rgba(255,255,255,0.05)"); }
+        function stopAudio() { isPlaying = false; currentAudio.pause(); currentIdx = 0; }
         function playCurrent() {
-            if (currentIdx >= audioList.length) { stopAudio(); return; }
+            if (currentIdx >= audioList.length) return;
             document.querySelectorAll('[id^="v-"]').forEach(el => el.style.borderColor = "rgba(255,255,255,0.05)");
             const el = document.getElementById(`v-${currentIdx}`);
             if(el) { el.style.borderColor = "#10b981"; el.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
@@ -216,52 +180,49 @@
         }
         function jumpToVerse(i) { currentIdx = i; isPlaying = true; playCurrent(); }
 
+        // --- LOGIQUE QUIZ ---
+        const quizDB = {
+            coran: [{q:"Sourates dans le Coran ?", a:["110","114","124"], c:1}, {q:"Plus longue sourate ?", a:["Al-Fatiha","Al-Baqara","Yasin"], c:1}],
+            piliers: [{q:"1er pilier ?", a:["Prière","Jeûne","Chahada"], c:2}, {q:"Combien de prières ?", a:["3","5","7"], c:1}]
+        };
         function startQuiz(cat) {
-            activeQuiz = [...quizDB[cat]].sort(() => Math.random() - 0.5);
-            qIdx = -1; score = 0;
+            activeQuiz = quizDB[cat]; qIdx = -1; score = 0;
             document.getElementById('quiz-menu').classList.add('hidden');
             document.getElementById('quiz-game').classList.remove('hidden');
             showQ();
         }
-
         function showQ() {
-            qIdx++;
-            if(qIdx >= activeQuiz.length) { alert(`Terminé ! Score: ${score}/${activeQuiz.length}`); nav('quiz'); return; }
-            canAnswer = true;
-            document.getElementById('btn-next-q').classList.add('hidden');
+            qIdx++; if(qIdx >= activeQuiz.length) { alert("Score: " + score); nav('quiz'); return; }
+            canAnswer = true; document.getElementById('btn-next-q').classList.add('hidden');
             const q = activeQuiz[qIdx];
-            document.getElementById('quiz-progress').innerText = `Question ${qIdx + 1}/${activeQuiz.length}`;
             document.getElementById('quiz-q').innerText = q.q;
             let h = '';
             q.a.forEach((opt, i) => h += `<button id="opt-${i}" onclick="checkAns(${i})" class="quiz-opt">${opt}</button>`);
             document.getElementById('quiz-opts').innerHTML = h;
         }
-
         function checkAns(i) {
-            if(!canAnswer) return;
-            canAnswer = false;
-            const correctIdx = activeQuiz[qIdx].c;
-            if(i === correctIdx) { score++; document.getElementById(`opt-${i}`).classList.add('correct'); }
-            else { document.getElementById(`opt-${i}`).classList.add('wrong'); document.getElementById(`opt-${correctIdx}`).classList.add('correct'); }
-            document.getElementById('quiz-score-live').innerText = `Score: ${score}`;
+            if(!canAnswer) return; canAnswer = false;
+            const correct = activeQuiz[qIdx].c;
+            if(i === correct) { score++; document.getElementById(`opt-${i}`).classList.add('correct'); }
+            else { document.getElementById(`opt-${i}`).classList.add('wrong'); document.getElementById(`opt-${correct}`).classList.add('correct'); }
             document.getElementById('btn-next-q').classList.remove('hidden');
         }
 
+        // --- INITIALISATION ---
         async function initApp() {
-            updateUsers();
+            updateCounter();
             try {
                 const r = await fetch('https://api.aladhan.com/v1/timingsByCity?city=Paris&country=France&method=3');
                 const d = await r.json();
                 const t = d.data.timings;
                 document.getElementById('prayer-times').innerHTML = `<div>FAJR<br>${t.Fajr}</div><div>DHUR<br>${t.Dhuhr}</div><div>ASR<br>${t.Asr}</div><div>MAGH<br>${t.Maghrib}</div><div>ICHA<br>${t.Isha}</div>`;
-                if(d.data.date.hijri) document.getElementById('hijri-date').innerText = `${d.data.date.hijri.day} ${d.data.date.hijri.month.fr || d.data.date.hijri.month.en} ${d.data.date.hijri.year}`;
             } catch(e) {}
             const rS = await fetch('https://api.alquran.cloud/v1/surah');
             const dS = await rS.json();
             const sel = document.getElementById('selSurah');
             sel.innerHTML = '<option value="">Choisir une Sourate</option>';
             dS.data.forEach(s => sel.innerHTML += `<option value="${s.number}">${s.number}. ${s.englishName}</option>`);
-            generateDoua(); nav('home');
+            nav('home');
         }
     </script>
 </body>
