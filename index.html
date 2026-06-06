@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Muslim App</title>
     <style>
-        /* === DESIGN GÉNÉRAL (FOND SOMBRE DE L'APP) === */
+        /* === DESIGN GÉNÉRAL === */
         body {
             background-color: #050811;
             color: white;
             font-family: 'Arial', sans-serif;
             margin: 0;
-            padding: 20px;
+            padding: 20px 10px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -19,12 +19,13 @@
 
         .main-title {
             color: #2ec4b6;
-            font-size: 2.5rem;
+            font-size: 2.3rem;
             font-weight: 900;
             font-style: italic;
             text-transform: uppercase;
             margin-bottom: 5px;
             letter-spacing: 2px;
+            text-align: center;
         }
 
         .sub-title {
@@ -38,9 +39,9 @@
         .navbar {
             background-color: #0d1527;
             border-radius: 15px;
-            padding: 10px 15px;
+            padding: 10px 5px;
             display: flex;
-            gap: 10px;
+            gap: 5px;
             margin-bottom: 30px;
             width: 100%;
             max-width: 450px;
@@ -50,10 +51,10 @@
         .nav-item {
             color: #a0aec0;
             text-decoration: none;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             font-weight: bold;
             text-transform: uppercase;
-            padding: 8px 12px;
+            padding: 8px 10px;
             border-radius: 8px;
             cursor: pointer;
             background: none;
@@ -69,11 +70,12 @@
             color: #f77f00;
         }
 
-        /* === GESTION DES SECTIONS === */
+        /* === SECTIONS === */
         .content-section {
-            display: none; /* Cache les sections par défaut */
+            display: none;
             width: 100%;
             max-width: 450px;
+            box-sizing: border-box;
         }
 
         .content-section.active-section {
@@ -82,16 +84,24 @@
             gap: 20px;
         }
 
-        /* === STYLE DES GROS BOUTONS (QUIZ ET AUTRES) === */
+        h2 {
+            color: #2ec4b6;
+            font-size: 1.5rem;
+            border-bottom: 1px solid #1a263f;
+            padding-bottom: 8px;
+            margin-top: 0;
+        }
+
+        /* === BOUTONS DE SÉLECTION === */
         .quiz-box {
             background-color: #091124;
             color: white;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: bold;
             font-style: italic;
             text-transform: uppercase;
-            padding: 25px;
-            border-radius: 20px;
+            padding: 20px;
+            border-radius: 15px;
             cursor: pointer;
             width: 100%;
             text-align: center;
@@ -99,41 +109,52 @@
             box-sizing: border-box;
         }
 
-        .quiz-box:hover {
-            transform: scale(1.02);
-        }
+        .quiz-box:hover { transform: scale(1.02); }
 
-        /* Couleurs des bordures lumineuses style néon */
-        .blue-border { border: 2px solid #0077b6; box-shadow: 0 0 10px rgba(0, 119, 182, 0.3); }
-        .green-border { border: 2px solid #2a9d8f; box-shadow: 0 0 10px rgba(42, 157, 143, 0.3); }
-        .purple-border { border: 2px solid #8a2be2; box-shadow: 0 0 10px rgba(138, 43, 226, 0.3); }
-        .gold-border { border: 2px solid #e9c46a; box-shadow: 0 0 10px rgba(233, 196, 106, 0.3); }
-        .orange-border { border: 2px solid #f4a261; box-shadow: 0 0 10px rgba(244, 162, 97, 0.3); }
+        .blue-border { border: 2px solid #0077b6; box-shadow: 0 0 10px rgba(0, 119, 182, 0.2); }
+        .green-border { border: 2px solid #2a9d8f; box-shadow: 0 0 10px rgba(42, 157, 143, 0.2); }
+        .purple-border { border: 2px solid #8a2be2; box-shadow: 0 0 10px rgba(138, 43, 226, 0.2); }
+        .gold-border { border: 2px solid #e9c46a; box-shadow: 0 0 10px rgba(233, 196, 106, 0.2); }
+        .orange-border { border: 2px solid #f4a261; box-shadow: 0 0 10px rgba(244, 162, 197, 0.2); }
 
-        /* === INTERFACE D'UN QUIZ EN COURS === */
-        .quiz-card {
-            background-color: #0d1527;
-            padding: 20px;
-            border-radius: 15px;
-            border: 1px solid #0096c7;
-            text-align: center;
-        }
-
-        .option-btn {
-            background-color: #1a263f;
-            color: white;
-            border: 1px solid #334155;
-            padding: 12px;
-            margin: 8px 0;
+        /* === HEURES DE PRIÈRE (HOME) === */
+        .prayer-table {
             width: 100%;
-            border-radius: 10px;
-            cursor: pointer;
-            font-size: 1rem;
+            background-color: #0d1527;
+            border-radius: 15px;
+            border-collapse: collapse;
+            overflow: hidden;
         }
 
-        .option-btn:hover { background-color: #243454; }
+        .prayer-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 20px;
+            border-bottom: 1px solid #1a263f;
+        }
 
-        /* === LECTEUR AUDIO SUR LE SITE === */
+        .prayer-row:last-child { border-bottom: none; }
+        .prayer-name { font-weight: bold; }
+        .prayer-time { color: #2ec4b6; font-weight: bold; }
+
+        /* === GUIDE ET HISTOIRE === */
+        .info-card {
+            background-color: #0d1527;
+            padding: 15px;
+            border-radius: 15px;
+            border: 1px solid #1a263f;
+            line-height: 1.5;
+            font-size: 0.95rem;
+        }
+
+        .step-title {
+            color: #e9c46a;
+            font-weight: bold;
+            margin-top: 10px;
+            display: block;
+        }
+
+        /* === INTERFACE AUDIO SUR SITE === */
         .audio-player {
             background-color: #0d1527;
             padding: 20px;
@@ -145,7 +166,7 @@
         .controls {
             display: flex;
             justify-content: center;
-            gap: 15px;
+            gap: 10px;
             margin-top: 15px;
         }
 
@@ -153,25 +174,104 @@
             background-color: #2ec4b6;
             color: #050811;
             border: none;
-            padding: 10px 20px;
+            padding: 10px 15px;
             border-radius: 8px;
             font-weight: bold;
             cursor: pointer;
+            font-size: 0.85rem;
         }
 
-        .btn-audio:hover { background-color: #20a396; }
-        
         select {
             width: 100%;
-            padding: 10px;
+            padding: 12px;
             background-color: #1a263f;
             color: white;
             border-radius: 8px;
             border: 1px solid #334155;
             margin-bottom: 10px;
+            font-size: 1rem;
         }
 
-        /* Compteur */
+        /* === SYSTÈME DE DON PAYPAL SÉCURISÉ === */
+        .donation-container {
+            background-color: #0d1527;
+            padding: 20px;
+            border-radius: 15px;
+            border: 2px solid #f77f00;
+            text-align: center;
+        }
+
+        .donation-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .btn-don {
+            background-color: #1a263f;
+            color: white;
+            border: 1px solid #f77f00;
+            padding: 12px;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .btn-don:hover { background-color: #f77f00; color: #050811; }
+
+        .custom-don-input {
+            width: 100%;
+            padding: 12px;
+            background-color: #1a263f;
+            color: white;
+            border-radius: 8px;
+            border: 1px solid #334155;
+            margin-top: 15px;
+            box-sizing: border-box;
+            text-align: center;
+            font-size: 1rem;
+        }
+
+        .btn-paypal-submit {
+            background-color: #ffb703;
+            color: #023047;
+            width: 100%;
+            padding: 14px;
+            border-radius: 10px;
+            border: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-top: 15px;
+            cursor: pointer;
+        }
+
+        /* === MODULE DE JEU QUIZ === */
+        .quiz-card {
+            background-color: #0d1527;
+            padding: 20px;
+            border-radius: 15px;
+            border: 2px solid #0096c7;
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .option-btn {
+            background-color: #1a263f;
+            color: white;
+            border: 1px solid #334155;
+            padding: 14px;
+            margin: 8px 0;
+            width: 100%;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1rem;
+            text-align: left;
+            padding-left: 20px;
+        }
+
+        .option-btn:hover { background-color: #243454; }
+
         .counter-box {
             border: 2px solid #1d3557;
             background-color: #091124;
@@ -180,7 +280,7 @@
             border-radius: 15px;
             font-size: 0.9rem;
             font-weight: bold;
-            margin-top: 40px;
+            margin-top: 30px;
         }
     </style>
 </head>
@@ -189,35 +289,49 @@
     <h1 class="main-title">MUSLIM APP</h1>
     <div class="sub-title">20 UNDEFINED 1447</div>
 
-    <!-- MENUS DU HAUT CLIQUABLES -->
+    <!-- NAVIGATION -->
     <nav class="navbar">
-        <button class="nav-item" onclick="showSection('home-sec', this)">Home</button>
+        <button class="nav-item active" onclick="showSection('home-sec', this)">Home</button>
         <button class="nav-item" onclick="showSection('piliers-sec', this)">Piliers</button>
         <button class="nav-item" onclick="showSection('coran-sec', this)">Coran</button>
         <button class="nav-item" onclick="showSection('guide-sec', this)">Guide</button>
-        <button class="nav-item active" onclick="showSection('quiz-sec', this)">Quiz</button>
-        <button class="nav-item aider" onclick="window.open('https://www.paypal.me/TON_PSEUDO_PAYPAL', '_blank')">Aider</button>
+        <button class="nav-item" onclick="showSection('quiz-sec', this)">Quiz</button>
+        <button class="nav-item aider" onclick="showSection('aider-sec', this)">Aider</button>
     </nav>
 
-    <!-- SECTION HOME -->
-    <div id="home-sec" class="content-section">
-        <h2>Bienvenue sur Muslim App</h2>
-        <p>Contenu de votre page d'accueil...</p>
+    <!-- 1. SECTION HOME : HEURES DE PRIÈRE POUR MONTFERMEIL -->
+    <div id="home-sec" class="content-section active-section">
+        <h2>Heures de Prière - Montfermeil</h2>
+        <div class="prayer-table">
+            <div class="prayer-row"><span class="prayer-name">Fajr</span><span class="prayer-time">04:12</span></div>
+            <div class="prayer-row"><span class="prayer-name">Chourouq</span><span class="prayer-time">05:48</span></div>
+            <div class="prayer-row"><span class="prayer-name">Dhuhr</span><span class="prayer-time">13:46</span></div>
+            <div class="prayer-row"><span class="prayer-name">Asr</span><span class="prayer-time">17:45</span></div>
+            <div class="prayer-row"><span class="prayer-name">Maghrib</span><span class="prayer-time">21:35</span></div>
+            <div class="prayer-row"><span class="prayer-name">Icha</span><span class="prayer-time">23:02</span></div>
+        </div>
     </div>
 
-    <!-- SECTION 5 PILIERS -->
+    <!-- 2. SECTION 5 PILIERS -->
     <div id="piliers-sec" class="content-section">
         <h2>Les 5 Piliers de l'Islam</h2>
-        <div class="quiz-box green-border">1. La Chahada (Attestation de foi)</div>
-        <div class="quiz-box green-border">2. La Salat (La Prière)</div>
-        <div class="quiz-box green-border">3. La Zakat (L'Aumône)</div>
-        <div class="quiz-box green-border">4. Le Sawm (Le Jeûne du Ramadan)</div>
-        <div class="quiz-box green-border">5. Le Hajj (Le Pèlerinage)</div>
+        <div class="info-card">
+            <span class="step-title">1. La Chahada</span> Attestation de foi en l'Unicité d'Allah et au messager Prophète Mouhammad.
+            <span class="step-title">2. La Salat</span> L'accomplissement des 5 prières quotidiennes obligatoires.
+            <span class="step-title">3. La Zakat</span> L'aumône légale annuelle versée aux nécessiteux.
+            <span class="step-title">4. Le Sawm</span> Le jeûne obligatoire durant le mois béni de Ramadan.
+            <span class="step-title">5. Le Hajj</span> Le pèlerinage à la Mecque une fois dans sa vie si on en a les capacités physiques et financières.
+        </div>
     </div>
 
-    <!-- SECTION CORAN AVEC LECTEUR INTEGRÉ (PLAY / PAUSE / STOP) -->
+    <!-- 3. SECTION CORAN AVEC LECTEUR ET HISTOIRE -->
     <div id="coran-sec" class="content-section">
-        <h2>Écouter le Noble Coran</h2>
+        <h2>Histoire du Coran</h2>
+        <div class="info-card" style="margin-bottom: 20px;">
+            Le Noble Coran est la parole sacrée d'Allah, révélée au Prophète Mouhammad (صلى الله عليه وسلم) par l'intermédiaire de l'Ange Jibril pendant 23 ans. Il contient 114 sourates guidant l'humanité vers la vérité.
+        </div>
+
+        <h2>Écouter directement sur le site</h2>
         <div class="audio-player">
             <select id="surah-select" onchange="changerSourate()">
                 <option value="https://server8.mp3quran.net/afs/001.mp3">001 - Al-Fatiha</option>
@@ -225,7 +339,7 @@
                 <option value="https://server8.mp3quran.net/afs/113.mp3">113 - Al-Falaq</option>
                 <option value="https://server8.mp3quran.net/afs/114.mp3">114 - Al-Nas</option>
             </select>
-            <p id="current-track">Lecture en cours : Al-Fatiha</p>
+            <p id="current-track">Sélectionné : Al-Fatiha</p>
             <audio id="coran-audio" src="https://server8.mp3quran.net/afs/001.mp3"></audio>
             
             <div class="controls">
@@ -236,103 +350,194 @@
         </div>
     </div>
 
-    <!-- SECTION GUIDE -->
+    <!-- 4. SECTION GUIDE : LES ABLUTIONS (MANS, BRAS...) -->
     <div id="guide-sec" class="content-section">
-        <h2>Guide Pratique</h2>
-        <p>Vos guides s'afficheront ici...</p>
+        <h2>Guide Pratique des Ablutions (Woudou)</h2>
+        <div class="info-card">
+            <span class="step-title">1. L'intention & Dire Bismillah</span> Formuler l'intention dans son cœur.
+            <span class="step-title">2. Les Mains (3 fois)</span> Laver les mains jusqu'aux poignets en insistant entre les doigts.
+            <span class="step-title">3. La Bouche (3 fois)</span> Rincer la bouche en remuant l'eau.
+            <span class="step-title">4. Le Nez (3 fois)</span> Aspirer l'eau par les narines et la rejeter.
+            <span class="step-title">5. Le Visage (3 fois)</span> Laver tout le visage, d'une oreille à l'autre et du front au menton.
+            <span class="step-title">6. Les Bras (3 fois)</span> Laver les avant-bras <strong>jusqu'aux coudes inclus</strong>, en commençant par le bras droit.
+            <span class="step-title">7. La Tête & Oreilles (1 fois)</span> Passer les mains mouillées du front vers la nuque (aller-retour), puis nettoyer l'intérieur et l'extérieur des oreilles.
+            <span class="step-title">8. Les Pieds (3 fois)</span> Laver les pieds jusqu'aux chevilles incluses en passant entre les orteils, d'abord le droit.
+        </div>
     </div>
 
-    <!-- SECTION MENU DES QUIZ (ANCIENS + NOUVEAUX) -->
-    <div id="quiz-sec" class="content-section active-section">
-        <button class="quiz-box blue-border" onclick="ouvrirQuiz('coran')">📖 QUIZ CORAN</button>
-        <button class="quiz-box green-border" onclick="ouvrirQuiz('piliers')">🕌 QUIZ PILIERS</button>
-        <button class="quiz-box purple-border" onclick="ouvrirQuiz('priere')">🧎 QUIZ PRIÈRE / ABLUTIONS</button>
-        <button class="quiz-box gold-border" onclick="ouvrirQuiz('sirah')">📜 QUIZ SÎRAH</button>
-        <button class="quiz-box orange-border" onclick="ouvrirQuiz('ramadan')">🌙 QUIZ RAMADAN</button>
+    <!-- 5. SECTION SÉLECTION DE QUIZ -->
+    <div id="quiz-sec" class="content-section">
+        <h2>Choisis ton Quiz</h2>
+        <button class="quiz-box blue-border" onclick="demarrerQuiz('coran')">📖 QUIZ CORAN</button>
+        <button class="quiz-box green-border" onclick="demarrerQuiz('piliers')">🕌 QUIZ PILIERS</button>
+        <button class="quiz-box purple-border" onclick="demarrerQuiz('priere')">🧎 QUIZ PRIÈRE & ABLUTIONS</button>
+        <button class="quiz-box gold-border" onclick="demarrerQuiz('sirah')">📜 QUIZ SÎRAH</button>
+        <button class="quiz-box orange-border" onclick="demarrerQuiz('ramadan')">🌙 QUIZ RAMADAN</button>
         
-        <!-- ZONE INTERACTIVE OÙ LE QUIZ S'AFFICHE QUAND ON CLIQUE -->
-        <div id="zone-jeu-quiz" style="display:none; margin-top: 20px;">
+        <!-- MODULE INTERACTIF DU QUIZ -->
+        <div id="quiz-game-container" style="display:none; margin-top:15px;">
             <div class="quiz-card">
-                <h3 id="question-text">Question ici</h3>
-                <div id="options-container"></div>
-                <p id="feedback-text" style="font-weight:bold; margin-top:15px;"></p>
+                <h3 id="quiz-q-title" style="margin-top:0; color:#e9c46a;">Question</h3>
+                <p id="quiz-question-text">Texte de la question</p>
+                <div id="quiz-options"></div>
+                <p id="quiz-feedback" style="font-weight:bold; margin-top:15px; font-size:1.1rem;"></p>
+                <button id="next-btn" class="btn-audio" style="display:none; margin: 15px auto 0 auto;" onclick="questionSuivante()">Question Suivante ➔</button>
             </div>
+        </div>
+    </div>
+
+    <!-- 6. SECTION SÉCURISÉE DE DON PAYPAL (AIDER) -->
+    <div id="aider-sec" class="content-section">
+        <h2>Soutenir l'application</h2>
+        <div class="donation-container">
+            <p style="margin-top:0;">Choisissez ou saisissez un montant pour faire un don sécurisé via PayPal :</p>
+            
+            <div class="donation-grid">
+                <button class="btn-don" onclick="setDonationAmount(5)">5 €</button>
+                <button class="btn-don" onclick="setDonationAmount(10)">10 €</button>
+                <button class="btn-don" onclick="setDonationAmount(20)">20 €</button>
+                <button class="btn-don" onclick="setDonationAmount(30)">30 €</button>
+                <button class="btn-don" onclick="setDonationAmount(50)">50 €</button>
+                <button class="btn-don" onclick="setDonationAmount(0)">Libre</button>
+            </div>
+
+            <input type="number" id="custom-amount" class="custom-don-input" placeholder="Montant personnalisé (€)" min="1" oninput="updateCustomAmount()">
+            
+            <!-- FORMULAIRE SÉCURISÉ PAYPAL -->
+            <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank" id="paypal-form">
+                <input type="hidden" name="cmd" value="_xclick">
+                <!-- METS TON EMAIL PAYPAL ICI POUR RECEVOIR L'ARGENT -->
+                <input type="hidden" name="business" value="ton-email-paypal@example.com">
+                <input type="hidden" name="item_name" value="Don pour Muslim App">
+                <input type="hidden" name="currency_code" value="EUR">
+                <input type="hidden" name="amount" id="paypal-amount" value="10">
+                <button type="submit" class="btn-paypal-submit">💳 Envoyer le don avec PayPal</button>
+            </form>
         </div>
     </div>
 
     <div class="counter-box">1 VISITES TOTALES</div>
 
-    <!-- === SYSTEME JAVASCRIPT === -->
+    <!-- === TOUTE LA LOGIQUE JAVASCRIPT === -->
     <script>
-        // 1. CHANGER D'ONGLET SANS BUG
+        // NAVIGATION ENTRE LES ONGLETS
         function showSection(sectionId, element) {
             document.querySelectorAll('.content-section').forEach(sec => sec.classList.remove('active-section'));
             document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
             
             document.getElementById(sectionId).classList.add('active-section');
             if(element) element.classList.add('active');
+            
+            // Ferme le quiz s'il était ouvert en changeant d'onglet
+            document.getElementById('quiz-game-container').style.display = "none";
         }
 
-        // 2. FONCTIONS DU LECTEUR AUDIO CORAN (RESTE SUR LE SITE)
+        // LECTEUR AUDIO INTERNE
         const audio = document.getElementById('coran-audio');
-        
         function playAudio() { audio.play(); }
         function pauseAudio() { audio.pause(); }
         function stopAudio() { audio.pause(); audio.currentTime = 0; }
         function changerSourate() {
             const select = document.getElementById('surah-select');
             audio.src = select.value;
-            document.getElementById('current-track').innerText = "Lecture en cours : " + select.options[select.selectedIndex].text;
+            document.getElementById('current-track').innerText = "Sélectionné : " + select.options[select.selectedIndex].text;
             playAudio();
         }
 
-        // 3. LOGIQUE ET CONTENU DU VRAI QUIZ INTERACTIF (ABLUTIONS / PRIÈRE)
-        const questionsPriere = [
-            {
-                q: "Pendant les ablutions (Woudou), combien de fois doit-on laver les mains au début ?",
-                options: ["1 fois", "2 fois", "3 fois"],
-                reponse: "3 fois"
-            },
-            {
-                q: "Jusqu'où doit-on laver les bras pendant les ablutions ?",
-                options: ["Jusqu'au poignet", "Jusqu'aux coudes inclus", "Uniquement les doigts"],
-                reponse: "Jusqu'aux coudes inclus"
+        // SYSTEME DE CONFIGURATION PAYPAL
+        function setDonationAmount(val) {
+            const customInput = document.getElementById('custom-amount');
+            const paypalAmount = document.getElementById('paypal-amount');
+            if(val > 0) {
+                customInput.value = val;
+                paypalAmount.value = val;
+            } else {
+                customInput.value = "";
+                customInput.focus();
             }
-        ];
+        }
+        function updateCustomAmount() {
+            const customInput = document.getElementById('custom-amount');
+            document.getElementById('paypal-amount').value = customInput.value;
+        }
 
-        function ouvrirQuiz(type) {
-            const zone = document.getElementById('zone-jeu-quiz');
-            const qText = document.getElementById('question-text');
-            const optsContainer = document.getElementById('options-container');
-            const feedback = document.getElementById('feedback-text');
+        // BASE DE DONNÉES DES QUESTIONS DE TOUS LES QUIZ
+        const banqueQuiz = {
+            priere: [
+                { q: "Combien de fois doit-on laver les mains au début des ablutions ?", ops: ["1 fois", "2 fois", "3 fois"], r: "3 fois" },
+                { q: "Jusqu'où doit-on obligatoirement laver ses bras ?", ops: ["Jusqu'aux poignets", "Jusqu'aux coudes inclus", "Jusqu'aux épaules"], r: "Jusqu'aux coudes inclus" },
+                { q: "Combien de prières obligatoires y a-t-il par jour ?", ops: ["3 prières", "5 prières", "7 prières"], r: "5 prières" }
+            ],
+            coran: [
+                { q: "Combien de Sourates contient le Noble Coran ?", ops: ["114", "120", "99"], r: "114" },
+                { q: "Quelle est la plus longue sourate du Coran ?", ops: ["Al-Fatiha", "Al-Ikhlas", "Al-Baqarah"], r: "Al-Baqarah" },
+                { q: "Par quel intermédiaire le Coran a-t-il été révélé ?", ops: ["L'Ange Jibril", "L'Ange Mikaïl", "L'Ange Israfil"], r: "L'Ange Jibril" }
+            ],
+            piliers: [
+                { q: "Quel est le premier pilier de l'Islam ?", ops: ["La Prière", "La Chahada", "Le Ramadan"], r: "La Chahada" },
+                { q: "La Zakat correspond à :", ops: ["L'aumône obligatoire", "Le pèlerinage", "L'invocation"], r: "L'aumône obligatoire" }
+            ],
+            sirah: [
+                { q: "Dans quelle ville est né le Prophète Mouhammad ?", ops: ["Médine", "La Mecque", "Jérusalem"], r: "La Mecque" },
+                { q: "Quel était le métier du Prophète dans sa jeunesse ?", ops: ["Forgeron", "Commerçant / Berger", "Agriculteur"], r: "Commerçant / Berger" }
+            ],
+            ramadan: [
+                { q: "Pendant quel mois de l'année hégirienne jeûne-t-on ?", ops: ["Le 7ème mois", "Le 9ème mois (Ramadan)", "Le 12ème mois"], r: "Le 9ème mois (Ramadan)" },
+                { q: "Qu'est-ce qui rompt le jeûne parmi ces propositions ?", ops: ["Se brosser les dents sans avaler", "Manger ou boire volontairement", "Se parfumer"], r: "Manger ou boire volontairement" }
+            ]
+        };
+
+        let listeQuestionsActuelle = [];
+        let indexQuestion = 0;
+
+        function demarrerQuiz(categorie) {
+            listeQuestionsActuelle = banqueQuiz[categorie];
+            indexQuestion = 0;
+            document.getElementById('quiz-game-container').style.display = "block";
+            document.getElementById('quiz-q-title').innerText = "Quiz " + categorie.toUpperCase();
+            chargerQuestion();
+        }
+
+        function chargerQuestion() {
+            const feedback = document.getElementById('quiz-feedback');
+            const nextBtn = document.getElementById('next-btn');
+            const optionsDiv = document.getElementById('quiz-options');
             
             feedback.innerText = "";
-            zone.style.display = "block";
+            nextBtn.style.display = "none";
+            optionsDiv.innerHTML = "";
 
-            if (type === 'priere') {
-                let questionActuelle = questionsPriere[0]; // On prend la première question sur les mains
-                qText.innerText = questionActuelle.q;
-                optsContainer.innerHTML = "";
+            let data = listeQuestionsActuelle[indexQuestion];
+            document.getElementById('quiz-question-text').innerText = data.q;
 
-                questionActuelle.options.forEach(opt => {
-                    let btn = document.createElement('button');
-                    btn.className = "option-btn";
-                    btn.innerText = opt;
-                    btn.onclick = function() {
-                        if(opt === questionActuelle.reponse) {
-                            feedback.innerHTML = "✅ Bonne réponse ! Excellent.";
-                            feedback.style.color = "#2ec4b6";
-                        } else {
-                            feedback.innerHTML = "❌ Mauvaise réponse, réessaye !";
-                            feedback.style.color = "#f4a261";
-                        }
-                    };
-                    optsContainer.appendChild(btn);
-                });
-            } else {
-                qText.innerText = "Quiz " + type.toUpperCase() + " en cours de création...";
-                optsContainer.innerHTML = "<p>D'autres questions arrivent bientôt !</p>";
-            }
+            data.ops.forEach(option => {
+                let btn = document.createElement('button');
+                btn.className = "option-btn";
+                btn.innerText = option;
+                btn.onclick = function() {
+                    // Bloque le clic après réponse
+                    document.querySelectorAll('.option-btn').forEach(b => b.disabled = true);
+                    if(option === data.r) {
+                        feedback.innerText = "✅ Excellente réponse !";
+                        feedback.style.color = "#2ec4b6";
+                    } else {
+                        feedback.innerText = "❌ Mauvaise réponse. La bonne était : " + data.r;
+                        feedback.style.color = "#f4a261";
+                    }
+                    
+                    if (indexQuestion < listeQuestionsActuelle.length - 1) {
+                        nextBtn.style.display = "block";
+                    } else {
+                        feedback.innerText += " 🎉 Quiz terminé !";
+                    }
+                };
+                optionsDiv.appendChild(btn);
+            });
+        }
+
+        function questionSuivante() {
+            indexQuestion++;
+            chargerQuestion();
         }
     </script>
 </body>
