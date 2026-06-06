@@ -154,6 +154,30 @@
             display: block;
         }
 
+        /* === BLOC TEXTE ARABE & TRADUCTION === */
+        .prayer-text-box {
+            background-color: #091124;
+            padding: 12px;
+            border-radius: 10px;
+            margin-top: 10px;
+            border-left: 3px solid #2ec4b6;
+        }
+
+        .txt-arabic {
+            font-size: 1.3rem;
+            color: #e9c46a;
+            direction: rtl;
+            text-align: right;
+            margin-bottom: 8px;
+            font-family: 'Traditional Arabic', 'Segoe UI', sans-serif;
+        }
+
+        .txt-french {
+            font-size: 0.9rem;
+            color: #a0aec0;
+            font-style: italic;
+        }
+
         /* === INTERFACE AUDIO SUR SITE === */
         .audio-player {
             background-color: #0d1527;
@@ -192,7 +216,7 @@
             font-size: 1rem;
         }
 
-        /* === SYSTÈME DE DON PAYPAL SÉCURISÉ === */
+        /* === SYSTÈME DE DON PAYPAL DIRECT SÉCURISÉ === */
         .donation-container {
             background-color: #0d1527;
             padding: 20px;
@@ -218,7 +242,10 @@
             cursor: pointer;
         }
 
-        .btn-don:hover { background-color: #f77f00; color: #050811; }
+        .btn-don.selected-amount {
+            background-color: #f77f00;
+            color: #050811;
+        }
 
         .custom-don-input {
             width: 100%;
@@ -324,24 +351,33 @@
         </div>
     </div>
 
-    <!-- 3. SECTION CORAN AVEC LECTEUR ET HISTOIRE -->
+    <!-- 3. SECTION CORAN AVEC PRIÈRES EN ARABE / FRANÇAIS + AUDIO -->
     <div id="coran-sec" class="content-section">
-        <h2>Histoire du Coran</h2>
+        <h2>Prières & Invocations du Coran</h2>
         <div class="info-card" style="margin-bottom: 20px;">
-            Le Noble Coran est la parole sacrée d'Allah, révélée au Prophète Mouhammad (صلى الله عليه وسلم) par l'intermédiaire de l'Ange Jibril pendant 23 ans. Il contient 114 sourates guidant l'humanité vers la vérité.
+            Découvrez et écoutez de magnifiques prières (Douas) tirées directement des versets du Noble Coran, disponibles en version originale arabe et traduites en français.
         </div>
 
-        <h2>Écouter directement sur le site</h2>
         <div class="audio-player">
+            <!-- Sélecteur de prière du Coran -->
             <select id="surah-select" onchange="changerSourate()">
-                <option value="https://server8.mp3quran.net/afs/001.mp3">001 - Al-Fatiha</option>
-                <option value="https://server8.mp3quran.net/afs/112.mp3">112 - Al-Ikhlas</option>
-                <option value="https://server8.mp3quran.net/afs/113.mp3">113 - Al-Falaq</option>
-                <option value="https://server8.mp3quran.net/afs/114.mp3">114 - Al-Nas</option>
+                <option value="https://server8.mp3quran.net/afs/001.mp3" data-id="fatiha">1. Al-Fatiha (L'Ouverture - Prière Guide)</option>
+                <option value="https://server8.mp3quran.net/afs/002.mp3" data-id="baqarah201">2. Al-Baqarah (Verset 201 - Le Bien ici-bas et dans l'au-delà)</option>
+                <option value="https://server8.mp3quran.net/afs/003.mp3" data-id="imran8">3. Al-Imran (Verset 8 - Préservation du Cœur)</option>
+                <option value="https://server8.mp3quran.net/afs/020.mp3" data-id="taha25">4. Ta-Ha (Versets 25-28 - Faciliter une épreuve)</option>
             </select>
-            <p id="current-track">Sélectionné : Al-Fatiha</p>
+            
+            <p id="current-track" style="font-weight: bold; margin-bottom: 5px;">Sélectionné : Al-Fatiha</p>
+
+            <!-- Textes Dynamiques Arabe / Français selon la sélection -->
+            <div class="prayer-text-box">
+                <div id="text-arabic-display" class="txt-arabic">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ ﴿١﴾ الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ ﴿٢﴾ الرَّحْمَٰنِ الرَّحِيمِ ﴿٣﴾ مَالِكِ يَوْمِ الدِّينِ ﴿٤﴾ إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ ﴿٥﴾ اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ ﴿٦﴾ صِرَاطَ الَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ الْمَغْضُوبِ عَلَيْهِمْ وَلَا الضَّالِّينَ ﴿٧﴾</div>
+                <div id="text-french-display" class="txt-french">"Au nom d'Allah, le Tout Miséricordieux, le Très Miséricordieux. Louange à Allah, Seigneur de l'univers. Le Tout Miséricordieux, le Très Miséricordieux, Maître du Jour de la rétribution. C'est Toi [Seul] que nous adorons, et c'est Toi [Seul] dont nous implorons le secours. Guide-nous dans le droit chemin, le chemin de ceux que Tu as comblés de faveurs, non pas de ceux qui ont encouru Ton courroux, ni des égarés."</div>
+            </div>
+
             <audio id="coran-audio" src="https://server8.mp3quran.net/afs/001.mp3"></audio>
             
+            <!-- Commandes de lecture demandées -->
             <div class="controls">
                 <button class="btn-audio" onclick="playAudio()">▶ PLAY</button>
                 <button class="btn-audio" onclick="pauseAudio()">⏸ PAUSE</button>
@@ -350,7 +386,7 @@
         </div>
     </div>
 
-    <!-- 4. SECTION GUIDE : LES ABLUTIONS (MANS, BRAS...) -->
+    <!-- 4. SECTION GUIDE : LES ABLUTIONS -->
     <div id="guide-sec" class="content-section">
         <h2>Guide Pratique des Ablutions (Woudou)</h2>
         <div class="info-card">
@@ -386,33 +422,25 @@
         </div>
     </div>
 
-    <!-- 6. SECTION SÉCURISÉE DE DON PAYPAL (AIDER) -->
+    <!-- 6. SECTION SÉCURISÉE DE DON PAYPAL.ME -->
     <div id="aider-sec" class="content-section">
         <h2>Soutenir l'application</h2>
         <div class="donation-container">
-            <p style="margin-top:0;">Choisissez ou saisissez un montant pour faire un don sécurisé via PayPal :</p>
+            <p style="margin-top:0;">Choisissez ou saisissez un montant pour faire un don direct et sécurisé :</p>
             
             <div class="donation-grid">
-                <button class="btn-don" onclick="setDonationAmount(5)">5 €</button>
-                <button class="btn-don" onclick="setDonationAmount(10)">10 €</button>
-                <button class="btn-don" onclick="setDonationAmount(20)">20 €</button>
-                <button class="btn-don" onclick="setDonationAmount(30)">30 €</button>
-                <button class="btn-don" onclick="setDonationAmount(50)">50 €</button>
-                <button class="btn-don" onclick="setDonationAmount(0)">Libre</button>
+                <button class="btn-don" id="btn-don-5" onclick="setDonationAmount(5)">5 €</button>
+                <button class="btn-don" id="btn-don-10" onclick="setDonationAmount(10)">10 €</button>
+                <button class="btn-don" id="btn-don-20" onclick="setDonationAmount(20)">20 €</button>
+                <button class="btn-don" id="btn-don-30" onclick="setDonationAmount(30)">30 €</button>
+                <button class="btn-don" id="btn-don-50" onclick="setDonationAmount(50)">50 €</button>
+                <button class="btn-don" id="btn-don-libre" onclick="setDonationAmount(0)">Libre</button>
             </div>
 
             <input type="number" id="custom-amount" class="custom-don-input" placeholder="Montant personnalisé (€)" min="1" oninput="updateCustomAmount()">
             
-            <!-- FORMULAIRE SÉCURISÉ PAYPAL -->
-            <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank" id="paypal-form">
-                <input type="hidden" name="cmd" value="_xclick">
-                <!-- METS TON EMAIL PAYPAL ICI POUR RECEVOIR L'ARGENT -->
-                <input type="hidden" name="business" value="ton-email-paypal@example.com">
-                <input type="hidden" name="item_name" value="Don pour Muslim App">
-                <input type="hidden" name="currency_code" value="EUR">
-                <input type="hidden" name="amount" id="paypal-amount" value="10">
-                <button type="submit" class="btn-paypal-submit">💳 Envoyer le don avec PayPal</button>
-            </form>
+            <!-- BOUTON ENVOI DIRECT VERS @YaminDjaouat881 -->
+            <button class="btn-paypal-submit" onclick="envoyerDonation()">💳 Envoyer le don avec PayPal</button>
         </div>
     </div>
 
@@ -428,37 +456,81 @@
             document.getElementById(sectionId).classList.add('active-section');
             if(element) element.classList.add('active');
             
-            // Ferme le quiz s'il était ouvert en changeant d'onglet
             document.getElementById('quiz-game-container').style.display = "none";
         }
 
-        // LECTEUR AUDIO INTERNE
+        // TEXTES DES PRIÈRES DU CORAN
+        const basePrières = {
+            fatiha: {
+                ar: "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ ﴿١﴾ الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ ﴿٢﴾ الرَّحْمَٰنِ الرَّحِيمِ ﴿٣﴾ مَالِكِ يَوْمِ الدِّينِ ﴿٤﴾ إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ ﴿٥﴾ اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ ﴿٦﴾ صِرَاطَ الَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ الْمَغْضُوبِ عَلَيْهِمْ وَلَا الضَّالِّينَ ﴿٧﴾",
+                fr: '"Au nom d\'Allah, le Tout Miséricordieux, le Très Miséricordieux. Louange à Allah, Seigneur de l\'univers. Le Tout Miséricordieux, le Très Miséricordieux, Maître du Jour de la rétribution. C\'est Toi [Seul] que nous adorons, et c\'est Toi [Seul] dont nous implorons le secours. Guide-nous dans le droit chemin, le chemin de ceux que Tu as comblés de faveurs, non pas de ceux qui ont encouru Ton courroux, ni des égarés."'
+            },
+            baqarah201: {
+                ar: "رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الْآخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ",
+                fr: '"« Ô notre Seigneur ! Accorde-nous le bien ici-bas, et le bien dans l\'au-delà ; et protège-nous du châtiment du Feu ! »" (Sourate Al-Baqarah, Verset 201)'
+            },
+            imran8: {
+                ar: "رَبَّنَا لَا تُزِغْ قُلُوبَنَا بَعْدَ إِذْ هَدَيْتَنَا وَهَبْ لَنَا مِن لَّدُنكَ رَحْمَةً ۚ إِنَّكَ أَنتَ الْوَهَّابُ",
+                fr: '"« Ô notre Seigneur ! Ne laisse pas dévier nos cœurs après que Tu nous as guidés ; et accorde-nous Ta miséricorde. C\'est Toi, certes, le Grand Donateur ! »" (Sourate Al-Imran, Verset 8)'
+            },
+            taha25: {
+                ar: "رَبِّ اشْرَحْ لِي صَدْرِي ﴿٢٥﴾ وَيَسِّرْ لِي أَمْرِي ﴿٢٦﴾ وَاحْلُلْ عُقْدَةً مِّن لِّسَانِي ﴿٢٧﴾ يَفْقَهُوا قَوْلِي ﴿٢٨﴾",
+                fr: '"« Seigneur, ouvre-moi ma poitrine, facilite ma tâche, et dénoue un nœud en ma langue, afin qu\'ils comprennent mes paroles. »" (Sourate Ta-Ha, Versets 25-28)'
+            }
+        };
+
+        // LECTEUR AUDIO INTERNE AVEC TEXTES DYNAMIQUES
         const audio = document.getElementById('coran-audio');
+        
         function playAudio() { audio.play(); }
         function pauseAudio() { audio.pause(); }
         function stopAudio() { audio.pause(); audio.currentTime = 0; }
+        
         function changerSourate() {
             const select = document.getElementById('surah-select');
+            const selectedOption = select.options[select.selectedIndex];
+            
+            // Modifier la source audio et charger les textes correspondants
             audio.src = select.value;
-            document.getElementById('current-track').innerText = "Sélectionné : " + select.options[select.selectedIndex].text;
+            document.getElementById('current-track').innerText = "Sélectionné : " + selectedOption.text;
+            
+            const key = selectedOption.getAttribute('data-id');
+            document.getElementById('text-arabic-display').innerText = basePrières[key].ar;
+            document.getElementById('text-french-display').innerText = basePrières[key].fr;
+            
             playAudio();
         }
 
-        // SYSTEME DE CONFIGURATION PAYPAL
+        // VARIABLE GLOBALE POUR LE MONTANT DU DON (Lien direct PayPal.Me/YaminDjaouat881)
+        let montantSelectionne = 10;
+
         function setDonationAmount(val) {
+            document.querySelectorAll('.btn-don').forEach(b => b.classList.remove('selected-amount'));
             const customInput = document.getElementById('custom-amount');
-            const paypalAmount = document.getElementById('paypal-amount');
+            
             if(val > 0) {
+                montantSelectionne = val;
                 customInput.value = val;
-                paypalAmount.value = val;
+                event.target.classList.add('selected-amount');
             } else {
+                montantSelectionne = "";
                 customInput.value = "";
                 customInput.focus();
+                document.getElementById('btn-don-libre').classList.add('selected-amount');
             }
         }
+
         function updateCustomAmount() {
-            const customInput = document.getElementById('custom-amount');
-            document.getElementById('paypal-amount').value = customInput.value;
+            montantSelectionne = document.getElementById('custom-amount').value;
+        }
+
+        function envoyerDonation() {
+            if(!montantSelectionne || montantSelectionne <= 0) {
+                alert("Veuillez choisir ou saisir un montant valide avant d'envoyer.");
+                return;
+            }
+            const urlPayPal = "https://www.paypal.me/YaminDjaouat881/" + montantSelectionne;
+            window.open(urlPayPal, '_blank');
         }
 
         // BASE DE DONNÉES DES QUESTIONS DE TOUS LES QUIZ
@@ -515,7 +587,6 @@
                 btn.className = "option-btn";
                 btn.innerText = option;
                 btn.onclick = function() {
-                    // Bloque le clic après réponse
                     document.querySelectorAll('.option-btn').forEach(b => b.disabled = true);
                     if(option === data.r) {
                         feedback.innerText = "✅ Excellente réponse !";
@@ -539,6 +610,9 @@
             indexQuestion++;
             chargerQuestion();
         }
+
+        // Initialisation du montant au chargement
+        setDonationAmount(10);
     </script>
 </body>
 </html>
