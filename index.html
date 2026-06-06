@@ -1,16 +1,339 @@
-<nav class="navbar">
-    <a href="#" class="nav-item">Home</a>
-    <a href="#" class="nav-item">Piliers</a>
-    <a href="#" class="nav-item">Coran</a>
-    <a href="#" class="nav-item">Guide</a>
-    <a href="#" class="nav-item active">Quiz</a>
-    <a href="https://www.paypal.me/TON_PSEUDO_PAYPAL" target="_blank" class="nav-item aider">Aider</a>
-</nav>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Muslim App</title>
+    <style>
+        /* === DESIGN GÉNÉRAL (FOND SOMBRE DE L'APP) === */
+        body {
+            background-color: #050811;
+            color: white;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
 
-<div class="quiz-container" id="quiz-section">
-    <button class="quiz-box blue-border" onclick="lancerQuiz('coran')">📖 QUIZ CORAN</button>
-    <button class="quiz-box green-border" onclick="lancerQuiz('piliers')">🕌 QUIZ PILIERS</button>
-    <button class="quiz-box purple-border" onclick="lancerQuiz('priere')">🧎 QUIZ PRIÈRE</button>
-    <button class="quiz-box gold-border" onclick="lancerQuiz('sirah')">📜 QUIZ SÎRAH</button>
-    <button class="quiz-box orange-border" onclick="lancerQuiz('ramadan')">🌙 QUIZ RAMADAN</button>
-</div>
+        .main-title {
+            color: #2ec4b6;
+            font-size: 2.5rem;
+            font-weight: 900;
+            font-style: italic;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+            letter-spacing: 2px;
+        }
+
+        .sub-title {
+            color: #1f4037;
+            font-size: 0.9rem;
+            font-style: italic;
+            margin-bottom: 25px;
+        }
+
+        /* === BARRE DE NAVIGATION === */
+        .navbar {
+            background-color: #0d1527;
+            border-radius: 15px;
+            padding: 10px 15px;
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            width: 100%;
+            max-width: 450px;
+            justify-content: space-around;
+        }
+
+        .nav-item {
+            color: #a0aec0;
+            text-decoration: none;
+            font-size: 0.75rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            padding: 8px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+
+        .nav-item.active {
+            background-color: #0096c7;
+            color: white;
+        }
+
+        .nav-item.aider {
+            color: #f77f00;
+        }
+
+        /* === GESTION DES SECTIONS === */
+        .content-section {
+            display: none; /* Cache les sections par défaut */
+            width: 100%;
+            max-width: 450px;
+        }
+
+        .content-section.active-section {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* === STYLE DES GROS BOUTONS (QUIZ ET AUTRES) === */
+        .quiz-box {
+            background-color: #091124;
+            color: white;
+            font-size: 1.2rem;
+            font-weight: bold;
+            font-style: italic;
+            text-transform: uppercase;
+            padding: 25px;
+            border-radius: 20px;
+            cursor: pointer;
+            width: 100%;
+            text-align: center;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-sizing: border-box;
+        }
+
+        .quiz-box:hover {
+            transform: scale(1.02);
+        }
+
+        /* Couleurs des bordures lumineuses style néon */
+        .blue-border { border: 2px solid #0077b6; box-shadow: 0 0 10px rgba(0, 119, 182, 0.3); }
+        .green-border { border: 2px solid #2a9d8f; box-shadow: 0 0 10px rgba(42, 157, 143, 0.3); }
+        .purple-border { border: 2px solid #8a2be2; box-shadow: 0 0 10px rgba(138, 43, 226, 0.3); }
+        .gold-border { border: 2px solid #e9c46a; box-shadow: 0 0 10px rgba(233, 196, 106, 0.3); }
+        .orange-border { border: 2px solid #f4a261; box-shadow: 0 0 10px rgba(244, 162, 97, 0.3); }
+
+        /* === INTERFACE D'UN QUIZ EN COURS === */
+        .quiz-card {
+            background-color: #0d1527;
+            padding: 20px;
+            border-radius: 15px;
+            border: 1px solid #0096c7;
+            text-align: center;
+        }
+
+        .option-btn {
+            background-color: #1a263f;
+            color: white;
+            border: 1px solid #334155;
+            padding: 12px;
+            margin: 8px 0;
+            width: 100%;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .option-btn:hover { background-color: #243454; }
+
+        /* === LECTEUR AUDIO SUR LE SITE === */
+        .audio-player {
+            background-color: #0d1527;
+            padding: 20px;
+            border-radius: 15px;
+            border: 2px solid #2ec4b6;
+            text-align: center;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .btn-audio {
+            background-color: #2ec4b6;
+            color: #050811;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .btn-audio:hover { background-color: #20a396; }
+        
+        select {
+            width: 100%;
+            padding: 10px;
+            background-color: #1a263f;
+            color: white;
+            border-radius: 8px;
+            border: 1px solid #334155;
+            margin-bottom: 10px;
+        }
+
+        /* Compteur */
+        .counter-box {
+            border: 2px solid #1d3557;
+            background-color: #091124;
+            color: #457b9d;
+            padding: 10px 20px;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1 class="main-title">MUSLIM APP</h1>
+    <div class="sub-title">20 UNDEFINED 1447</div>
+
+    <!-- MENUS DU HAUT CLIQUABLES -->
+    <nav class="navbar">
+        <button class="nav-item" onclick="showSection('home-sec', this)">Home</button>
+        <button class="nav-item" onclick="showSection('piliers-sec', this)">Piliers</button>
+        <button class="nav-item" onclick="showSection('coran-sec', this)">Coran</button>
+        <button class="nav-item" onclick="showSection('guide-sec', this)">Guide</button>
+        <button class="nav-item active" onclick="showSection('quiz-sec', this)">Quiz</button>
+        <button class="nav-item aider" onclick="window.open('https://www.paypal.me/TON_PSEUDO_PAYPAL', '_blank')">Aider</button>
+    </nav>
+
+    <!-- SECTION HOME -->
+    <div id="home-sec" class="content-section">
+        <h2>Bienvenue sur Muslim App</h2>
+        <p>Contenu de votre page d'accueil...</p>
+    </div>
+
+    <!-- SECTION 5 PILIERS -->
+    <div id="piliers-sec" class="content-section">
+        <h2>Les 5 Piliers de l'Islam</h2>
+        <div class="quiz-box green-border">1. La Chahada (Attestation de foi)</div>
+        <div class="quiz-box green-border">2. La Salat (La Prière)</div>
+        <div class="quiz-box green-border">3. La Zakat (L'Aumône)</div>
+        <div class="quiz-box green-border">4. Le Sawm (Le Jeûne du Ramadan)</div>
+        <div class="quiz-box green-border">5. Le Hajj (Le Pèlerinage)</div>
+    </div>
+
+    <!-- SECTION CORAN AVEC LECTEUR INTEGRÉ (PLAY / PAUSE / STOP) -->
+    <div id="coran-sec" class="content-section">
+        <h2>Écouter le Noble Coran</h2>
+        <div class="audio-player">
+            <select id="surah-select" onchange="changerSourate()">
+                <option value="https://server8.mp3quran.net/afs/001.mp3">001 - Al-Fatiha</option>
+                <option value="https://server8.mp3quran.net/afs/112.mp3">112 - Al-Ikhlas</option>
+                <option value="https://server8.mp3quran.net/afs/113.mp3">113 - Al-Falaq</option>
+                <option value="https://server8.mp3quran.net/afs/114.mp3">114 - Al-Nas</option>
+            </select>
+            <p id="current-track">Lecture en cours : Al-Fatiha</p>
+            <audio id="coran-audio" src="https://server8.mp3quran.net/afs/001.mp3"></audio>
+            
+            <div class="controls">
+                <button class="btn-audio" onclick="playAudio()">▶ PLAY</button>
+                <button class="btn-audio" onclick="pauseAudio()">⏸ PAUSE</button>
+                <button class="btn-audio" onclick="stopAudio()">⏹ STOP</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION GUIDE -->
+    <div id="guide-sec" class="content-section">
+        <h2>Guide Pratique</h2>
+        <p>Vos guides s'afficheront ici...</p>
+    </div>
+
+    <!-- SECTION MENU DES QUIZ (ANCIENS + NOUVEAUX) -->
+    <div id="quiz-sec" class="content-section active-section">
+        <button class="quiz-box blue-border" onclick="ouvrirQuiz('coran')">📖 QUIZ CORAN</button>
+        <button class="quiz-box green-border" onclick="ouvrirQuiz('piliers')">🕌 QUIZ PILIERS</button>
+        <button class="quiz-box purple-border" onclick="ouvrirQuiz('priere')">🧎 QUIZ PRIÈRE / ABLUTIONS</button>
+        <button class="quiz-box gold-border" onclick="ouvrirQuiz('sirah')">📜 QUIZ SÎRAH</button>
+        <button class="quiz-box orange-border" onclick="ouvrirQuiz('ramadan')">🌙 QUIZ RAMADAN</button>
+        
+        <!-- ZONE INTERACTIVE OÙ LE QUIZ S'AFFICHE QUAND ON CLIQUE -->
+        <div id="zone-jeu-quiz" style="display:none; margin-top: 20px;">
+            <div class="quiz-card">
+                <h3 id="question-text">Question ici</h3>
+                <div id="options-container"></div>
+                <p id="feedback-text" style="font-weight:bold; margin-top:15px;"></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="counter-box">1 VISITES TOTALES</div>
+
+    <!-- === SYSTEME JAVASCRIPT === -->
+    <script>
+        // 1. CHANGER D'ONGLET SANS BUG
+        function showSection(sectionId, element) {
+            document.querySelectorAll('.content-section').forEach(sec => sec.classList.remove('active-section'));
+            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+            
+            document.getElementById(sectionId).classList.add('active-section');
+            if(element) element.classList.add('active');
+        }
+
+        // 2. FONCTIONS DU LECTEUR AUDIO CORAN (RESTE SUR LE SITE)
+        const audio = document.getElementById('coran-audio');
+        
+        function playAudio() { audio.play(); }
+        function pauseAudio() { audio.pause(); }
+        function stopAudio() { audio.pause(); audio.currentTime = 0; }
+        function changerSourate() {
+            const select = document.getElementById('surah-select');
+            audio.src = select.value;
+            document.getElementById('current-track').innerText = "Lecture en cours : " + select.options[select.selectedIndex].text;
+            playAudio();
+        }
+
+        // 3. LOGIQUE ET CONTENU DU VRAI QUIZ INTERACTIF (ABLUTIONS / PRIÈRE)
+        const questionsPriere = [
+            {
+                q: "Pendant les ablutions (Woudou), combien de fois doit-on laver les mains au début ?",
+                options: ["1 fois", "2 fois", "3 fois"],
+                reponse: "3 fois"
+            },
+            {
+                q: "Jusqu'où doit-on laver les bras pendant les ablutions ?",
+                options: ["Jusqu'au poignet", "Jusqu'aux coudes inclus", "Uniquement les doigts"],
+                reponse: "Jusqu'aux coudes inclus"
+            }
+        ];
+
+        function ouvrirQuiz(type) {
+            const zone = document.getElementById('zone-jeu-quiz');
+            const qText = document.getElementById('question-text');
+            const optsContainer = document.getElementById('options-container');
+            const feedback = document.getElementById('feedback-text');
+            
+            feedback.innerText = "";
+            zone.style.display = "block";
+
+            if (type === 'priere') {
+                let questionActuelle = questionsPriere[0]; // On prend la première question sur les mains
+                qText.innerText = questionActuelle.q;
+                optsContainer.innerHTML = "";
+
+                questionActuelle.options.forEach(opt => {
+                    let btn = document.createElement('button');
+                    btn.className = "option-btn";
+                    btn.innerText = opt;
+                    btn.onclick = function() {
+                        if(opt === questionActuelle.reponse) {
+                            feedback.innerHTML = "✅ Bonne réponse ! Excellent.";
+                            feedback.style.color = "#2ec4b6";
+                        } else {
+                            feedback.innerHTML = "❌ Mauvaise réponse, réessaye !";
+                            feedback.style.color = "#f4a261";
+                        }
+                    };
+                    optsContainer.appendChild(btn);
+                });
+            } else {
+                qText.innerText = "Quiz " + type.toUpperCase() + " en cours de création...";
+                optsContainer.innerHTML = "<p>D'autres questions arrivent bientôt !</p>";
+            }
+        }
+    </script>
+</body>
+</html>
